@@ -118,7 +118,7 @@ export default {
         : "custom";
     },
     /**
-     *@return {number|string} description
+     *@return {number|string} descriptionkokokoko
      */
     width() {
       return this.col.width || this.col.min_width || "auto";
