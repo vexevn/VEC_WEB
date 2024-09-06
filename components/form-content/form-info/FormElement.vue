@@ -76,6 +76,7 @@
             v-model.lazy="elementValue"
             :disabled="disabled"
           />
+          <!-- aoqooqqo -->
           <el-checkbox
             v-else-if="IsCheckbox()"
             class="form-checkbox"
