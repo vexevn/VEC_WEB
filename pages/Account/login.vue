@@ -1,13 +1,13 @@
 <template>
   <div class="login-c">
     <div style="width: 103px; margin: 0 auto">
-      <img width="103px"  src="/images/icon/wwf-logo.jpg" />
+      <img width="103px"  src="/images/icon/vec.jpg" />
     </div>
     <div class="login">
       <div class="loginbox bg-white">
-        <div class="loginbox-title">Fixed Assets Management Tool</div>
+        <div class="loginbox-title">Quản lý tài sản</div>
         <div class="loginbox-social">
-          <div class="social-title">WWF-Viet Nam</div>
+          <div class="social-title">Việt Nam</div>
           <div class="social-buttons" style="padding: 0px" @click="login">
             <img
               class="sign-in_btn"

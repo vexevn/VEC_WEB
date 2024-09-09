@@ -310,7 +310,7 @@ export default {
         // visible: true,
         // type: "dialog",
         width: "800px",
-        title: "Advanced Filter",
+        title: "Lọc dữ liệu",
       }),
     };
   },

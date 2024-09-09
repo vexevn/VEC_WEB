@@ -10,7 +10,7 @@
         >
           <el-breadcrumb-item :to="{ path: '/' }">
             <span style="color: #464feb; font-size: 16px; font-weight: 600">
-              Fixed assets management tool</span
+              Quản lý tài sản</span
             >
           </el-breadcrumb-item>
           <el-breadcrumb-item

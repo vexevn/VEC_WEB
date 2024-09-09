@@ -30,17 +30,17 @@
         :model="
           Para.fixed_asset_type_Get_List.set((p) => {
             p.label = 'Code';
-            p.placeholder = 'Type Asset';
+            p.placeholder = 'Loại tài sản';
           })
         "
       />
       <InputSelect
         v-model="obj.User_ID"
-        :model="Para.Para_Account.set((p) => (p.placeholder = 'Staff'))"
+        :model="Para.Para_Account.set((p) => (p.placeholder = 'Nhân viên'))"
       />
       <el-input
         @change="changeAS()"
-        placeholder="Asset Number"
+        placeholder="Mã tài sản"
         v-model="assetnumber"
       ></el-input>
     </div>

@@ -45,7 +45,7 @@
             class="icon-btn icon-btn"
             v-if="pagePermission.edit"
             type="primary"
-            @click="form.ShowForm('Edit request', false, obj.row)"
+            @click="form.ShowForm('Sửa yêu cầu', false, obj.row)"
           >
             <i class="el-icon-edit"></i
           ></el-button>
@@ -148,7 +148,7 @@ export default {
         // visible: true,
         // type: "dialog",
         width: "400px",
-        title: "Advanced Filter",
+        title: "Lọc dữ liệu",
       }),
       form: new DefaultForm({
         obj: new InventoryRequest(),
@@ -205,7 +205,7 @@ export default {
     Delete(row) {
       // var app = this;
       ShowConfirm({
-        message: "Are you sure to delete this row",
+        message: "Bạn có chắc chắn xóa?",
         title: "Cảnh báo!",
         type: MessageType.warning,
       })
@@ -230,7 +230,7 @@ export default {
     },
     Add() {
       //   console.log("add");
-      this.form.ShowForm("Add request", true, {});
+      this.form.ShowForm("Thêm yêu cầu", true, {});
     },
     LoadTable() {
       GetDataAPI({

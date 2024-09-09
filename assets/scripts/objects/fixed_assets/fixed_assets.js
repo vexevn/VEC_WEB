@@ -414,12 +414,12 @@ export default class fixed_assets {
         type: FormElementType.select,
         labelWidth:90,
         options(data) {
-          const arr = [data.Office_id];
-          console.log(arr);
+          // const arr = [data.Office_id];
+          // console.log(arr);
           return new SelectOption({
-            data: data.Office_id ? API.dm_GetbyManyOffice : [],
+            data: data.Office_id ? API.dm_department_Get_List : [],
             params: {
-              iOffices: [data.Office_id],
+              iOffice_id: data.Office_id
             },
             // multiple: true,
           });

@@ -85,7 +85,7 @@ export default {
         // visible: true,
         // type: "dialog",
         width: "400px",
-        title: "Advanced Filter",
+        title: "Lọc dữ liệu",
       }),
       isAdd: null,
       tp: new TablePaging({

@@ -6,7 +6,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'WWF-Viet Nam: Fixed assets management tool',// 'Procurement Tool',
+    title: 'Quản lý tài sản',// 'Procurement Tool',
     htmlAttrs: {
       lang: 'en'
     },
@@ -17,7 +17,7 @@ export default {
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'icon', type: 'image/x-icon', href: '/images/icon/vec.jpg' },
       { rel: "stylesheet", href: "/font-awesome-4.7.0/css/font-awesome.min.css" },
       { rel: "stylesheet", href: 'https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300' },
       { rel: "stylesheet", href: "/scripts/quill-editor/katex.min.css" },

@@ -58,7 +58,7 @@ export default class Fixed_Asset_Inventory_Filter {
         model: "Office_id",
         type: FormElementType.select,
         options:Para.Para_Office,
-        labelWidth:70,
+        labelWidth:90,
       })
 
     };

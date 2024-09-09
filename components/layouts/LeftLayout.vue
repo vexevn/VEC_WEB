@@ -1,7 +1,7 @@
 <template>
   <div class="ll-main">
     <div class="menu-Logo">
-      <img src="\images\icon\wwf-logo.jpg" alt="" />
+      <img src="/images/icon/vec.jpg" alt="" />
     </div>
     <el-scrollbar wrap-class="scrollbar-wrapper" style="flex: 1">
       <NuxtLink
