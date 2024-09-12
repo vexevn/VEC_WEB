@@ -144,13 +144,15 @@ export default class fixed_assets {
         label: "Mã tài sản",
         model: "Code",
         type: FormElementType.text,
+        disabled: this.isAdd ? false :true,
       }),
       Type_id: new FormElement({
         label: "Loại tài sản",
         model: "Type_id",
         type: FormElementType.select,
         options: Para.fixed_asset_type_Get_List,
-        labelWidth: 100
+        labelWidth: 100,
+        required: true,
       }),
       Type_Name: new FormElement({
         label: "Type_Name",
@@ -345,6 +347,7 @@ export default class fixed_assets {
         model: "Name",
         type: FormElementType.text,
         labelWidth: 100,
+        required: true,
       }),
       State: new FormElement({
         label: "Tình trạng",
@@ -406,6 +409,7 @@ export default class fixed_assets {
         type: FormElementType.select,
         labelWidth: 90,
         options: Para.Para_Office,
+        required: true,
       }),
 
       Store_id: new FormElement({

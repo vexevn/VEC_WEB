@@ -579,7 +579,9 @@ export default {
           this.form.viewOnly = viewOnly;
           if (viewOnly) this.form.type = "dialog";
           else this.form.type = "";
-          this.form.obj = new fixed_assets(obj);
+          this.form.obj = new fixed_assets({
+            ...obj, isAdd: isAdd
+          });
           this.form.visible = true;
         },
         Save: () => {

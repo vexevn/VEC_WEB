@@ -1,6 +1,6 @@
 <template lang="">
   <div class="IV" style="">
-    <h4>List Office</h4>
+    <h4>Văn phòng</h4>
     <el-tree
       class="tree"
       :check-on-click-node="false"

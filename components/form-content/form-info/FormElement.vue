@@ -370,39 +370,39 @@ export default {
 
       if (!this.isVisible || this.disabled) return "";
       if (this.model.required) {
-        let message = "is required";
+        let message = "là bắt buộc";
         switch (this.model.type) {
           case FormElementType.select:
             if (!this.GetModelValue() && this.GetModelValue() !== false)
               return `<b>${
-                this.model.label || "This field"
-              }</b> has not picked`;
+                this.model.label || "Trường này"
+              }</b> chưa được chọn`;
             break;
           case FormElementType.groupCheck:
             if (this.options.multiple) {
               if (!this.GetModelValue().length)
                 return `<b>${
-                  this.model.label || "This field"
-                }</b> has not picked`;
+                  this.model.label || "Trường này"
+                }</b> chưa được chọn`;
             } else {
               if (!this.GetModelValue())
                 return `<b>${
-                  this.model.label || "This field"
-                }</b> has not picked`;
+                  this.model.label || "Trường này"
+                }</b> chưa được chọn`;
             }
 
             break;
 
           default:
             if (!this.GetModelValue())
-              return `<b>${this.model.label || "This field"}</b> is required`;
+              return `<b>${this.model.label || "Trường này"}</b> yêu cầu nhập`;
             break;
         }
       }
 
       if (this.IsDatePicker() && !this.model.attr.disabledCrDate ) {
         if (   IsAfterDate(this.elementValue, new Date()) ) {
-          return "Do not enter more than the current date.";
+          return "Không được nhập quá ngày hiện tại";
         }
       }
 
