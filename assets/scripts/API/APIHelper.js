@@ -14,6 +14,7 @@ import inventory from "./inventory";
 import disposal from "./disposal";
 import EmailConfig from "./EmailConfig";
 import dashboard from "./dashboard";
+import Account from "./Account";
 
 export default {
   fixed_asset_type: fixed_asset_type,
@@ -32,6 +33,7 @@ export default {
   disposal: disposal,
   dashboard: dashboard,
   EmailConfig: EmailConfig,
+  Account: Account,
 
 
 }
