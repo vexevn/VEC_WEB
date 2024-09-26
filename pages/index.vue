@@ -17,6 +17,9 @@
   <!-- <pre>
     {{ $store.state.menu }}
   </pre> -->
+
+  <div style="height: 100%;"><ReportDashboard /></div>
+
 </template>
 
 <script>

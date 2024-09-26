@@ -137,7 +137,7 @@ export default class Fixed_Asset_Transfer {
         }
       }),
       To_Holder_Name: new FormElement({
-        label: "Đến người sử hữu",
+        label: "Đến người sở hữu",
         model: "To_Holder_Name",
         type: FormElementType.text,
         disabled: true,

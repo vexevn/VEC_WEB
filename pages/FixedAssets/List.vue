@@ -402,7 +402,7 @@ export default {
               }),
 
               new TablePagingCol({
-                title: "Số sê-ri",
+                title: "Serial",
                 data: "Serial",
                 min_width: 130,
                 sortable: false,
