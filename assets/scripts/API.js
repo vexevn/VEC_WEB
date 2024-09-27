@@ -233,6 +233,11 @@ export default {
   Language_AddForm: linkAPI + "Language/AddForm",
 
 
+  //Reports
+  Reports_Dashboard: linkAPI + "Reports/Dashboard",
+
+  
+
   //Office
   Get_List_Office_Asset: linkAPI + "Office/Get_List_Office_Asset",
   fixed_asset_Get_List_demo: "http://192.168.1.249:8060/Fixed_Asset/Get_List",

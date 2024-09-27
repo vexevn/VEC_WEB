@@ -582,6 +582,9 @@ export default {
           this.form.obj = new fixed_assets({
             ...obj, isAdd: isAdd
           });
+          if(this.form.obj.Use_Type_id !== 1){
+            this.form.obj.Curent_Holder_Id = Number(this.form.obj.Curent_Holder_Id)
+          }
           this.form.visible = true;
         },
         Save: () => {

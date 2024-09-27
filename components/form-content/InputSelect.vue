@@ -418,9 +418,9 @@ export default {
         if (!this.model.remote) {
           if (!Object.equals(val, oldVal)) {
             if (!this.firstLoad) this.$emit("input", "");
-            if (oldVal[0]) {
+            // if (oldVal[0]) {
               this.Init();
-            }
+            // }
           }
         }
       },

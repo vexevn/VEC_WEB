@@ -18,17 +18,20 @@
     {{ $store.state.menu }}
   </pre> -->
 
-  <div style="height: 100%;"><ReportDashboard /></div>
-
+  <div style="height: 100%">
+    <ReportDashboard />
+  </div>
 </template>
 
 <script>
 import StoreManager from "~/assets/scripts/StoreManager";
-
 export default {
   data() {
-    return {};
+    return {
+      
+    };
   },
+
   computed: {
     user_level() {
       return StoreManager.GetUserLevel();
@@ -36,6 +39,7 @@ export default {
   },
   methods: {},
   mounted() {
+    // console.log(this)
     // this.$router.push('/PRList/ForOffice')
   },
 };

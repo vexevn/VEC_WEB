@@ -150,9 +150,10 @@ export default class fixed_assets {
         type: "QRCode",
         col: 6,
         attr: {
-          obj: this,
+          data: this.QRCode,
         },
-        isVisible: this.isAdd ? false : true,
+
+        isVisible: this.isAdd || !this.QRCode ? false : true,
         // options() {
         //   return new SelectOption({
         //     data: API.fixed_asset_state_Get_List,
@@ -162,7 +163,7 @@ export default class fixed_assets {
       RF_Id: new FormElement({
         label: "Mã RF",
         model: "RF_Id",
-        labelWidth: 100,
+        labelWidth: 70,
         type: FormElementType.text,
         disabled: true,
         // options() {
@@ -311,9 +312,10 @@ export default class fixed_assets {
         // disabled: true,
         options(data) {
           // console.log($t);
-          let dataPara= Para.Para_Account.set((p) => {
+          let dataPara = Para.Para_Account.set((p) => {
             p.data = p.data.filter((p1) => p1.Office_id == data.Office_id);
           });
+          // console.log(dataPara.data);
           return dataPara;
         },
         isVisible(data) {
@@ -321,12 +323,12 @@ export default class fixed_assets {
           return false;
         },
         watch(data, nv, ov, t, isFirst) {
-          if (!isFirst && data.To_Type_id == 1) {
+          if (!isFirst && data.Use_Type_id == 1) {
             let entry = t.getEntry(data._formElements.Curent_Holder_person.id);
             if (entry) {
               let sltd = entry.selectedData || {};
               data.Curent_Holder_Name = sltd.FullName;
-              console.log(data.Curent_Holder_Name);
+              // console.log(data.Curent_Holder_Name);
             }
           }
         },
@@ -353,6 +355,7 @@ export default class fixed_assets {
               return false;
             });
           });
+          console.log(dataPa.data);
 
           return dataPa;
         },
@@ -362,7 +365,7 @@ export default class fixed_assets {
             if (entry) {
               let sltd = entry.selectedData || {};
               data.Curent_Holder_Name = sltd.Name;
-              console.log(data.Curent_Holder_Name);
+              // console.log(data.Curent_Holder_Name);
             }
           }
         },
@@ -494,7 +497,7 @@ export default class fixed_assets {
         label: "Giá trị tài sản",
         model: "Local_currency",
         type: FormElementType.text,
-        labelWidth: 110,
+        labelWidth: 125,
         // options: Para.Para_VehicleType
       }),
       Office_id: new FormElement({
@@ -574,6 +577,18 @@ export default class fixed_assets {
         model: "UserUpdate",
 
         type: FormElementType.text,
+      }),
+      QRCode_Content: new FormElement({
+        label: "Nội dung mã QR",
+        model: "QRCode",
+        isVisible: this.isAdd || !this.QRCode ? true : false,
+
+        type: FormElementType.text,
+        attr: {
+          type: "textarea",
+          rows: 4,
+        },
+        col: 8,
       }),
     };
   }
@@ -754,6 +769,7 @@ export default class fixed_assets {
                       (p) => (p.labelWidth = 80)
                     ),
                     ,
+                    this._formElements.RF_Id.set((p) => (p.col = 4)),
                   ],
                 }),
                 new FormElement({
@@ -761,7 +777,6 @@ export default class fixed_assets {
                     this._formElements.Warranty_Period.set((p) => (p.col = 6)),
                     this._formElements.Purchase_Date.set((p) => (p.col = 5)),
                     this._formElements.Date_disposal.set((p) => (p.col = 6)),
-                    this._formElements.RF_Id.set((p) => (p.col = 6)),
                     // this._formElements.QRCode.set((p) => (p.col = 6)),
                   ],
                 }),
@@ -841,7 +856,11 @@ export default class fixed_assets {
                   },
                 }),
                 new FormElement({
-                  child: [this._formElements.Note, this._formElements.QRCode],
+                  child: [
+                    this._formElements.Note,
+                    this._formElements.QRCode_Content,
+                    this._formElements.QRCode,
+                  ],
                 }),
                 this._formElements.Images,
               ],

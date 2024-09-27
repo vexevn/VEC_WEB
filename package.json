@@ -23,6 +23,7 @@
     "nanoid": "2.1.11",
     "nuxt": "^2.14.6",
     "phantom-html-to-pdf": "^0.7.0",
+    "qrcode.vue": "1.7.0",
     "sharp": "^0.28.0",
     "shelljs": "^0.8.4",
     "text-mask-addons": "^3.8.0",
