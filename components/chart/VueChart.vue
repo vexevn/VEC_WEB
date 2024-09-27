@@ -44,6 +44,16 @@ function barAnimationComplete() {
   });
 }
 
+// function colorize(opaque, hover, ctx) {
+//   const v = ctx.parsed;
+//   const c =
+//     v < -15 ? "#D60000" : v < 0 ? "#F46300" : v < 15 ? "#0358B6" : "#44DE28";
+
+//   // const opacity = hover ? 1 - Math.abs(v / 150) - 0.2 : 1 - Math.abs(v / 150);
+
+//   return c ;
+// }
+
 function pieAnimationComplete() {
   var chartInstance = this,
     ctx = chartInstance.ctx;
@@ -54,7 +64,7 @@ function pieAnimationComplete() {
   );
   ctx.textAlign = "center";
   ctx.textBaseline = "bottom";
-
+  console.log(this.data.datasets);
   this.data.datasets.forEach(function (dataset) {
     // console.log(dataset);
 
@@ -112,26 +122,31 @@ export default {
       chartOptions: {
         responsive: true,
         maintainAspectRatio: false,
-        events: [],
-        tooltips: {
-          // enabled: false,
-        },
+        // events: [],
+        // tooltips: {
+        //   enabled: true,
+        // },
         hover: {
           animationDuration: 0,
         },
+        interaction: {
+          intersect: true,
+          mode: "index",
+        },
         plugins: {
-          legend:
-            this.legend !== false
-              ? {
-                  position: this.type == "pie" ? "left" : "top",
-                }
-              : null,
+          // legend:
+          //   this.legend !== false
+          //     ? {
+          //         position: this.type == "pie" ? "left" : "top",
+          //       }
+          //     : null,
+          // tooltip: true,
         },
         layout: {
           // padding: 50,
         },
         animation: {
-          duration: 500,
+          duration: 0,
           easing: "easeOutQuart",
           onComplete:
             this.type == "bar"
@@ -141,6 +156,12 @@ export default {
               : this.type == "pie"
               ? pieAnimationComplete
               : null,
+        },
+        elements: {
+          arc: {
+            // backgroundColor: colorize.bind(null, false, false),
+            // hoverBackgroundColor: hoverColorize,
+          },
         },
         scales: this.scales || null,
       },

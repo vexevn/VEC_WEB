@@ -11,7 +11,8 @@ import {
   LinearScale,
   LineElement,
   PointElement,
-  ArcElement
+  ArcElement,
+  
 } from "chart.js";
 
 ChartJS.register(
