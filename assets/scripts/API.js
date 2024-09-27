@@ -1,14 +1,20 @@
 export var linkAPI = "http://10.2.18.18:8114/";
 // linkAPI = "http://demo.quanlynoibo.com:8114/";
 // linkAPI = "http://10.2.18.18:8114/";
-linkAPI = (typeof (location) != 'undefined') ? (location.protocol + '//' + location.hostname + ':8114/') : linkAPI;
-if (typeof (location) != 'undefined') {
-  if (location.host == 'tsvp.tctvec.vn' || location.host == 'www.tsvp.tctvec.vn')
-    linkAPI = location.protocol + '//' + "tsvp.tctvec.vn/asset_api/";
-  else
-    linkAPI = (location.protocol + '//' + location.hostname + ':8114/');
+linkAPI =
+  typeof location != "undefined"
+    ? location.protocol + "//" + location.hostname + ":8114/"
+    : linkAPI;
+if (typeof location != "undefined") {
+  if (
+    location.host == "tsvp.tctvec.vn" ||
+    location.host == "www.tsvp.tctvec.vn"
+  )
+    linkAPI = location.protocol + "//" + "tsvp.tctvec.vn/asset_api/";
+  else linkAPI = location.protocol + "//" + location.hostname + ":8114/";
 }
 
+linkAPI = "http://localhost:63008/";
 export var linkPurchase = "http://purchase.quanlynoibo.com:8060";
 export default {
   Account_MobileLogin: linkAPI + "Account/MobileLogin",
@@ -239,11 +245,7 @@ export default {
   Dashboard_GetCounterByState: linkAPI + "Dashboard/GetCounterByState",
   GetFixed_Asset_Inventory: linkAPI + "Inventory/GetFixed_Asset_Inventory",
 
-
   Language_AddForm: linkAPI + "Language/AddForm",
-
-
-
 
   //Office
   Get_List_Office_Asset: linkAPI + "Office/Get_List_Office_Asset",
