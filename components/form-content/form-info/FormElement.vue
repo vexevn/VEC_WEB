@@ -112,7 +112,7 @@
             type="datetime"
             format="dd/MM/yyyy HH:mm"
             :picker-options="options"
-            placeholder="DD/MM/YYYY HH:mm"
+            placeholder="dd/MM/YYYY HH:mm"
           ></el-date-picker>
 
           <el-input

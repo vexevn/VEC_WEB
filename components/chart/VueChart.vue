@@ -115,6 +115,15 @@ function wc_hex_is_light(color) {
   const brightness = (c_r * 299 + c_g * 587 + c_b * 114) / 1000;
   return brightness > 155;
 }
+
+function isLowValue(context) {
+  const dataset = context.chart.data.datasets[0];
+  const total = dataset.data.reduce((sum, val) => sum + val, 0);
+  const value = dataset.data[context.dataIndex];
+
+  const angle = (value / total) * 360;
+  return angle;
+}
 export default {
   props: {
     type: {
@@ -123,6 +132,7 @@ export default {
     chartData: {},
     scales: {},
     legend: {},
+    chartTitle: {},
   },
   data() {
     return {
@@ -133,14 +143,23 @@ export default {
         // events: ['mousemove'],
 
         plugins: {
-          datalabels: {
+          datalabels: this.type == 'pie' ? {
+            align: "end",
+            font: {
+              weight: "bold",
+              size: "14px",
+            },
+            offset: -3,
+            rotation: function (context) {
+              return isLowValue(context) > 15 ? 0 : -91;
+            },
             color: (context) => {
-              // console.log(context);
               let is_light = wc_hex_is_light(
                 context.dataset.backgroundColor[context.dataIndex]
               );
-
-              return is_light ? "#444" : "white";
+              let angle = isLowValue(context) > 15 ? true : false;
+              if (!angle) return "#444";
+              else return is_light ? "#444" : "white";
             },
             formatter: (value) => {
               if (this.type == "pie") {
@@ -150,16 +169,33 @@ export default {
                 return Math.round((value / total) * 100) + "%";
               }
             },
+            anchor: (context) => {
+              return isLowValue(context) > 15 ? "center" : "end";
+            },
+          } : null,
+          title: {
+            display: true,
+            text: this.chartTitle,
+            padding: {
+              top: 5, 
+              bottom: 25, 
+            },
+            font: {
+              size: 18, 
+            },
           },
           tooltip: {
             enabled: true,
           },
-          // legend:
-          //   this.legend !== false
-          //     ? {
-          //         position: this.type == "pie" ? "left" : "top",
-          //       }
-          //     : null,
+          legend:
+            // this.legend !== false
+            //   ? {
+            //       position: this.type == "pie" ? "left" : "top",
+            //     }
+            //   : null,
+            {
+              position: "bottom",
+            },
           // tooltip: true,
         },
         layout: {
