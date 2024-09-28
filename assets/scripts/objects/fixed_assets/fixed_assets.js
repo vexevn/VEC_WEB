@@ -604,7 +604,7 @@ export default class fixed_assets {
               direction: FormDirectionType.vertical,
               child: [
                 new FormElement({
-                  label: "More Fixed Assets Info",
+                  label: "More Thông tin tài sản",
                   type: FormElementType.label,
                 }),
                 new FormElement({

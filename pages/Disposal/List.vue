@@ -2,11 +2,11 @@
   <div class="wh-c">
     <div class="wh-left">
       <div class="wh-left-title">
-        <span> Liquidation list </span>
+        <span>Danh sách thanh lý</span>
         <i class="fa fa-plus" @click="Add()"></i>
       </div>
       <div class="wh-left-filter">
-        <el-input v-model="iSearchInfo" placeholder="Searching..." />
+        <el-input v-model="iSearchInfo" placeholder="Tìm kiếm..." />
         <el-button><i class="fa fa-search"></i></el-button>
       </div>
       <el-scrollbar wrap-class="wh-left-list" style="flex: 1">
@@ -39,10 +39,7 @@
               <div style="display: flex">
                 <div>
                   {{
-                    ConvertStr.ToDateStr(
-                      item.DateActive,
-                      "DD, MMMM YYYY hh:MM A"
-                    )
+                    ConvertStr.ToDateStr(item.DateActive, "DD/MM/yyyy hh:MM A")
                   }}
                 </div>
               </div>
@@ -52,106 +49,109 @@
       </el-scrollbar>
     </div>
     <div class="wh-right" v-if="form.visible">
-      <div class="wh-right-title" style="padding-bottom: 0px">
-        <span> {{ form.title }} </span>
-        <div class="btns">
-          <el-button type="primary" @click="Save">
-            <i class="fa fa-save"></i>
-            &nbsp; Save
-          </el-button>
-          <el-button type="danger" @click="Exit">
-            <i class="fa fa-times"></i>
-            &nbsp; Exit
-          </el-button>
+      <div style="height: 100%;overflow:auto">
+        <div class="wh-right-title" style="padding-bottom: 0px">
+          <span> {{ form.title }} </span>
+          <div class="btns">
+            <el-button type="primary" @click="Save">
+              <i class="fa fa-save"></i> &nbsp; Lưu
+            </el-button>
+            <el-button type="danger" @click="Exit">
+              <i class="fa fa-times"></i> &nbsp; Sửa
+            </el-button>
+          </div>
         </div>
-      </div>
-      <div class="wh-right-content" style="flex: 1; padding: 10px">
-        <FormInfo :model="obj.Info.form()" ref="form_Disposal" />
-        <div
-          class="form-title"
-          style="
-            margin-top: 5px;
-            flex: 0 0 28px;
-            background: white;
-            border: 0px;
-            padding: 4px 0;
-            font-weight: 500;
-          "
-        >
-          <span>Fixed Assets Info</span>
-          <span class="fa-btn" @click="AddFixedAsset"
-            ><i class="fa fa-plus"></i
-          ></span>
-        </div>
-        <div>
-          <TablePaging
-            :model="tp_assets"
-            ref="tp_assets"
-            style="margin: 0 -5px"
+        <div class="wh-right-content" style="flex: 1; padding: 10px">
+          <FormInfo :model="obj.Info.form()" ref="form_Disposal" />
+          <div
+            class="form-title"
+            style="
+              margin-top: 5px;
+              flex: 0 0 28px;
+              background: white;
+              border: 0px;
+              padding: 4px 0;
+              font-weight: 500;
+            "
           >
-            <template slot="column-content-btn" slot-scope="{ row }">
-              <div style="text-align: center" @click="RemoveFA(row)">
-                <i class="fa fa-times" style="color: red; cursor: pointer"></i>
-              </div>
-            </template>
-          </TablePaging>
-        </div>
-        <div
-          class="form-title"
-          style="
-            margin-top: 5px;
-            flex: 0 0 28px;
-            background: white;
-            border: 0px;
-            padding: 4px 0;
-            font-weight: 500;
-          "
-        >
-          <span>Vendor info</span>
-        </div>
-        <table class="tbl-vendor pf_form" cellspacing="0" cellpadding="0">
-          <tr data-v-6d63258d="">
-            <th width="50">#</th>
-            <th style="width: 450px">Name in full</th>
-            <th style="width: 200px">Registration No./ ID No.</th>
-            <th style="width: 150px">Contact person</th>
-            <th style="width: 150px">Contact Email</th>
-            <th style="width: 155px">Contact phone No.</th>
-            <th width="100">Attachment</th>
-            <th width="100">Selection</th>
-            <th width="50"></th>
-          </tr>
-          <ProcurementVendorForm
-            v-for="(item, index) in vendor_tmp_picked"
-            :key="item.IdTmp"
-            :index="index"
-            :vendor_state_tmp="vendor_state_tmp"
-            :item="item"
-            ref="vendor_form"
-            @vendorRemove="vendorRemove"
-          />
+            <span>Thông tin tài sản</span>
+            <span class="fa-btn" @click="AddFixedAsset"
+              ><i class="fa fa-plus"></i
+            ></span>
+          </div>
+          <div>
+            <TablePaging
+              :model="tp_assets"
+              ref="tp_assets"
+              style="margin: 0 -5px"
+            >
+              <template slot="column-content-btn" slot-scope="{ row }">
+                <div style="text-align: center" @click="RemoveFA(row)">
+                  <i
+                    class="fa fa-times"
+                    style="color: red; cursor: pointer"
+                  ></i>
+                </div>
+              </template>
+            </TablePaging>
+          </div>
+          <div
+            class="form-title"
+            style="
+              margin-top: 5px;
+              flex: 0 0 28px;
+              background: white;
+              border: 0px;
+              padding: 4px 0;
+              font-weight: 500;
+            "
+          >
+            <span>Nhà cung cấp</span>
+          </div>
+          <table class="tbl-vendor pf_form" cellspacing="0" cellpadding="0">
+            <tr data-v-6d63258d="">
+              <th width="50">#</th>
+              <th style="width: 450px">Tên đầy đủ</th>
+              <th style="width: 200px">Số đăng ký/Số ID</th>
+              <th style="width: 150px">Người liên hệ</th>
+              <th style="width: 150px">Email</th>
+              <th style="width: 160px">Số điện thoại</th>
+              <th width="120">Đính kèm</th>
+              <th width="120">Lựa chọn</th>
+              <th width="50"></th>
+            </tr>
+            <ProcurementVendorForm
+              v-for="(item, index) in vendor_tmp_picked"
+              :key="item.IdTmp"
+              :index="index"
+              :vendor_state_tmp="vendor_state_tmp"
+              :item="item"
+              ref="vendor_form"
+              @vendorRemove="vendorRemove"
+            />
 
-          <tr>
-            <td>
-              <el-button
-                class="icon-btn"
-                type="primary"
-                @click="handleVendorPicked(true)"
-                ><i class="fa fa-plus"></i
-              ></el-button>
-            </td>
-            <td colspan="10">
-              <InputSelect
-                v-if="isvendor"
-                :model="vendor_tmp"
-                v-model="vendor_tmp_selected"
-                style="width: 100%"
-                ref="vendor_tmp_selected"
-                @change="handleVendorPicked"
-              />
-            </td>
-          </tr>
-        </table>
+            <tr>
+              <td>
+                <el-button
+                  class="icon-btn"
+                  type="primary"
+                  @click="handleVendorPicked(true)"
+                  ><i class="fa fa-plus"></i
+                ></el-button>
+              </td>
+              <td colspan="10">
+                <InputSelect
+                  v-if="isvendor"
+                  :model="vendor_tmp"
+                  v-model="vendor_tmp_selected"
+                  style="width: 100%"
+                  ref="vendor_tmp_selected"
+                  @change="handleVendorPicked"
+                />
+              </td>
+            </tr>
+          </table>
+        </div>
       </div>
     </div>
     <DefaultForm :model="form_detail" @actionOK="ReloadFA">
@@ -186,14 +186,14 @@ export default {
       iSearchInfo: "",
       obj: new AddDisposal({}),
       form: new DefaultForm({
-        title: "New information on asset liquidation",
+        title: "Thông tin mới về tài sản thanh lý",
         visible: true,
       }),
       pr_detail: null,
       form_detail: new DefaultForm({
-        title: "Pick assets",
+        title: "Chọn tài sản",
         width: "1000px",
-        OKtext: "Confirm",
+        // OKtext: "Xác nhận",
       }),
       tp_detail: new TablePaging({
         // disablePaging: true,
@@ -228,12 +228,12 @@ export default {
             sortable: false,
           }),
 
-          new TablePagingCol({
-            title:  "Mã dự án",
-            data: "Project_Code",
-            min_width: 130,
-            sortable: false,
-          }),
+          // new TablePagingCol({
+          //   title: "Mã dự án",
+          //   data: "Project_Code",
+          //   min_width: 130,
+          //   sortable: false,
+          // }),
           new TablePagingCol({
             title: "Loại",
             data: "Type_id",
@@ -249,7 +249,7 @@ export default {
             formatter: (value) => Para.producer_Get_List.getName(value),
           }),
           new TablePagingCol({
-            title: "Mẫu",
+            title: "Model",
             data: "Model",
             min_width: 150,
             sortable: false,
@@ -281,7 +281,7 @@ export default {
             sortable: false,
           }),
           new TablePagingCol({
-            title: "Detailed Descriptions",
+            title: "Mô tả chi tiết",
             data: "Name",
             min_width: 150,
             width: "auto",
@@ -302,7 +302,7 @@ export default {
             formatter: (value) => Para.producer_Get_List.getName(value),
           }),
           new TablePagingCol({
-            title: "Mẫu",
+            title: "Model",
             data: "Model",
             min_width: 150,
             sortable: false,
@@ -325,8 +325,8 @@ export default {
       isvendor: false,
       vendor_state_tmp: new SelectOption({
         data: [
-          { Id: 1, Name: "YES" },
-          { Id: 2, Name: "NO" },
+          { Id: 1, Name: "Có" },
+          { Id: 2, Name: "Không" },
         ],
 
         IsItemDisabled: (data) => {
@@ -341,7 +341,7 @@ export default {
           // console.log(data, this.vendor_tmp_picked);
           return this.vendor_tmp_picked.some((p) => p.vendor_id == data.Id);
         },
-        placeholder: "Select a vendor...",
+        placeholder: "Chọn nhà cung cấp...",
         key: "IdTmp",
         data: [],
       }),
@@ -490,8 +490,8 @@ export default {
         else this.tp_assets.data = [];
         this.vendor_tmp_picked = this.obj.Vendors || [];
         this.form.title = re
-          ? "Edit information on asset liquidation"
-          : "New information on asset liquidation";
+          ? "Sửa thông tin về tài sản thanh lý "
+          : "Thông tin mới về tài sản thanh lý";
         if (re) this.isFirst = true;
         else this.isFirst = false;
 
@@ -590,15 +590,12 @@ export default {
   height: 100%;
   display: flex;
   padding: 10px;
-
   .wh-left {
-    flex: 0 0 270px;
-    // border: 1px solid #ddd;
+    flex: 0 0 270px; // border: 1px solid #ddd;
     // border-radius: 4px;
     margin-right: 10px;
     display: flex;
-    flex-direction: column;
-    // padding: 5px;
+    flex-direction: column; // padding: 5px;
     .wh-left-title {
       // background: #f0f0f0;
       padding: 10px;
@@ -623,33 +620,30 @@ export default {
     }
     .wh-left-filter {
       display: flex;
-      ::v-deep  button {
+      ::v-deep button {
         padding: 0;
         width: 25px;
         display: flex;
         align-items: center;
         justify-content: center;
-        border-radius: 0;
-        // border-left: none;
+        border-radius: 0; // border-left: none;
         border-right: none;
       }
-      ::v-deep  input {
+      ::v-deep input {
         // border-left: none;
         // border-right: none;
         border-radius: 0;
         padding: 0 10px;
         padding-left: 11px;
-        margin-left: 0px;
-        // width: calc(100% + 1px);
+        margin-left: 0px; // width: calc(100% + 1px);
         border-left: 0;
         border-right: 0;
       }
     }
-    ::v-deep  .wh-left-list {
+    ::v-deep .wh-left-list {
       overflow-x: hidden;
       .wh-left-item {
-        padding: 10px;
-        // border-bottom: 1px solid #ddd;
+        padding: 10px; // border-bottom: 1px solid #ddd;
         cursor: pointer;
         &:hover,
         &.active {
@@ -660,16 +654,14 @@ export default {
   }
   .wh-right {
     flex: 1;
-    border-left: 1px solid #ddd;
-    // border-radius: 4px;
+    border-left: 1px solid #ddd; // border-radius: 4px;
     display: flex;
     flex-direction: column;
     overflow: hidden;
     .wh-right-title {
       // background: #f0f0f0;
       padding: 10px;
-      position: relative;
-      // border-bottom: 1px solid #ddd;
+      position: relative; // border-bottom: 1px solid #ddd;
       display: flex;
       justify-content: space-between;
       .btns {
@@ -688,7 +680,7 @@ export default {
         font-weight: 600;
       }
     }
-    ::v-deep  .wh-right-content {
+    ::v-deep .wh-right-content {
       overflow: hidden;
       display: flex;
       flex-direction: column;
@@ -709,11 +701,12 @@ export default {
     }
   }
 }
+
 .pf_form {
   width: 100%;
   border-bottom: 1px solid #ddd;
   border-right: 1px solid #ddd;
-  ::v-deep  {
+  ::v-deep {
     td,
     th {
       padding: 10px;
@@ -721,7 +714,6 @@ export default {
       border-left: 0px solid #ddd;
       vertical-align: top;
     }
-
     tr {
       td {
         &:first-child {
@@ -729,7 +721,6 @@ export default {
         }
       }
     }
-
     input {
       padding: 0;
       border: 0;
@@ -737,15 +728,15 @@ export default {
     }
   }
 }
+
 .tbl-vendor {
   width: 100%;
   border-bottom: 1px solid #ddd;
   border-right: 1px solid #ddd;
-
   tr {
     &[role="1"] {
       color: blue;
-      ::v-deep  input {
+      ::v-deep input {
         color: blue;
       }
     }

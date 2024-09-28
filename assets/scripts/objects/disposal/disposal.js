@@ -40,9 +40,10 @@ export default class Disposal {
         type: FormElementType.text,
       }),
       DateActive: new FormElement({
-        label: "Date Active",
+        label: "Ngày kích hoạt",
         model: "DateActive",
         type: FormElementType.datePicker,
+        labelWidth: 110,
       }),
       FileAttach: new FormElement({
         // label: "FileAttach",
@@ -51,7 +52,7 @@ export default class Disposal {
         options: Para.Disposal_Attachment
       }),
       TotalMoney: new FormElement({
-        label: "Total Money",
+        label: "Tổng tiền",
         model: "TotalMoney",
         type: FormElementType.number,
       }),

@@ -133,6 +133,18 @@ export default {
           intersect: true,
           mode: "index",
         },
+        annotations: {
+          label1: {
+            type: "label",
+            xValue: 2.5,
+            yValue: 60,
+            backgroundColor: "rgba(245,245,245)",
+            content: ["This is my text", "This is my text, second line"],
+            font: {
+              size: 18,
+            },
+          },
+        },
         plugins: {
           // legend:
           //   this.legend !== false
