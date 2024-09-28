@@ -16,13 +16,13 @@
     </div>
     <div class="dashboard">
       <div class="office" style="text-align: center">
-        <p>Thống kê tài sản theo văn phòng</p>
-        <VueChart type="pie" :chartData="LoadData(data.Offices || [])" />
+        <!-- <p></p> -->
+        <VueChart type="pie" :chartTitle="'Thống kê tài sản theo văn phòng'" :chartData="LoadData(data.Offices || [])" />
       </div>
       <div class="type" style="text-align: center">
-        <p>Thống kê tài sản loại tài sản</p>
+        <!-- <p></p> -->
 
-        <VueChart type="pie" :chartData="LoadData(data.Types || [])" />
+        <VueChart type="pie" :chartTitle="'Thống kê tài sản loại tài sản'" :chartData="LoadData(data.Types || [])" />
       </div>
     </div>
   </div>

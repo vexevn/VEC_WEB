@@ -123,6 +123,7 @@ export default {
     chartData: {},
     scales: {},
     legend: {},
+    chartTitle:{},
   },
   data() {
     return {
@@ -151,6 +152,10 @@ export default {
               }
             },
           },
+          title: {
+            display: true,
+            text: this.chartTitle,
+          },
           tooltip: {
             enabled: true,
           },
@@ -161,8 +166,8 @@ export default {
             //     }
             //   : null,
             {
-              position: 'bottom'
-            }
+              position: "bottom",
+            },
           // tooltip: true,
         },
         layout: {
