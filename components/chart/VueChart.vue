@@ -107,6 +107,14 @@ function pieAnimationComplete() {
     }
   });
 }
+function wc_hex_is_light(color) {
+  const hex = color.replace("#", "");
+  const c_r = parseInt(hex.substring(0, 0 + 2), 16);
+  const c_g = parseInt(hex.substring(2, 2 + 2), 16);
+  const c_b = parseInt(hex.substring(4, 4 + 2), 16);
+  const brightness = (c_r * 299 + c_g * 587 + c_b * 114) / 1000;
+  return brightness > 155;
+}
 export default {
   props: {
     type: {
@@ -122,18 +130,30 @@ export default {
       chartOptions: {
         responsive: true,
         maintainAspectRatio: false,
-        // events: [],
-        // tooltips: {
-        //   enabled: true,
-        // },
-        hover: {
-          animationDuration: 0,
-        },
-        interaction: {
-          intersect: true,
-          mode: "index",
-        },
+        // events: ['mousemove'],
+
         plugins: {
+          datalabels: {
+            color: (context) => {
+              // console.log(context);
+              let is_light = wc_hex_is_light(
+                context.dataset.backgroundColor[context.dataIndex]
+              );
+
+              return is_light ? "#444" : "white";
+            },
+            formatter: (value) => {
+              if (this.type == "pie") {
+                let total = this.chartData.datasets[0].data.reduce(
+                  (a, b) => a + b
+                );
+                return Math.round((value / total) * 100) + "%";
+              }
+            },
+          },
+          tooltip: {
+            enabled: true,
+          },
           // legend:
           //   this.legend !== false
           //     ? {
@@ -145,18 +165,20 @@ export default {
         layout: {
           // padding: 50,
         },
-        animation: {
-          duration: 0,
-          easing: "easeOutQuart",
-          onComplete:
-            this.type == "bar"
-              ? function () {
-                  barAnimationComplete.apply(this);
-                }
-              : this.type == "pie"
-              ? pieAnimationComplete
-              : null,
-        },
+
+        // animation: {
+        //   duration: 500,
+        //   easing: "easeOutQuart",
+        //   active: { duration: 1 },
+        //   onComplete:
+        //     this.type == "bar"
+        //       ? function () {
+        //           barAnimationComplete.apply(this);
+        //         }
+        //       : this.type == "pie"
+        //       ? pieAnimationComplete
+        //       : null,
+        // },
         elements: {
           arc: {
             // backgroundColor: colorize.bind(null, false, false),

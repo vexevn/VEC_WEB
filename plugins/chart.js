@@ -1,6 +1,5 @@
-import Vue from 'vue'
-import { Line, Bar, Pie } from 'vue-chartjs/legacy'
-
+import Vue from "vue";
+import { Line, Bar, Pie } from "vue-chartjs/legacy";
 import {
   Chart as ChartJS,
   Title,
@@ -12,8 +11,8 @@ import {
   LineElement,
   PointElement,
   ArcElement,
-  
 } from "chart.js";
+import ChartDataLabels from "chartjs-plugin-datalabels";
 
 ChartJS.register(
   Title,
@@ -25,17 +24,15 @@ ChartJS.register(
   LinearScale,
   LineElement,
   ArcElement,
+  ChartDataLabels
 );
 
-Vue.component('line-chart', {
+Vue.component("line-chart", {
   extends: Line,
-
-})
-Vue.component('bar-chart', {
+});
+Vue.component("bar-chart", {
   extends: Bar,
-
-})
-Vue.component('pie-chart', {
+});
+Vue.component("pie-chart", {
   extends: Pie,
-
-})
+});

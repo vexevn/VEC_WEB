@@ -10,6 +10,9 @@ import ConvertStr from '~/assets/scripts/ConvertStr'
 import { LoginResult } from '~/assets/scripts/objects/LoginResult'
 import { InputFileAccept } from '~/components/form-content/InputFile/InputFIleModel'
 import { linkPurchase } from '~/assets/scripts/API'
+
+
+
 Vue.component("masked-input", MaskedInput);
 
 requireComponent.keys().forEach(fileName => {
