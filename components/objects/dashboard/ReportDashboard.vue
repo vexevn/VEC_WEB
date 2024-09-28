@@ -36,33 +36,7 @@ export default {
   data() {
     return {
       data: [],
-      dataOffec: [
-        {
-          Id: 1,
-          Name: "abc",
-          Total: 12,
-        },
-        {
-          Id: 2,
-          Name: "abc12",
-          Total: 32,
-        },
-        {
-          Id: 3,
-          Name: "abc123",
-          Total: 11,
-        },
-        {
-          Id: 4,
-          Name: "abc1234",
-          Total: 42,
-        },
-        {
-          Id: 5,
-          Name: "abc3123",
-          Total: 33,
-        },
-      ],
+ 
     };
   },
   methods: {
@@ -136,7 +110,7 @@ export default {
   justify-content: space-around;
   gap: 50px;
    > div {
-    width: 45%;
+   width: 50%;
     border: 2px solid rgb(209, 208, 208);
     border-radius: 10px;
     p{

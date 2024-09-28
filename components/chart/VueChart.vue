@@ -143,14 +143,15 @@ export default {
         // events: ['mousemove'],
 
         plugins: {
-          datalabels: {
+          datalabels: this.type == 'pie' ? {
             align: "end",
             font: {
               weight: "bold",
               size: "14px",
             },
+            offset: -3,
             rotation: function (context) {
-              return isLowValue(context) > 15 ? 0 : -90;
+              return isLowValue(context) > 15 ? 0 : -91;
             },
             color: (context) => {
               let is_light = wc_hex_is_light(
@@ -171,7 +172,7 @@ export default {
             anchor: (context) => {
               return isLowValue(context) > 15 ? "center" : "end";
             },
-          },
+          } : null,
           title: {
             display: true,
             text: this.chartTitle,
