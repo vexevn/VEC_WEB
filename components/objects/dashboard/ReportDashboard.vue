@@ -107,10 +107,10 @@ export default {
   margin-top: 10px;
   display: flex;
   align-items: flex-start;
-  justify-content: space-around;
-  gap: 50px;
+  justify-content: space-between;
+  // gap: 20px;
    > div {
-   width: 50%;
+   width: 47%;
     border: 2px solid rgb(209, 208, 208);
     border-radius: 10px;
     p{
