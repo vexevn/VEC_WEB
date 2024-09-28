@@ -144,18 +144,15 @@ export default {
 
         plugins: {
           datalabels: {
-            offset: -10,
-            align : 'end',
-            font:{
-              weight: 'bold',
-              size: '14px'
+            align: "end",
+            font: {
+              weight: "bold",
+              size: "14px",
             },
-            rotation: function(context){
+            rotation: function (context) {
               return isLowValue(context) > 15 ? 0 : -90;
-
             },
             color: (context) => {
-              // console.log(context);
               let is_light = wc_hex_is_light(
                 context.dataset.backgroundColor[context.dataIndex]
               );
@@ -172,16 +169,19 @@ export default {
               }
             },
             anchor: (context) => {
-              // Nếu góc lớn hơn 30 độ, hiển thị label bên trong, ngược lại hiển thị bên ngoài
-              // let angle = ;
-
               return isLowValue(context) > 15 ? "center" : "end";
             },
-            
           },
           title: {
             display: true,
             text: this.chartTitle,
+            padding: {
+              top: 5, 
+              bottom: 25, 
+            },
+            font: {
+              size: 18, 
+            },
           },
           tooltip: {
             enabled: true,
