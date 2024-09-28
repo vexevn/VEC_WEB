@@ -115,6 +115,15 @@ function wc_hex_is_light(color) {
   const brightness = (c_r * 299 + c_g * 587 + c_b * 114) / 1000;
   return brightness > 155;
 }
+
+function isLowValue(context) {
+  const dataset = context.chart.data.datasets[0];
+  const total = dataset.data.reduce((sum, val) => sum + val, 0);
+  const value = dataset.data[context.dataIndex];
+
+  const angle = (value / total) * 360;
+  return angle;
+}
 export default {
   props: {
     type: {
@@ -123,7 +132,7 @@ export default {
     chartData: {},
     scales: {},
     legend: {},
-    chartTitle:{},
+    chartTitle: {},
   },
   data() {
     return {
@@ -135,13 +144,24 @@ export default {
 
         plugins: {
           datalabels: {
+            offset: -10,
+            align : 'end',
+            font:{
+              weight: 'bold',
+              size: '14px'
+            },
+            rotation: function(context){
+              return isLowValue(context) > 15 ? 0 : -90;
+
+            },
             color: (context) => {
               // console.log(context);
               let is_light = wc_hex_is_light(
                 context.dataset.backgroundColor[context.dataIndex]
               );
-
-              return is_light ? "#444" : "white";
+              let angle = isLowValue(context) > 15 ? true : false;
+              if (!angle) return "#444";
+              else return is_light ? "#444" : "white";
             },
             formatter: (value) => {
               if (this.type == "pie") {
@@ -151,6 +171,13 @@ export default {
                 return Math.round((value / total) * 100) + "%";
               }
             },
+            anchor: (context) => {
+              // Nếu góc lớn hơn 30 độ, hiển thị label bên trong, ngược lại hiển thị bên ngoài
+              // let angle = ;
+
+              return isLowValue(context) > 15 ? "center" : "end";
+            },
+            
           },
           title: {
             display: true,
