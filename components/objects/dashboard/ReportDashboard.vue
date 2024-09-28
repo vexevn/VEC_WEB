@@ -1,26 +1,26 @@
 <template lang="">
   <div style="height: 100%; overflow: auto; padding: 10px">
     <div class="db-total" style="display: flex">
-      <div>
+      <div style="background-color: rgb(3 167 3);">
         <span>Tổng tài sản </span>
         <span>{{ data.Total_Asset }}</span>
       </div>
-      <div>
+      <div  style="background-color: #1E90FF;">
         <span>Văn phòng </span>
         <span>{{ data.Total_Office }}</span>
       </div>
-      <div>
+      <div  style="background-color: #DAA520;">
         <span>Loại tài sản </span>
         <span>{{ data.Total_Type }}</span>
       </div>
     </div>
     <div class="dashboard">
-      <div style="text-align: center">
-        <p >Thống kê tài sản theo văn phòng</p>
+      <div class="office" style="text-align: center">
+        <p>Thống kê tài sản theo văn phòng</p>
         <VueChart type="pie" :chartData="LoadData(data.Offices || [])" />
       </div>
-      <div style="text-align: center">
-        <p >Thống kê tài sản loại tài sản</p>
+      <div class="type" style="text-align: center">
+        <p>Thống kê tài sản loại tài sản</p>
 
         <VueChart type="pie" :chartData="LoadData(data.Types || [])" />
       </div>
@@ -77,7 +77,23 @@ export default {
               "#FFCE56",
               "#4BC0C0",
               "#9966FF",
+              "#FF9F40",
+              "#FFCD56",
+              "#46BFBD",
+              "#F7464A",
+              "#949FB1",
+              "#4D5360",
+              "#C0C0C0",
+              "#E7E9ED",
+              "#8B0000",
+              "#FFD700",
+              "#00FF00",
+              "#00CED1",
+              "#4682B4",
+              "#EE82EE",
+              "#D2691E",
             ],
+
             data: re.map((p) => p.Total),
           },
         ],
@@ -102,7 +118,7 @@ export default {
   display: flex;
   gap: 10px;
   > div {
-    // color: #;
+    color: #fff;
     border: 1px solid rgb(200, 200, 200);
     min-width: 150px;
     padding: 5px;
@@ -114,11 +130,19 @@ export default {
 }
 
 .dashboard {
+  margin-top: 10px;
   display: flex;
   align-items: flex-start;
+  justify-content: space-around;
   gap: 50px;
-  div {
-    width: 300px;
+   > div {
+    width: 45%;
+    border: 2px solid rgb(209, 208, 208);
+    border-radius: 10px;
+    p{
+      font-size: 16px;
+      font-weight: 600;
+    }
   }
 }
 </style>
