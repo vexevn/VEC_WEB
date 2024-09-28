@@ -251,6 +251,8 @@ export default {
 
   //Reports
   Reports_Dashboard: linkAPI + "Reports/Dashboard",
+  Reports_Khauhao: linkAPI + "Reports/Khauhao",
+  Reports_Baohanh: linkAPI + "Reports/Baohanh",
 
   //Office
   Get_List_Office_Asset: linkAPI + "Office/Get_List_Office_Asset",

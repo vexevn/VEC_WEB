@@ -36,20 +36,22 @@ export default class Fixed_Asset_Inventory_Filter {
     Object.assign(this, obj);
     this._formElements = {
       From: new FormElement({
-        label: "From Date",
+        label: "Từ ngày",
         model: "From",
         type: FormElementType.datePicker,
         attr: {
           disabledCrDate: true,
         },
+        labelWidth: 90,
       }),
       To: new FormElement({
-        label: "To Date",
+        label: "Đến ngày",
         model: "To",
         type: FormElementType.datePicker,
         attr: {
           disabledCrDate: true,
         },
+        labelWidth: 90,
       }),
       State: new FormElement({
         label: "Tình trạng",
@@ -94,18 +96,8 @@ export default class Fixed_Asset_Inventory_Filter {
     return new FormInfo({
       formData: this,
       elements: [this._formElements.Office_id,
-        new FormElement({
-          label: "Từ ngày",
-          model: "From",
-          type: FormElementType.datePicker,
-         
-        }),
-        new FormElement({
-          label: "Đến ngày",
-          model: "To",
-          type: FormElementType.datePicker,
-         
-        }),
+        this._formElements.From,
+            this._formElements.To,
       ],
     });
   }

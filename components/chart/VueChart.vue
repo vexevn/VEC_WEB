@@ -154,12 +154,15 @@ export default {
           tooltip: {
             enabled: true,
           },
-          // legend:
-          //   this.legend !== false
-          //     ? {
-          //         position: this.type == "pie" ? "left" : "top",
-          //       }
-          //     : null,
+          legend:
+            // this.legend !== false
+            //   ? {
+            //       position: this.type == "pie" ? "left" : "top",
+            //     }
+            //   : null,
+            {
+              position: 'bottom'
+            }
           // tooltip: true,
         },
         layout: {

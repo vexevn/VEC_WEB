@@ -98,9 +98,9 @@
             v-model.lazy="elementValue"
             :disabled="disabled"
             type="date"
-            :format="model.attr.format || 'DD/MM/yyyy'"
+            :format="model.attr.format || 'dd/MM/yyyy'"
             :picker-options="options"
-            :placeholder="disabled ? '' : model.attr.format || 'DD/MM/yyyy'"
+            :placeholder="disabled ? '' : model.attr.format || 'dd/MM/yyyy'"
           ></el-date-picker>
 
           <el-date-picker
@@ -112,7 +112,7 @@
             type="datetime"
             format="dd/MM/yyyy HH:mm"
             :picker-options="options"
-            placeholder="DD/MM/YYYY HH:mm"
+            placeholder="dd/MM/YYYY HH:mm"
           ></el-date-picker>
 
           <el-input
