@@ -73,7 +73,7 @@
           class="form-title"
           style="margin-top: 5px; flex: 0 0 28px; background: white; border: 0"
         >
-          <span>Fixed Assets Info</span>
+          <span>Thông tin tài sản</span>
           <span class="fa-btn" @click="AddFixedAsset"
             ><i class="fa fa-plus"></i
           ></span>
@@ -224,7 +224,7 @@ export default {
             formatter: (value) => Para.producer_Get_List.getName(value),
           }),
           new TablePagingCol({
-            title: "Mẫu",
+            title: "Model",
             data: "Model",
             min_width: 150,
             sortable: false,
@@ -297,7 +297,7 @@ export default {
             formatter: (value) => Para.producer_Get_List.getName(value),
           }),
           new TablePagingCol({
-            title: "Mẫu",
+            title: "Model",
             data: "Model",
             min_width: 150,
             sortable: false,

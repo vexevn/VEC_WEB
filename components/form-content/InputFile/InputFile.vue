@@ -52,7 +52,7 @@
         <InputContainer
         :labelWidth="labelWidth"
           v-if="isShowChoose()"
-          :label="model.label ? model.label : 'Attach file'"
+          :label="model.label ? model.label : 'Đính kèm tệp'"
           
         >
           <el-input :value="placeholder" disabled></el-input>

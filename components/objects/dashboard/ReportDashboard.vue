@@ -69,8 +69,7 @@ export default {
         labels: re.map((p) => p.Name),
         datasets: [
           {
-            backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"], // Màu cho từng phần biểu đồ
-      
+            backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"], // Màu cho từng phần biểu đồ    
             data: re.map((p) => p.Total),
           },
         ],
@@ -95,6 +94,7 @@ export default {
   display: flex;
   gap: 10px;
   > div {
+    // color: #;
     border: 1px solid rgb(200, 200, 200);
     width: 150px;
     padding: 5px;

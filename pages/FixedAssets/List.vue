@@ -395,7 +395,7 @@ export default {
                 sortable: false,
               }),
               new TablePagingCol({
-                title: "Mẫu",
+                title: "Model",
                 data: "Model",
                 min_width: 150,
                 sortable: false,
