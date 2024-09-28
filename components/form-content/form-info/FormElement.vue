@@ -98,9 +98,9 @@
             v-model.lazy="elementValue"
             :disabled="disabled"
             type="date"
-            :format="model.attr.format || 'DD/MM/yyyy'"
+            :format="model.attr.format || 'dd/MM/yyyy'"
             :picker-options="options"
-            :placeholder="disabled ? '' : model.attr.format || 'DD/MM/yyyy'"
+            :placeholder="disabled ? '' : model.attr.format || 'dd/MM/yyyy'"
           ></el-date-picker>
 
           <el-date-picker
@@ -527,7 +527,7 @@ export default {
       if (this.GetModelValue() == "") this.SetModelValue("");
       //console.log("xxx");
     }
-   
+
     //   this.model.
     //   this.formInfo.
     if (this.model.model) {
