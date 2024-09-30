@@ -68,7 +68,7 @@ S
               <el-tooltip
                 class="item"
                 effect="dark"
-                content="Thêm yêu cầu kiểm kê"
+                content="Sửa chữa tài sản"
                 placement="top"
               >
                 <el-button
@@ -278,7 +278,7 @@ import fixed_assets from "~/assets/scripts/objects/fixed_assets/fixed_assets";
 import Fixed_Asset_Transfer from "~/assets/scripts/objects/Fixed_Asset_Transfer";
 import Tickets from "~/assets/scripts/objects/Tickets";
 import fixed_asets_filter from "~/assets/scripts/objects/fixed_assets/fixed_asets_filter";
-import Fixed_Asset_Inventory from "~/assets/scripts/objects/Fixed_Asset_Inventory";
+import Fixed_Asset_Inventory from "~/assets/scripts/objects/Fixed_Asset_Fix";
 
 import Office from "./Office.vue";
 import { objContainStr, Uni2None } from "~/assets/scripts/Functions";
@@ -605,8 +605,10 @@ export default {
           this.formInventory.title = title;
           this.formInventory.obj = new Fixed_Asset_Inventory({
             Fixed_Asset_id: obj.Id,
-            User_Use: obj.Curent_Holder_Id,
-            User_Name: obj.Curent_Holder_Name,
+            FA_Code: obj.Code,
+            FA_Name: obj.Name,
+            // User_Use: obj.Curent_Holder_Id,
+            // User_Name: obj.Curent_Holder_Name,
           });
           this.formInventory.visible = true;
         },
@@ -698,31 +700,21 @@ export default {
           );
           return;
         } else {
-          let stuff = [];
-          if (
-            this.$refs.form.getEntry(
-              this.formInventory.obj._formElements.Images.id
-            )
-          ) {
-            let file_stuff = this.$refs.form
-              .getEntry(this.formInventory.obj._formElements.Images.id)
-              .submitUpload();
-            stuff.push(file_stuff);
-          }
-          Promise.all(stuff).then((results) => {
-            APIHelper.inventory
-              .Add(this.formInventory.obj.toJSON())
-              .then((re) => {
-                this.LoadTable();
-                this.formInventory.visible = false;
-                ShowMessage("Thêm yêu cầu kiểm kê thành công");
-              });
+          GetDataAPI({
+            url: API.Ticket_Add,
+            params: this.formInventory.obj.toJSON(),
+            method: "post",
+            action: (re) => {
+              this.LoadTable();
+              this.formInventory.visible = false;
+              ShowMessage("Sửa chữa tài sản thành công");
+            },
           });
         }
       });
     },
     RequestInventory(row) {
-      this.formInventory.ShowForm("Thêm yêu cầu kiểm kê", row);
+      this.formInventory.ShowForm("Sửa chữa tài sản", row);
     },
     // Search() {
     //   Object.assign(this.tp.params, this.filter);

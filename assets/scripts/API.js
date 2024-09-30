@@ -254,6 +254,18 @@ export default {
   Reports_Khauhao: linkAPI + "Reports/Khauhao",
   Reports_Baohanh: linkAPI + "Reports/Baohanh",
 
+
+
+  Manager_GetList: linkAPI + "Manager/GetList",
+  Manager_GetDetail: linkAPI + "Manager/GetDetail",
+  Manager_Add_Detail: linkAPI + "Manager/Add_Detail",
+  Manager_Edit_Detail: linkAPI + "Manager/Edit_Detail",
+  Manager_Add: linkAPI + "Manager/Add",
+  Manager_Edit: linkAPI + "Manager/Edit",
+  Manager_Approved: linkAPI + "Manager/Approved",
+  Manager_Delete: linkAPI + "Manager/Delete",
+
+
   //Office
   Get_List_Office_Asset: linkAPI + "Office/Get_List_Office_Asset",
   fixed_asset_Get_List_demo: "http://192.168.1.249:8060/Fixed_Asset/Get_List",
