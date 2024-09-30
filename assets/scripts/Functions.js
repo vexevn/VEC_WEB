@@ -588,6 +588,12 @@ export function GetBoolean(str) {
   return null;
 }
 
+export function addMonth(day,m){
+  const days = moment(day||new Date());
+  let dayAddMonth = days.add(m || 0, 'months');
+  return dayAddMonth.format('YYYY-MM-DDTHH:mm:ssZ')
+}
+
 /**
  * @return {'after'|'equal'|'before'} description
  */

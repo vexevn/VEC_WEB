@@ -61,8 +61,8 @@ import API from "../../API";
           model: "Type",
           type: FormElementType.select,
           options: Para.fixed_asset_type_Get_List
-            .set((p) => (p.placeholder = "Tất cả"))
-            .set((p) => (p.label = "Code")),
+            .set((p) => (p.placeholder = "Tất cả")),
+            // .set((p) => (p.labelFormat = p.labelFormat:(item)=> item.Code + item.Name)),
             labelWidth: 90,
 
         }),

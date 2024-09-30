@@ -35,6 +35,7 @@ import User from "~/assets/scripts/objects/User";
 import { EventBus } from "~/assets/scripts/EventBus.js";
 import GetDataAPI from "~/assets/scripts/GetDataAPI";
 import {
+  addMonth,
   GetTimeNow,
   MessageType,
   ShowConfirm,
@@ -42,6 +43,7 @@ import {
 } from "~/assets/scripts/Functions";
 import { Para } from "~/assets/scripts/Para";
 import Fixed_Asset_Inventory_Filter from "~/assets/scripts/objects/Fixed_Asset_Inventory_Filter";
+import ConvertStr from "~/assets/scripts/ConvertStr";
 export default {
   data() {
     return {
@@ -164,34 +166,20 @@ export default {
             min_width: 150,
             sortable: false,
           }),
+
           new TablePagingCol({
-            title: "Thời hạn bảo hành",
-            data: "Warranty_Period",
-            min_width: 150,
+            title: "QR Code",
+            data: "QRCode",
+            min_width: 160,
             sortable: false,
           }),
           new TablePagingCol({
-            title: "Thỏa thuận hỗ trợ/bảo trì (C/N)",
-            data: "Maintenance",
-            min_width: 150,
-            sortable: false,
-            formatter: (value) => {
-              return value ? "Có" : "Không";
-            },
-          }),
-          new TablePagingCol({
-            title: "Tuổi thọ ước tính (Y)",
-            data: "Estimated_Life_Min",
-            min_width: 150,
+            title: "Mã RF",
+            data: "RF_Id",
+            min_width: 120,
             sortable: false,
           }),
-          // new TablePagingCol({
-          //   title: "Date of Disposal",
-          //   data: "Disposal_Date",
-          //   min_width: 150,
-          //   sortable: false,
-          //   formatter: 'date'
-          // }),
+        
           new TablePagingCol({
             title: "Ghi chú",
             data: "Note",

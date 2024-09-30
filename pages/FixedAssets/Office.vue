@@ -29,7 +29,7 @@
         v-model="obj.Type"
         :model="
           Para.fixed_asset_type_Get_List.set((p) => {
-            p.label = 'Code';
+            p.label = 'Name';
             p.placeholder = 'Loại tài sản';
           })
         "
