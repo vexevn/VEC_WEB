@@ -265,6 +265,7 @@ import DefaultForm from "~/assets/scripts/base/DefaultForm";
 import { EventBus } from "~/assets/scripts/EventBus.js";
 import GetDataAPI from "~/assets/scripts/GetDataAPI";
 import {
+  addMonth,
   GetStartMonth,
   GetTimeNow,
   MessageType,
@@ -281,6 +282,7 @@ import Fixed_Asset_Inventory from "~/assets/scripts/objects/Fixed_Asset_Inventor
 
 import Office from "./Office.vue";
 import { objContainStr, Uni2None } from "~/assets/scripts/Functions";
+import ConvertStr from "~/assets/scripts/ConvertStr";
 export default {
   props: {
     isIndividual: {},
@@ -483,15 +485,18 @@ export default {
                 data: "Warranty_Period",
                 min_width: 150,
                 sortable: false,
+                formatter:(value,row)=>{
+              return row.Purchase_Date ? ConvertStr.ToDateStr(addMonth(row.Purchase_Date,value))  : value
+            }
               }),
               new TablePagingCol({
-                title: "Thỏa thuận hỗ trợ/bảo trì (C/N)",
+                title: "Bảo trì",
                 data: "Maintenance",
                 min_width: 150,
                 sortable: false,
               }),
               new TablePagingCol({
-                title: "Tuổi thọ ước tính (Y)",
+                title: "Khấu hao dự kiến",
                 data: "Estimated_Life_Min",
                 min_width: 150,
                 sortable: false,

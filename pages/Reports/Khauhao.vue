@@ -21,16 +21,17 @@
     <DefaultForm :model="formFilter" @actionOK="Search()">
       <div slot="content">
         <!-- <FormInfo :model="tp.params.form2()" /> -->
-        <InputContainer label="Tháng" :labelWidth="120">
-          <el-date-picker
-            type="month"
-            :format="'MM/yyyy'"
-            v-model="tp.params.iMonth"
-            :placeholder="'MM/yyyy'"
-          ></el-date-picker
-        ></InputContainer>
+        <InputContainer label="Số tháng khấu hao còn lại" :labelWidth="180">
+          <InputNumber style="width: 80%" v-model="tp.params.iMonth" />
 
-        <InputContainer style="margin-top: 5px;" label="Văn phòng" :labelWidth="120">
+          <label> tháng</label>
+        </InputContainer>
+
+        <InputContainer
+          style="margin-top: 5px"
+          label="Văn phòng"
+          :labelWidth="120"
+        >
           <InputSelect
             style="width: 100%"
             v-model="tp.params.iOffice_id"
@@ -50,6 +51,7 @@ import User from "~/assets/scripts/objects/User";
 import { EventBus } from "~/assets/scripts/EventBus.js";
 import GetDataAPI from "~/assets/scripts/GetDataAPI";
 import {
+  addMonth,
   GetTimeNow,
   MessageType,
   ShowConfirm,
@@ -57,6 +59,7 @@ import {
 } from "~/assets/scripts/Functions";
 import { Para } from "~/assets/scripts/Para";
 import Fixed_Asset_Inventory_Filter from "~/assets/scripts/objects/Fixed_Asset_Inventory_Filter";
+import ConvertStr from "~/assets/scripts/ConvertStr";
 export default {
   data() {
     return {
@@ -74,7 +77,7 @@ export default {
         data: [],
         disableSelectRow: true,
         params: {
-          iMonth: new Date(),
+          iMonth: 1,
           iOffice_id: 0,
         },
         cols: [
@@ -182,34 +185,34 @@ export default {
             min_width: 150,
             sortable: false,
           }),
+          // new TablePagingCol({
+          //   title: "Thời hạn bảo hành",
+          //   data: "Warranty_Period",
+          //   min_width: 150,
+          //   sortable: false,
+          //   formatter: (value, row) => {
+          //     return row.Purchase_Date
+          //       ? ConvertStr.ToDateStr(addMonth(row.Purchase_Date, value))
+          //       : value;
+          //   },
+          // }),
+          // new TablePagingCol({
+          //   title: "Bảo trì",
+          //   data: "Maintenance",
+          //   min_width: 150,
+
+          //   sortable: false,
+          //   formatter: (value) => {
+          //     return value ? "Có" : "Không";
+          //   },
+          // }),
           new TablePagingCol({
-            title: "Thời hạn bảo hành",
-            data: "Warranty_Period",
-            min_width: 150,
-            sortable: false,
-          }),
-          new TablePagingCol({
-            title: "Thỏa thuận hỗ trợ/bảo trì (C/N)",
-            data: "Maintenance",
-            min_width: 150,
-            sortable: false,
-            formatter: (value) => {
-              return value ? "Có" : "Không";
-            },
-          }),
-          new TablePagingCol({
-            title: "Tuổi thọ ước tính (Y)",
+            title: "Khấu hao dự kiến",
             data: "Estimated_Life_Min",
             min_width: 150,
             sortable: false,
           }),
-          // new TablePagingCol({
-          //   title: "Date of Disposal",
-          //   data: "Disposal_Date",
-          //   min_width: 150,
-          //   sortable: false,
-          //   formatter: 'date'
-          // }),
+
           new TablePagingCol({
             title: "Ghi chú",
             data: "Note",
@@ -225,7 +228,7 @@ export default {
       GetDataAPI({
         url: API.Reports_Khauhao,
         params: {
-          iMonth: new Date(this.tp.params.iMonth).getMonth() +1,
+          iMonth: this.tp.params.iMonth,
           iOffice_id: this.tp.params.iOffice_id,
         },
         action: (re) => {

@@ -1,5 +1,6 @@
 <template>
   <div style="height: 100%">
+   
     <TablePaging ref="tp" :model="tp">
       <template slot="btn">
         <el-button
@@ -15,9 +16,11 @@
         >
           <i class="fa fa-filter"></i>
         </el-button>
+      
       </template>
     </TablePaging>
-
+  
+    
     <DefaultForm :model="formFilter" @actionOK="Search()">
       <div slot="content">
         <FormInfo :model="tp.params.form()" />
@@ -32,10 +35,10 @@ import API from "~/assets/scripts/API";
 import TablePaging from "~/assets/scripts/base/TablePaging";
 import TablePagingCol from "~/assets/scripts/base/TablePagingCol";
 import DefaultForm from "~/assets/scripts/base/DefaultForm";
-import User from "~/assets/scripts/objects/User";
-import { EventBus } from "~/assets/scripts/EventBus.js";
+
 import GetDataAPI from "~/assets/scripts/GetDataAPI";
 import {
+  addMonth,
   GetTimeNow,
   MessageType,
   ShowConfirm,
@@ -43,10 +46,12 @@ import {
 } from "~/assets/scripts/Functions";
 import { Para } from "~/assets/scripts/Para";
 import report_Fa from "~/assets/scripts/objects/fixed_assets/report_Fa";
+import ConvertStr from "~/assets/scripts/ConvertStr";
 export default {
   data() {
     return {
       isAdd: null,
+      
       //   filter: ,
       formFilter: new DefaultForm({
         OKtext: "Tìm kiếm",
@@ -170,9 +175,12 @@ export default {
             data: "Warranty_Period",
             min_width: 150,
             sortable: false,
+            formatter:(value,row)=>{
+              return row.Purchase_Date ? ConvertStr.ToDateStr(addMonth(row.Purchase_Date,value))  : value
+            }
           }),
           new TablePagingCol({
-            title: "Thỏa thuận hỗ trợ/bảo trì (C/N)",
+            title: "Bảo trì",
             data: "Maintenance",
             min_width: 150,
             sortable: false,
@@ -181,7 +189,7 @@ export default {
             },
           }),
           new TablePagingCol({
-            title: "Tuổi thọ ước tính (Y)",
+            title: "Khấu hao dự kiến",
             data: "Estimated_Life_Min",
             min_width: 150,
             sortable: false,
@@ -214,7 +222,12 @@ export default {
         },
       });
     },
+    // abc(){
+    //   this.date = addMonth(this.date,4)
+    //   console.log(this.date)
+    // },
     LoadData() {
+
       // this.tp.params.iMonth =  ;
       this.$refs.tp.LoadData(true);
     },
