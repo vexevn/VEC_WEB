@@ -40,7 +40,7 @@
         <ButtonPermission />
         <!-- <nuxt-link :to="switchLocalePath('en')">English</nuxt-link>
         <nuxt-link :to="switchLocalePath('vi')">Tiếng Việt</nuxt-link> -->
-        
+
 
         <!-- <el-button
           v-if="
@@ -55,10 +55,10 @@
         </el-button> -->
         <!-- <el-dropdown style="margin-left: 10px;" @command="handleCommand">
           <el-button  style="border: none;height: 32px;width:32px" :class="['img_lang', $i18n.locale]" type="text">
-         
+
           </el-button>
 
-          
+
 
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item style="display:flex;align-items: center;" command="vi"> <div class="img_lang vi"></div> Tiếng Việt  </el-dropdown-item>
@@ -72,16 +72,11 @@
 </template>
 
 <script>
-import API, { linkPurchase } from "~/assets/scripts/API";
-import DefaultForm from "~/assets/scripts/base/DefaultForm";
 import { EventBus } from "~/assets/scripts/EventBus";
 import {
   SearchAllTree,
   SearchTree,
-  ShowMessage,
 } from "~/assets/scripts/Functions";
-import GetDataAPI from "~/assets/scripts/GetDataAPI";
-import { LoginResult } from "~/assets/scripts/objects/LoginResult";
 import MenuItem from "~/assets/scripts/objects/MenuItem";
 import StoreManager from "~/assets/scripts/StoreManager";
 export default {
@@ -159,7 +154,6 @@ export default {
     },
     OpenFormCreate() {
       this.$router.push("/Order/Form");
-      // window.open(linkPurchase + "/Form/Create", "_blank");
     },
     getMenu(path) {
       return SearchAllTree(
