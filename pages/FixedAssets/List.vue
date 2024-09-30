@@ -83,7 +83,7 @@ S
               <el-tooltip
                 class="item"
                 effect="dark"
-                content="Chuyển nhượng tài sản cố định"
+                content="Thay đổi vị trí"
                 placement="top"
               >
                 <el-button
@@ -792,7 +792,7 @@ export default {
       // });
     },
     Transfer(row) {
-      this.form_transfer.ShowForm("Chuyển nhượng tài sản cố định", row);
+      this.form_transfer.ShowForm("Thay đổi vị trí", row);
     },
     Edit(row) {
       console.log(JSON.parse(JSON.stringify(row)));
