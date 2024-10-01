@@ -21,6 +21,8 @@ export default class Fixed_Asset_Inventory_Filter {
 
   Office_id = 0;
 
+  FromDate = GetStartMonth();
+  ToDate = GetTimeNow();
   /**
    *
    * @param {Fixed_Asset_Inventory_Filter} obj
@@ -44,9 +46,27 @@ export default class Fixed_Asset_Inventory_Filter {
         },
         labelWidth: 90,
       }),
+      FromDate: new FormElement({
+        label: "Từ ngày",
+        model: "FromDate",
+        type: FormElementType.datePicker,
+        attr: {
+          disabledCrDate: true,
+        },
+        labelWidth: 90,
+      }),
       To: new FormElement({
         label: "Đến ngày",
         model: "To",
+        type: FormElementType.datePicker,
+        attr: {
+          disabledCrDate: true,
+        },
+        labelWidth: 90,
+      }),
+      ToDate: new FormElement({
+        label: "Đến ngày",
+        model: "ToDate",
         type: FormElementType.datePicker,
         attr: {
           disabledCrDate: true,
@@ -101,6 +121,7 @@ export default class Fixed_Asset_Inventory_Filter {
       ],
     });
   }
+ 
 
   formInventRequest() {
     return new FormInfo({

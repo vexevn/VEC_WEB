@@ -1,18 +1,39 @@
 <template lang="">
-  <div style="height:100%">
+  <div style="height: 100%">
     <TablePaging :model="tp_detail" ref="tp_detail">
       <template slot="column-content-CheckBox" slot-scope="{ row }">
         <el-checkbox v-model="row.CheckBox" style="pointer-events: none" />
       </template>
+
+      <template v-if="data.isAdd" slot="column-header-button">
+        <el-button  class="icon-btn icon-btn" type="primary" @click="Add()">
+          <i class="el-icon-plus"></i
+        ></el-button>
+      </template>
+      <template v-if="data.isAdd" slot="column-content-button" slot-scope="{ row }">
+        <el-button  class="icon-btn icon-btn" type="warning" @click="Edit()">
+          <i class="el-icon-edit"></i
+        ></el-button>
+      
+      </template>
     </TablePaging>
+
+    <DefaultForm :model="form" @actionOK="form.Save.call(this)">
+      <div slot="content">
+        <FormInfo ref="form" :model="form.obj.form()" />
+      </div>
+    </DefaultForm>
   </div>
 </template>
 <script>
 import API from "~/assets/scripts/API";
 import GetDataAPI from "~/assets/scripts/GetDataAPI";
+import { Para } from "~/assets/scripts/Para";
 import TablePaging from "~/assets/scripts/base/TablePaging";
+import Fixed_Asset_Manager_Detail from "~/assets/scripts/objects/fixed_assets/Fixed_Asset_Manager_Detail";
 
 import TablePagingCol from "~/assets/scripts/base/TablePagingCol";
+import DefaultForm from "~/assets/scripts/base/DefaultForm";
 
 export default {
   props: {
@@ -20,74 +41,186 @@ export default {
   },
   data() {
     return {
-        tp_detail: new TablePaging({
-      // disablePaging: true,
-      disableSelectRow: true,
-    //   LoadDataSuccess: (re) => {
-    //     re.forEach((p) => {
-    //       p.CheckBox = this.obj.FA_Id_Lists.some((p1) => p1 == p.Id);
-    //     });
-    //   },
-    //   clickRow: (row) => {
-    //     // row.CheckBox = !row.CheckBox;
-    //     this.CheckItem(row);
-    //   },
-      cols: [
-        new TablePagingCol({
-          title: "#",
-          data: "SttTP",
-          min_width: 50,
-          sortable: false,
-        }),
-        new TablePagingCol({
-          title: "",
-          data: "CheckBox",
-          min_width: 50,
-          sortable: false,
-        }),
-        new TablePagingCol({
-          title: "Tên",
-          data: "Name",
-          min_width: 200,
-          width: "auto",
-          sortable: false,
-        }),
+      form: new DefaultForm({
+        obj: new Fixed_Asset_Manager_Detail(),
+        title: "",
+        visible: false,
+        width: "500px",
+        ShowForm: (title, isAdd, obj) => {
+          this.isAdd = isAdd;
+          var _app = this;
+          // var obj = null;
+          // if (!isAdd) {
+          //   obj = obj;
+          //   if (!obj) {
+          //     ShowMessage("You need choose 1 selection!");
+          //     return;
+          //   }
+          // }
+          this.form.title = title;
+          this.form.obj = new Fixed_Asset_Manager_Detail({
+            ...obj,
+            From_Department_id: this.data.Info.From_Department_id,
+            From_Office_id: this.data.Info.From_Office_id,
+          });
+          this.form.visible = true;
+        },
+        Save: () => {
+          this.Save();
+        },
+      }),
+      obj: new Fixed_Asset_Manager_Detail(),
+      tp_detail: new TablePaging({
+        // disablePaging: true,
+        disableSelectRow: true,
+        LoadDataSuccess: (re) => {
+          re.forEach((p) => {
+            p.CheckBox = false;
+          });
+        },
+        clickRow: (row) => {
+          // row.CheckBox = !row.CheckBox;
+          this.CheckItem(row);
+        },
+        cols: [
+          new TablePagingCol({
+            title: "#",
+            data: "SttTP",
+            min_width: 50,
+            sortable: false,
+          }),
+          new TablePagingCol({
+            title: "",
+            data: "CheckBox",
+            min_width: 50,
+            sortable: false,
+          }),
 
-        // new TablePagingCol({
-        //   title: "Mã dự án",
-        //   data: "Project_Code",
-        //   min_width: 130,
-        //   sortable: false,
-        // }),
-        new TablePagingCol({
-          title: "Loại",
-          data: "Type_id",
-          min_width: 150,
-          sortable: false,
-        //   formatter: (value) => Para.fixed_asset_type_Get_List.getName(value),
-        }),
-        new TablePagingCol({
-          title: "Nhà sản xuất",
-          data: "Producer_id",
-          min_width: 150,
-          sortable: false,
-        //   formatter: (value) => Para.producer_Get_List.getName(value),
-        }),
-        new TablePagingCol({
-          title: "Model",
-          data: "Model",
-          min_width: 150,
-          sortable: false,
-        }),
-      ],
-    }),
+          new TablePagingCol({
+            title: "Mã tài sản",
+            data: "Code",
+            min_width: 100,
+            // width: "auto",
+            sortable: false,
+          }),
+          new TablePagingCol({
+            title: "Tên",
+            data: "Name",
+            min_width: 130,
+            width: "auto",
+            sortable: false,
+          }),
+
+          // new TablePagingCol({
+          //   title: "Mã dự án",
+          //   data: "Project_Code",
+          //   min_width: 130,
+          //   sortable: false,
+          // }),
+          new TablePagingCol({
+            title: "Loại",
+            data: "Type_id",
+            min_width: 150,
+            sortable: false,
+            formatter: (value) => Para.fixed_asset_type_Get_List.getName(value),
+          }),
+
+          new TablePagingCol({
+            title: "Tình trạng",
+            data: "State",
+            min_width: 150,
+            sortable: false,
+            formatter: (value) =>
+              Para.fixed_asset_state_Get_List.getName(value),
+          }),
+          new TablePagingCol({
+            // title: "Tình trạng",
+            data: "btn",
+            min_width: 150,
+            sortable: false,
+            align: "center",
+            fix: "right",
+          }),
+        ],
+      }),
+    };
+  },
+  watch: {
+    "data.Info.From_Department_id": {
+      handler: function (n, o) {
+        // console.log(this);
+        if (n && this.data.isAdd) this.LoadTable();
+      },
+      deep: true,
+    },
+
+    "data.Info.From_Office_id": {
+      handler: function (n, o) {
+        // console.log(this);
+        if (n && this.data.isAdd) this.LoadTable();
+      },
+      deep: true,
+    },
+  },
+  methods: {
+    Edit(){},
+    Add() {},
+    CheckItem(item) {
+      item.CheckBox = !item.CheckBox;
+      if (item.CheckBox) {
+        // Clone this.obj to avoid reference issues
+        const newObj = { ...this.obj };
+        newObj.Fixed_State = item.State;
+        newObj.Fixed_Asset_id = item.Id;
+        newObj.Name = item.Name;
+
+        this.data.Details.push(newObj);
+      } else {
+        if (this.data.isAdd) {
+          // Assign the filtered result back to this.data.Details
+          this.data.Details = this.data.Details.filter(
+            (p) => p.Fixed_Asset_id !== item.Id
+          );
+        } else {
+          this.data.Details = this.data.Details.filter((p) => p.Id !== item.Id);
+        }
+      }
+
+      console.log(this.data.Details);
+    },
+    LoadData() {
+      this.$refs.tp_detail.LoadData();
+    },
+    LoadTable() {
+      GetDataAPI({
+        url: API.fixed_asset_Get_List,
+        params: {
+          Office_id: this.data.Info.From_Office_id,
+          Store_id: this.data.Info.From_Department_id,
+        },
+        action: (re) => {
+          this.tp_detail.data = re;
+          this.LoadData();
+        },
+      });
+    },
+    LoadDetail(){
+      GetDataAPI({
+        url: API.Manager_GetDetail,
+        params: {
+          iFixed_Asset_Manager_id: this.data.iFixed_Asset_Manager_id,
+          // Store_id: this.data.Info.From_Department_id,
+        },
+        action: (re) => {
+          this.tp_detail.data = re;
+          this.LoadData();
+        },
+      });
     }
   },
 
   mounted() {
-    // GetDataAPI({
-    //   url: API.Manager_GetDetail + `?`,
-    // });
+    console.log(this);
   },
 };
 </script>

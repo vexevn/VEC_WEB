@@ -13,7 +13,7 @@ import Fixed_Asset_Manager from "./Fixed_Asset_Manager";
 export default class transfer_fa {
   Info = new Fixed_Asset_Manager();
 
-  Description = "";
+  Details = [];
 
   /**
    *
@@ -30,13 +30,13 @@ export default class transfer_fa {
     Object.assign(this, obj);
     this._formElements = {
       From_Office_id: new FormElement({
-        label: "Văn phòng gửi",
+        label: "Văn phòng chuyển",
         model: "Info.From_Office_id",
         type: FormElementType.select,
-        labelWidth: 110,
+        labelWidth: 130,
         options: Para.Para_Office,
         watch(data) {
-          console.log("data.Info.FromMangerId", data.Info.FromMangerId);
+          // console.log("data.Info.FromMangerId", data.Info.FromMangerId);
         },
       }),
 
@@ -48,9 +48,10 @@ export default class transfer_fa {
         options: Para.Para_Office,
       }),
       From_Department_id: new FormElement({
-        label: "Phòng ban gửi",
+        label: "Phòng ban chuyển",
         model: "Info.From_Department_id",
         type: FormElementType.select,
+        labelWidth: 130,
         watch(data, n, o, t) {
           let slData =
             t.getEntry(data._formElements.From_Department_id.id).selectedData ||
@@ -99,7 +100,7 @@ export default class transfer_fa {
       Description: new FormElement({
         label: "Mô tả",
         model: "Info.Description",
-        labelWidth: 110,
+        labelWidth: 130,
         type: FormElementType.text,
         attr: {
           rows: 2,

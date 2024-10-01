@@ -26,16 +26,34 @@
           <i class="el-icon-plus"></i
         ></el-button>
       </template>
+
+      <template slot="column-content-button" slot-scope="{ row }">
+        <el-button
+          class="icon-btn icon-btn"
+          v-if="pagePermission.edit"
+          type="warning"
+          @click="Edit(row)"
+        >
+          <i class="el-icon-edit"></i
+        ></el-button>
+        <el-button
+          class="icon-btn icon-btn"
+          v-if="pagePermission.delete"
+          type="danger"
+        >
+          <i class="el-icon-edit"></i
+        ></el-button>
+      </template>
     </TablePaging>
 
-    <DefaultForm :model="form" @actionOK="Search()">
-      <div slot="content">
+    <DefaultForm :model="form" @actionOK="Save()">
+      <div class="form" style="height: 100%" slot="content">
         <FormInfo :model="form.obj.form()" />
       </div>
     </DefaultForm>
     <DefaultForm :model="formFilter" @actionOK="Search()">
       <div slot="content">
-        <FormInfo :model="tp.params.form2()" />
+        <FormInfo :model="tp.params.form4()" />
       </div>
     </DefaultForm>
   </div>
@@ -58,13 +76,14 @@ import {
 } from "~/assets/scripts/Functions";
 import { Para } from "~/assets/scripts/Para";
 import transfer_fa from "~/assets/scripts/objects/fixed_assets/transfer_fa";
-import Fixed_Asset_Inventory_Filter from "~/assets/scripts/objects/Fixed_Asset_Inventory_Filter";
+import Fixed_Asset_Inventory_Filter from "~/assets/scripts/objects/fixed_assets/Fixed_Asset_Inventory_Filter";
 
 import ConvertStr from "~/assets/scripts/ConvertStr";
 export default {
   data() {
     return {
       isAdd: null,
+
       //   filter: ,
       formFilter: new DefaultForm({
         OKtext: "Tìm kiếm",
@@ -81,10 +100,14 @@ export default {
         fullscreen: true,
         title: "Chuyển nhượng tài sản",
         ShowForm: (title, isAdd, obj) => {
-          this.form.obj = new transfer_fa(obj);
+          this.isAdd = isAdd;
+          this.form.obj = new transfer_fa({
+            ...obj,
+            isAdd: isAdd,
+          });
           this.form.visible = true;
 
-          console.log(this.form.obj)
+          console.log(this.form.obj);
         },
       }),
       tp: new TablePaging({
@@ -159,6 +182,18 @@ export default {
     //     },
     //   });
     // },
+    Save() {
+      GetDataAPI({
+        url: this.isAdd ? API.Manager_Add : API.Manager_Edit,
+        params: this.form.obj,
+        method: "post",
+        action: (re) => {
+          this.LoadData();
+          ShowMessage("Lưu thành công", "success");
+          this.form.visible = false;
+        },
+      });
+    },
     Add() {
       this.form.ShowForm("abc", true, {});
     },
@@ -183,19 +218,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.status {
-  // background: red;
-  padding: 4px 0px;
-  display: inline-block;
-  border-radius: 4px;
-  &:not([status]) {
-  }
-
-  &[status="3"],
-  &[status="2"] {
-    background: #d73d32;
-    color: white;
-    padding: 4px 6px;
+.form {
+  ::v-deep .form-info {
+    height: 100%;
+    .form-info-c {
+      height: 100%;
+    }
   }
 }
 </style>
