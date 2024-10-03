@@ -54,9 +54,9 @@ export default class Fixed_Asset_Manager_Detail {
         label: "Tài sản",
         model: "Fixed_Asset_id",
         type: "select",
-        disabled(data){
-          if(data.Id) return true;
-          else false
+        disabled(data) {
+          if (data.Id) return true;
+          else false;
         },
         options(data) {
           return new SelectOption({
@@ -65,11 +65,11 @@ export default class Fixed_Asset_Manager_Detail {
               Office_id: data.From_Office_id,
               Store_id: data.From_Department_id,
             },
-            IsItemDisabled: item=>{
-              if(data.table.some(p=> item.Id == p.Fixed_Asset_id))
-                return true
+            IsItemDisabled: (item) => {
+              if (data.table.some((p) => item.Id == p.Fixed_Asset_id))
+                return true;
               else return false;
-            }
+            },
           });
         },
       }),
@@ -95,6 +95,9 @@ export default class Fixed_Asset_Manager_Detail {
     return {
       ...this,
       _formElements: undefined,
+      table: undefined,
+      From_Department_id: undefined,
+      From_Office_id: undefined,
     };
   }
 }
