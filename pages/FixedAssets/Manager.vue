@@ -18,7 +18,7 @@
       </template>
       <template slot="column-header-button">
         <el-button
-          class="icon-btn icon-btn"
+          class="icon-btn"
           v-if="pagePermission.add"
           type="primary"
           @click="Add()"
@@ -27,28 +27,38 @@
         ></el-button>
       </template>
 
+      <template slot="column-content-From_Department_id" slot-scope="{ row }">
+        {{ store.getName(Number(row.From_Department_id)) }}
+      </template>
+      <template slot="column-content-To_Department_Id" slot-scope="{ row }">
+        {{ store.getName(Number(row.To_Department_Id)) }}
+      </template>
+
       <template slot="column-content-button" slot-scope="{ row }">
-        <el-button
-          class="icon-btn icon-btn"
-          v-if="pagePermission.edit"
-          type="warning"
-          @click="Edit(row)"
-        >
-          <i class="el-icon-edit"></i
-        ></el-button>
-        <el-button
-          class="icon-btn icon-btn"
-          v-if="pagePermission.delete"
-          type="danger"
-        >
-          <i class="el-icon-edit"></i
-        ></el-button>
+        <div style="display: flex; justify-content: space-between">
+          <el-button
+            class="icon-btn"
+            v-if="pagePermission.edit"
+            type="warning"
+            @click="Edit(row)"
+          >
+            <i class="el-icon-edit"></i
+          ></el-button>
+          <el-button
+            class="icon-btn"
+            v-if="pagePermission.delete"
+            type="danger"
+            @click="Delete(row)"
+          >
+            <i class="el-icon-delete"></i
+          ></el-button>
+        </div>
       </template>
     </TablePaging>
 
     <DefaultForm :model="form" @actionOK="Save()">
       <div class="form" style="height: 100%" slot="content">
-        <FormInfo :model="form.obj.form()" />
+        <FormInfo ref="form" :model="form.obj.form()" />
       </div>
     </DefaultForm>
     <DefaultForm :model="formFilter" @actionOK="Search()">
@@ -79,11 +89,13 @@ import transfer_fa from "~/assets/scripts/objects/fixed_assets/transfer_fa";
 import Fixed_Asset_Inventory_Filter from "~/assets/scripts/objects/fixed_assets/Fixed_Asset_Inventory_Filter";
 
 import ConvertStr from "~/assets/scripts/ConvertStr";
+import Fixed_Asset_Manager from "~/assets/scripts/objects/fixed_assets/Fixed_Asset_Manager";
+import { SelectOption } from "~/assets/scripts/base/SelectOption";
 export default {
   data() {
     return {
       isAdd: null,
-
+      store: new SelectOption({ data: [] }),
       //   filter: ,
       formFilter: new DefaultForm({
         OKtext: "Tìm kiếm",
@@ -95,16 +107,25 @@ export default {
       form: new DefaultForm({
         obj: new transfer_fa(),
         // OKtext: "Tìm kiếm",
+
         visible: false,
         // type: "dialog",
         fullscreen: true,
         title: "Chuyển nhượng tài sản",
         ShowForm: (title, isAdd, obj) => {
           this.isAdd = isAdd;
+
+          if (!isAdd) {
+            obj.From_Department_id = Number(obj.From_Department_id);
+            obj.To_Department_Id = Number(obj.To_Department_Id);
+          }
+
           this.form.obj = new transfer_fa({
-            ...obj,
+            Info: new Fixed_Asset_Manager(obj),
             isAdd: isAdd,
+            iFixed_Asset_Manager_id: !isAdd ? obj.Id : "",
           });
+
           this.form.visible = true;
 
           console.log(this.form.obj);
@@ -112,6 +133,7 @@ export default {
       }),
       tp: new TablePaging({
         title: "Danh sách chuyển tài sản",
+        data: [],
         data: API.Manager_GetList,
         // disableSelectRow: true,
         params: new Fixed_Asset_Inventory_Filter(),
@@ -126,12 +148,16 @@ export default {
               new TablePagingCol({
                 title: "Văn phòng",
                 width: "auto",
-                min_width: 150,
+                min_width: 200,
+                data: "From_Office_id",
+                formatter: (value) => Para.Para_Office.getName(value),
               }),
               new TablePagingCol({
                 title: "Phòng ban",
                 width: "auto",
                 min_width: 150,
+                data: "From_Department_id",
+                // formatter:(value)=> this.store.getName(Number(value)),
               }),
             ],
           }),
@@ -141,25 +167,29 @@ export default {
               new TablePagingCol({
                 title: "Văn phòng",
                 width: "auto",
-                min_width: 150,
+                data: "To_Office_id",
+                min_width: 200,
+                formatter: (value) => Para.Para_Office.getName(value),
               }),
               new TablePagingCol({
                 title: "Phòng ban",
+                data: "To_Department_Id",
                 width: "auto",
                 min_width: 150,
+                // formatter:(value)=> this.store.getName(Number(value)),
               }),
             ],
           }),
           new TablePagingCol({
             title: "Ghi chú",
-            data: "Producer_Name",
+            data: "Description",
             min_width: 150,
             sortable: false,
           }),
           new TablePagingCol({
             title: "",
             data: "button",
-            min_width: 100,
+            min_width: 70,
             sortable: false,
             align: "center",
             fix: "right",
@@ -183,19 +213,73 @@ export default {
     //   });
     // },
     Save() {
+      this.$refs.form.getValidate().then((re) => {
+        if (!re) {
+          ShowMessage("Vui lòng nhập đầy đủ thông tin!", MessageType.error);
+          return;
+        } else {
+          GetDataAPI({
+            url: this.isAdd ? API.Manager_Add : API.Manager_Edit,
+            params:this.isAdd ?  this.form.obj.toJSON() : this.form.obj.toJSON().Info,
+            method: "post",
+            action: (re) => {
+              this.LoadTable();
+              ShowMessage("Lưu thành công", "success");
+              this.form.visible = false;
+            },
+          });
+        }
+      });
+    },
+
+    Delete(row) {
+      ShowConfirm({
+        message: "Xóa luân chuyển",
+        title: "Cảnh báo!",
+        type: MessageType.warning,
+      })
+        .then(() => {
+          GetDataAPI({
+            method: "POST",
+            url: API.Manager_Delete,
+            params: row,
+            action: (re) => {
+              if (re == "OK") {
+                this.LoadTable();
+                ShowMessage("Xóa thành công");
+              } else {
+                ShowMessage(re);
+              }
+            },
+          });
+        })
+        .catch((err) => {
+          // An error occurred
+        });
+    },
+
+    LoadTable() {
+      // console.log(this.tp.params.Office_id)
       GetDataAPI({
-        url: this.isAdd ? API.Manager_Add : API.Manager_Edit,
-        params: this.form.obj,
-        method: "post",
+        url: API.Manager_GetList,
+        params: {
+          Office_id: this.tp.params.Office_id,
+          FromDate: this.tp.params.FromDate,
+          ToDate: this.tp.params.ToDate,
+          // iFixed_Asset_Manager_id: this.data.iFixed_Asset_Manager_id,
+          // Store_id: this.data.Info.From_Department_id,
+        },
         action: (re) => {
+          this.tp.data = re;
           this.LoadData();
-          ShowMessage("Lưu thành công", "success");
-          this.form.visible = false;
         },
       });
     },
     Add() {
       this.form.ShowForm("abc", true, {});
+    },
+    Edit(row) {
+      this.form.ShowForm("abc", false, row);
     },
     LoadData() {
       // this.tp.params.iMonth =  ;
@@ -211,13 +295,25 @@ export default {
   },
 
   mounted() {
-    console.log(this);
-    // <!-- this.LoadTable(); -->
+    // console.log(this);
+    // this.LoadTable();
+    GetDataAPI({
+      url: API.dm_department_Get_List,
+      params: {
+        Office_id: this.tp.params.Office_id,
+      },
+      action: (re) => {
+        this.store.data = re;
+      },
+    });
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.icon-btn {
+  margin: 0 !important;
+}
 .form {
   ::v-deep .form-info {
     height: 100%;

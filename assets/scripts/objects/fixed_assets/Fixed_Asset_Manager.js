@@ -14,11 +14,11 @@ export default class Fixed_Asset_Manager {
   From_Office_id;
   /** @type {number} - description */
   To_Office_id;
-  /** @type {string} - description */
+  /** @type {number} - description */
   From_Department_id;
-  /** @type {string} - description */
+  /** @type {number} - description */
   To_Department_Id;
-  /** @type {string} - description */
+  /** @type {number} - description */
   Description;
   /** @type {string} - description */
   Start_Date;

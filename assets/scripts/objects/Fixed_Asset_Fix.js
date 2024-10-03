@@ -97,6 +97,7 @@ export default class Fixed_Asset_Fix {
         model: "Act_User",
         type: FormElementType.select,
         options: Para.Para_Account,
+        required: true,
         watch(data,n,o,t,iF){
           // console.log(data,t)
           let slData = t.getEntry(data._formElements.Act_User.id).selectedData || {};
@@ -124,6 +125,7 @@ export default class Fixed_Asset_Fix {
         model: "Fixed_State",
         type: FormElementType.select,
         options: Para.fixed_asset_state_Get_List,
+        required: true,
       }),
 
       FA_Name: new FormElement({

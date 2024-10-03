@@ -23,6 +23,7 @@ export default class Fixed_Asset_Manager_Detail {
   form() {
     return new FormInfo({
       formData: this,
+      labelWidth: 100,
       elements: [
         this._formElements.Fixed_Asset_id,
         this._formElements.Fixed_State,
@@ -53,14 +54,22 @@ export default class Fixed_Asset_Manager_Detail {
         label: "Tài sản",
         model: "Fixed_Asset_id",
         type: "select",
-
+        disabled(data){
+          if(data.Id) return true;
+          else false
+        },
         options(data) {
-          return SelectOption({
+          return new SelectOption({
             data: API.fixed_asset_Get_List,
             params: {
               Office_id: data.From_Office_id,
               Store_id: data.From_Department_id,
             },
+            IsItemDisabled: item=>{
+              if(data.table.some(p=> item.Id == p.Fixed_Asset_id))
+                return true
+              else return false;
+            }
           });
         },
       }),

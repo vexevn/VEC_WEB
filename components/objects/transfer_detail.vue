@@ -2,19 +2,22 @@
   <div style="height: 100%">
     <TablePaging :model="tp_detail" ref="tp_detail">
       <template slot="column-content-CheckBox" slot-scope="{ row }">
-        <el-checkbox v-model="row.CheckBox" style="pointer-events: none" />
+        <el-checkbox
+          :disable="!data.isAdd"
+          v-model="row.CheckBox"
+          style="pointer-events: none"
+        />
       </template>
 
-      <template v-if="data.isAdd" slot="column-header-button">
-        <el-button  class="icon-btn icon-btn" type="primary" @click="Add()">
+      <template slot="column-header-btn">
+        <el-button class="icon-btn icon-btn" type="primary" @click="Add()">
           <i class="el-icon-plus"></i
         ></el-button>
       </template>
-      <template v-if="data.isAdd" slot="column-content-button" slot-scope="{ row }">
-        <el-button  class="icon-btn icon-btn" type="warning" @click="Edit()">
+      <template slot="column-content-btn" slot-scope="{ row }">
+        <el-button class="icon-btn icon-btn" type="warning" @click="Edit(row)">
           <i class="el-icon-edit"></i
         ></el-button>
-      
       </template>
     </TablePaging>
 
@@ -31,7 +34,11 @@ import GetDataAPI from "~/assets/scripts/GetDataAPI";
 import { Para } from "~/assets/scripts/Para";
 import TablePaging from "~/assets/scripts/base/TablePaging";
 import Fixed_Asset_Manager_Detail from "~/assets/scripts/objects/fixed_assets/Fixed_Asset_Manager_Detail";
-
+import {
+  MessageType,
+  ShowConfirm,
+  ShowMessage,
+} from "~/assets/scripts/Functions";
 import TablePagingCol from "~/assets/scripts/base/TablePagingCol";
 import DefaultForm from "~/assets/scripts/base/DefaultForm";
 
@@ -41,13 +48,18 @@ export default {
   },
   data() {
     return {
+      isAdd: null,
+      // colAdd: []
       form: new DefaultForm({
         obj: new Fixed_Asset_Manager_Detail(),
         title: "",
         visible: false,
         width: "500px",
+        appendtobody: true,
+
         ShowForm: (title, isAdd, obj) => {
           this.isAdd = isAdd;
+          this.title = title;
           var _app = this;
           // var obj = null;
           // if (!isAdd) {
@@ -57,16 +69,37 @@ export default {
           //     return;
           //   }
           // }
-          this.form.title = title;
-          this.form.obj = new Fixed_Asset_Manager_Detail({
+          _app.form.title = title;
+          _app.form.obj = new Fixed_Asset_Manager_Detail({
             ...obj,
-            From_Department_id: this.data.Info.From_Department_id,
-            From_Office_id: this.data.Info.From_Office_id,
+            Fixed_Asset_Manager_Id: _app.data.iFixed_Asset_Manager_id,
+            From_Department_id: _app.data.Info.From_Department_id,
+            From_Office_id: _app.data.Info.From_Office_id,
+            table: _app.tp_detail.data,
           });
-          this.form.visible = true;
+          _app.form.visible = true;
         },
         Save: () => {
-          this.Save();
+          var _app = this;
+          _app.$refs.form.getValidate().then((re) => {
+            if (!re) {
+              ShowMessage("Vui lòng nhập đầy đủ thông tin!", MessageType.error);
+              return;
+            } else {
+              GetDataAPI({
+                url: _app.isAdd
+                  ? API.Manager_Add_Detail
+                  : API.Manager_Edit_Detail,
+                params: _app.form.obj.toJSON(),
+                method: "post",
+                action: (re) => {
+                  _app.LoadDetail();
+                  ShowMessage("Lưu thành công", "success");
+                  _app.form.visible = false;
+                },
+              });
+            }
+          });
         },
       }),
       obj: new Fixed_Asset_Manager_Detail(),
@@ -75,7 +108,10 @@ export default {
         disableSelectRow: true,
         LoadDataSuccess: (re) => {
           re.forEach((p) => {
-            p.CheckBox = false;
+            if (this.data.isAdd) p.CheckBox = false;
+            else {
+              p.CheckBox = true;
+            }
           });
         },
         clickRow: (row) => {
@@ -99,7 +135,7 @@ export default {
           new TablePagingCol({
             title: "Mã tài sản",
             data: "Code",
-            min_width: 100,
+            min_width: 150,
             // width: "auto",
             sortable: false,
           }),
@@ -119,28 +155,41 @@ export default {
           // }),
           new TablePagingCol({
             title: "Loại",
-            data: "Type_id",
+            data: this.data.isAdd ? "Type_id" : "Type",
             min_width: 150,
             sortable: false,
-            formatter: (value) => Para.fixed_asset_type_Get_List.getName(value),
+            formatter: (value) => {
+              return this.data.isAdd
+                ? Para.fixed_asset_type_Get_List.getName(value)
+                : value;
+            },
           }),
 
           new TablePagingCol({
             title: "Tình trạng",
-            data: "State",
-            min_width: 150,
+            data: this.data.isAdd ? "State" : "Fixed_State",
+            // data: "",
+            min_width: 100,
             sortable: false,
             formatter: (value) =>
               Para.fixed_asset_state_Get_List.getName(value),
           }),
           new TablePagingCol({
-            // title: "Tình trạng",
-            data: "btn",
+            title: "Mô tả",
+            data: this.data.isAdd ? "Note" : "Description",
             min_width: 150,
             sortable: false,
-            align: "center",
-            fix: "right",
           }),
+          !this.data.isAdd
+            ? new TablePagingCol({
+                // title: "Tình trạng",
+                data: "btn",
+                min_width: 100,
+                sortable: false,
+                // align: "center",
+                fix: "right",
+              })
+            : null,
         ],
       }),
     };
@@ -149,7 +198,7 @@ export default {
     "data.Info.From_Department_id": {
       handler: function (n, o) {
         // console.log(this);
-        if (n && this.data.isAdd) this.LoadTable();
+        if (n) this.LoadTable();
       },
       deep: true,
     },
@@ -157,36 +206,44 @@ export default {
     "data.Info.From_Office_id": {
       handler: function (n, o) {
         // console.log(this);
-        if (n && this.data.isAdd) this.LoadTable();
+        if (n) this.LoadTable();
       },
       deep: true,
     },
   },
   methods: {
-    Edit(){},
-    Add() {},
+    Edit(row) {
+      this.form.ShowForm("Sửa tài sản luân chuyển", false, row);
+    },
+    Add() {
+      this.form.ShowForm("Thêm tài sản luân chuyển", true, {});
+    },
     CheckItem(item) {
-      item.CheckBox = !item.CheckBox;
-      if (item.CheckBox) {
-        // Clone this.obj to avoid reference issues
-        const newObj = { ...this.obj };
-        newObj.Fixed_State = item.State;
-        newObj.Fixed_Asset_id = item.Id;
-        newObj.Name = item.Name;
+      if (this.data.isAdd) {
+        item.CheckBox = !item.CheckBox;
+        if (item.CheckBox) {
+          // Clone this.obj to avoid reference issues
+          const newObj = { ...this.obj };
+          newObj.Fixed_State = item.State;
+          newObj.Fixed_Asset_id = item.Id;
+          newObj.Name = item.Name;
 
-        this.data.Details.push(newObj);
-      } else {
-        if (this.data.isAdd) {
-          // Assign the filtered result back to this.data.Details
-          this.data.Details = this.data.Details.filter(
-            (p) => p.Fixed_Asset_id !== item.Id
-          );
+          this.data.Details.push(newObj);
         } else {
-          this.data.Details = this.data.Details.filter((p) => p.Id !== item.Id);
+          if (this.data.isAdd) {
+            // Assign the filtered result back to this.data.Details
+            this.data.Details = this.data.Details.filter(
+              (p) => p.Fixed_Asset_id !== item.Id
+            );
+          } else {
+            this.data.Details = this.data.Details.filter(
+              (p) => p.Id !== item.Id
+            );
+          }
         }
       }
 
-      console.log(this.data.Details);
+      // console.log(this.data.Details);
     },
     LoadData() {
       this.$refs.tp_detail.LoadData();
@@ -199,12 +256,13 @@ export default {
           Store_id: this.data.Info.From_Department_id,
         },
         action: (re) => {
+          // if(this.data.isAdd)
           this.tp_detail.data = re;
           this.LoadData();
         },
       });
     },
-    LoadDetail(){
+    LoadDetail() {
       GetDataAPI({
         url: API.Manager_GetDetail,
         params: {
@@ -216,11 +274,14 @@ export default {
           this.LoadData();
         },
       });
-    }
+    },
   },
 
   mounted() {
-    console.log(this);
+    // console.log(this);
+    if (!this.data.isAdd) {
+      this.LoadDetail();
+    }
   },
 };
 </script>

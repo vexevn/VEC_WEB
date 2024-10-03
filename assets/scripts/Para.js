@@ -249,7 +249,7 @@ export var Para = {
     data: [],//API.Get_Procurement_Methods,
     // value: 'Info.Id',
     // label: 'Info.Name',
-    labelFormat:(item) => item.Code + " " + item.Name,
+    // labelFormat:(item) => item.Code + " " + item.Name,
 
     placeholder: 'Chưa được chọn'
   }),

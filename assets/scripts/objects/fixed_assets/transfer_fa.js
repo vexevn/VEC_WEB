@@ -34,6 +34,8 @@ export default class transfer_fa {
         model: "Info.From_Office_id",
         type: FormElementType.select,
         labelWidth: 130,
+        required: true,
+        disabled: this.isAdd ? false : true,
         options: Para.Para_Office,
         watch(data) {
           // console.log("data.Info.FromMangerId", data.Info.FromMangerId);
@@ -44,12 +46,18 @@ export default class transfer_fa {
         label: "Văn phòng nhận",
         model: "Info.To_Office_id",
         type: FormElementType.select,
-        labelWidth: 120,
+        // labelWidth: 120,
         options: Para.Para_Office,
+        required: true,
+        watch(data){
+        }
+
       }),
       From_Department_id: new FormElement({
+        // required: true,
         label: "Phòng ban chuyển",
         model: "Info.From_Department_id",
+        disabled: this.isAdd ? false : true,
         type: FormElementType.select,
         labelWidth: 130,
         watch(data, n, o, t) {
@@ -66,7 +74,7 @@ export default class transfer_fa {
           return new SelectOption({
             data: data.Info.From_Office_id ? API.dm_department_Get_List : [],
             params: {
-              iOffice_id: data.From_Office_id,
+              iOffice_id: data.Info.From_Office_id,
             },
             // multiple: true,
           });
@@ -76,13 +84,15 @@ export default class transfer_fa {
         label: "Phòng ban nhận",
         model: "Info.To_Department_Id",
         type: FormElementType.select,
+        // required: true,
+
         options(data) {
-          // const arr = [data.Office_id];
-          // console.log(arr);
+          console.log('data.Info.To_Office_id',data.Info.To_Office_id)
+
           return new SelectOption({
             data: data.Info.To_Office_id ? API.dm_department_Get_List : [],
             params: {
-              iOffice_id: data.To_Office_id,
+              iOffice_id: data.Info.To_Office_id,
             },
             // multiple: true,
           });
@@ -113,7 +123,7 @@ export default class transfer_fa {
         model: "Info.FromMangerId",
         type: FormElementType.text,
 
-        labelWidth: 110,
+        labelWidth: 130,
         // options: Para.Para_Account,
         disabled: true,
         // watch(data){
@@ -124,7 +134,7 @@ export default class transfer_fa {
         label: "Người quản lý",
         model: "Info.ToMangerId",
         type: FormElementType.text,
-        labelWidth: 120,
+        labelWidth: 125,
         // options: Para.Para_Account,
         disabled: true,
       }),
@@ -143,12 +153,12 @@ export default class transfer_fa {
               direction: FormDirectionType.vertical,
 
               child: [
-                new FormElement({
-                  child: [
-                    this._formElements.From_Office_id,
-                    this._formElements.From_Department_id,
-                  ],
-                }),
+                // new FormElement({
+                //   child: [
+                this._formElements.From_Office_id,
+                this._formElements.From_Department_id,
+                //   ],
+                // }),
 
                 this._formElements.FromMangerId,
               ],
@@ -157,12 +167,12 @@ export default class transfer_fa {
               direction: FormDirectionType.vertical,
 
               child: [
-                new FormElement({
-                  child: [
-                    this._formElements.To_Office_id,
-                    this._formElements.To_Department_Id,
-                  ],
-                }),
+                // new FormElement({
+                //   child: [
+                this._formElements.To_Office_id,
+                this._formElements.To_Department_Id,
+                //   ],
+                // }),
                 this._formElements.ToMangerId,
               ],
             }),
@@ -185,6 +195,10 @@ export default class transfer_fa {
     return {
       ...this,
       _formElements: undefined,
+      table: undefined,
+      From_Department_id: undefined,
+      From_Office_id: undefined
+
     };
   }
 }
