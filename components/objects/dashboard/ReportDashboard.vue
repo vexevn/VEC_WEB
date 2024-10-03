@@ -10,7 +10,7 @@
         <span>{{ data.Total_Office }}</span>
       </div>
       <div  style="background-color: #DAA520;">
-        <span>Loại tài sản </span>
+        <span>Nhóm tài sản </span>
         <span>{{ data.Total_Type }}</span>
       </div>
     </div>
@@ -22,7 +22,7 @@
       <div class="type" style="text-align: center">
         <!-- <p></p> -->
 
-        <VueChart type="pie" :chartTitle="'Thống kê tài sản loại tài sản'" :chartData="LoadData(data.Types || [])" />
+        <VueChart type="pie" :chartTitle="'Thống kê tài sản Nhóm tài sản'" :chartData="LoadData(data.Types || [])" />
       </div>
     </div>
   </div>

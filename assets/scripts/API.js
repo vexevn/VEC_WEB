@@ -194,6 +194,12 @@ export default {
   Ware_house_Edit: linkAPI + "Ware_house/Edit",
   Ware_house_Delete: linkAPI + "Ware_house/Delete",
 
+
+  fixed_asset_group_Get_List: linkAPI + "fixed_asset_group/Get_List",
+  fixed_asset_group_Add: linkAPI + "fixed_asset_group/Add",
+  fixed_asset_group_Edit: linkAPI + "fixed_asset_group/Edit",
+  fixed_asset_group_Delete: linkAPI + "fixed_asset_group/Delete",
+
   fixed_asset_Get_List_Individual: linkAPI + "fixed_asset/Get_List_Individual",
   fixed_asset_Get_List: linkAPI + "fixed_asset/Get_List",
   fixed_asset_Add: linkAPI + "fixed_asset/Add",

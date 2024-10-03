@@ -201,7 +201,7 @@ export default class Fixed_Asset_Inventory {
         disabled: true
       }),
       Fixed_Model: new FormElement({
-        label: "Model",
+        label: "Chủng loại",
         model: "Fixed_Model",
         type: FormElementType.text,
         disabled: true

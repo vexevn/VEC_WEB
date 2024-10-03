@@ -5,6 +5,7 @@ import dm_vehicle_Type from "./dm_vehicle_Type";
 import dm_department from "./dm_department";
 import fixed_asset_state from "./fixed_asset_state";
 import fixed_asset_type from "./fixed_asset_type";
+import fixed_asset_group from "./fixed_asset_group";
 import producer from "./producer";
 import purchase from "./purchase";
 import ware_house from "./ware_house";
@@ -18,6 +19,7 @@ import Account from "./Account";
 
 export default {
   fixed_asset_type: fixed_asset_type,
+  fixed_asset_group: fixed_asset_group,
   fixed_asset_state: fixed_asset_state,
   producer: producer,
   purchase: purchase,

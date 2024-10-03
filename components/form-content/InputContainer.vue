@@ -15,6 +15,10 @@
           v-html="label"
         ></span>
       </slot>
+
+      <slot name="btn">
+      
+      </slot>
     </div>
     <slot></slot>
   </div>

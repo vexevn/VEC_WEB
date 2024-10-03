@@ -253,6 +253,14 @@ export var Para = {
 
     placeholder: 'Chưa được chọn'
   }),
+  fixed_asset_group_Get_List: new SelectOption({
+    data: [],//API.Get_Procurement_Methods,
+    // value: 'Info.Id',
+    // label: 'Info.Name',
+    // labelFormat:(item) => item.Code + " " + item.Name,
+
+    placeholder: 'Chưa được chọn'
+  }),
   fixed_asset_state_Get_List: new SelectOption({
     data: [],//API.Get_Procurement_Methods,
     // value: 'Info.Id',

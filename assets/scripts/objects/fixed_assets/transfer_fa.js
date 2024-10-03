@@ -29,6 +29,63 @@ export default class transfer_fa {
   update(obj) {
     Object.assign(this, obj);
     this._formElements = {
+      DateCreate: new FormElement({
+        label: "Ngày lập phiếu",
+        model: "Info.DateCreate",
+        type: FormElementType.datePicker,
+        labelWidth: 110,
+        // options: Para.Para_Account,
+        disabled: true,
+        col:11,
+      }),
+      UserCreate: new FormElement({
+        label: "Người lập phiếu",
+        model: "Info.UserCreate",
+        type: FormElementType.select,
+        labelWidth: 130,
+        disabled: true,
+        options: Para.Para_Account.set(p=>p.placeholder=''),
+
+        // col:11,
+      }),
+      Approved_Date: new FormElement({
+        label: "Ngày duyệt",
+        model: "Info.Approved_Date",
+        type: FormElementType.datePicker,
+        labelWidth: 90,
+        // options: Para.Para_Account,
+        required: true,
+        disabled: true,
+
+        col:10,
+      }),
+      Approved_User: new FormElement({
+        label: "Người duyệt",
+        model: "Info.Approved_User",
+        type: FormElementType.select,
+        labelWidth: 130,
+        options: Para.Para_Account.set(p=>p.placeholder=''),
+        disabled: true,
+        // col:11,
+      }),
+
+      Start_Date: new FormElement({
+        label: "Ngày chuyển",
+        model: "Info.Start_Date",
+        type: FormElementType.datePicker,
+        labelWidth: 100,
+        required: true,
+        col: 11,
+      }),
+
+      Receive_date: new FormElement({
+        label: "Ngày nhận",
+        model: "Info.Receive_date",
+        type: FormElementType.datePicker,
+        labelWidth: 90,
+        required: true,
+        col: 10,
+      }),
       From_Office_id: new FormElement({
         label: "Văn phòng chuyển",
         model: "Info.From_Office_id",
@@ -49,9 +106,7 @@ export default class transfer_fa {
         // labelWidth: 120,
         options: Para.Para_Office,
         required: true,
-        watch(data){
-        }
-
+        watch(data) {},
       }),
       From_Department_id: new FormElement({
         // required: true,
@@ -87,7 +142,7 @@ export default class transfer_fa {
         // required: true,
 
         options(data) {
-          console.log('data.Info.To_Office_id',data.Info.To_Office_id)
+          console.log("data.Info.To_Office_id", data.Info.To_Office_id);
 
           return new SelectOption({
             data: data.Info.To_Office_id ? API.dm_department_Get_List : [],
@@ -119,7 +174,7 @@ export default class transfer_fa {
       }),
 
       FromMangerId: new FormElement({
-        label: "Người quản lý",
+        label: "Người giao",
         model: "Info.FromMangerId",
         type: FormElementType.text,
 
@@ -131,7 +186,7 @@ export default class transfer_fa {
         // }
       }),
       ToMangerId: new FormElement({
-        label: "Người quản lý",
+        label: "Người nhận",
         model: "Info.ToMangerId",
         type: FormElementType.text,
         labelWidth: 125,
@@ -160,7 +215,25 @@ export default class transfer_fa {
                 //   ],
                 // }),
 
-                this._formElements.FromMangerId,
+                new FormElement({
+                  child: [
+                    this._formElements.FromMangerId.set((p) => (p.col = 18)),
+
+                    // this._formElements.Deli_user.set((p) => (p.col = 18)),
+
+                    this._formElements.Start_Date,
+                  ],
+                }),
+
+                new FormElement({
+                  child: [
+                    this._formElements.UserCreate.set((p) => (p.col = 18)),
+
+                    // this._formElements.Deli_user.set((p) => (p.col = 18)),
+
+                    this._formElements.DateCreate,
+                  ],
+                }),
               ],
             }),
             new FormElement({
@@ -173,7 +246,26 @@ export default class transfer_fa {
                 this._formElements.To_Department_Id,
                 //   ],
                 // }),
-                this._formElements.ToMangerId,
+                // this._formElements.ToMangerId,
+
+                new FormElement({
+                  child: [
+                    this._formElements.ToMangerId.set((p) => (p.col = 19)),
+
+                    // this._formElements.Receive_user,
+
+                    this._formElements.Receive_date,
+                  ],
+                }),
+                new FormElement({
+                  child: [
+                    this._formElements.Approved_User.set((p) => (p.col = 19)),
+
+                    // this._formElements.Receive_user,
+
+                    this._formElements.Approved_Date,
+                  ],
+                }),
               ],
             }),
           ],
@@ -197,8 +289,7 @@ export default class transfer_fa {
       _formElements: undefined,
       table: undefined,
       From_Department_id: undefined,
-      From_Office_id: undefined
-
+      From_Office_id: undefined,
     };
   }
 }

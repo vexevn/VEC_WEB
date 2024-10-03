@@ -89,6 +89,7 @@
             ref="entry"
             v-model.lazy="elementValue"
             :disabled="disabled"
+            :placeholder="model.attr.placeholder || ''"
           />
 
           <el-date-picker
@@ -124,6 +125,31 @@
             :disabled="disabled"
             v-on="model.events"
           />
+
+          <template v-slot:btn v-if="model.attr.qrcode">
+            <button
+              v-if="formInfo.formData.Code || formInfo.formData.QRCode"
+              style="
+                margin-top: 5px;
+                padding: 5px 7px;
+                background-color: #409eff;
+                border: 0;
+                border-radius: 5px;
+                color: white;
+                cursor: pointer;
+              "
+              @click="printQRCode"
+            >
+              <i class="fa fa-print" aria-hidden="true"></i>
+            </button>
+            <div style="display: none">
+              <qrcode-vue
+                :value="elementValue || ''"
+                :size="200"
+                ref="qrcodeRef"
+              />
+            </div>
+          </template>
         </InputContainer>
         <!-- @blur="$emit('blur', model, formInfo)" -->
         <!-- <div>{{ model.model }}</div> -->
@@ -262,6 +288,7 @@
 </template>
 <script>
 import moment from "moment";
+import QrcodeVue from "qrcode.vue";
 
 import DatePickerOption from "~/assets/scripts/base/DatePickerOption";
 import {
@@ -278,6 +305,9 @@ import {
 } from "~/assets/scripts/Functions";
 
 export default {
+  components: {
+    QrcodeVue,
+  },
   props: {
     model: Object,
     formInfo: Object,
@@ -285,6 +315,7 @@ export default {
   },
   data() {
     return {
+      qrValue: "",
       elementValue: "",
       isLoaded: true,
       validateStr: "",
@@ -292,6 +323,55 @@ export default {
     };
   },
   methods: {
+    printQRCode() {
+      console.log("print", this);
+
+      // this.qrValue = this.elementValue;
+      // if (!this.elementValue && this.elementValue != "") {
+      //   const value = resolve(this.formInfo.formData, "Code");
+      //   this.qrValue  = value || "";
+      // }
+
+      const qrcode = this.$refs.qrcodeRef;
+      if (!this.elementValue) {
+        qrcode.value = resolve(this.formInfo.formData, "Code") || "";
+      }
+      console.log(qrcode.value);
+
+      this.$nextTick(() => {
+        const qrcodeElement = qrcode.$el.querySelector("canvas");
+
+        // this.$emit('printQRCode',qrcodeElement)
+
+        const imageURL = qrcodeElement.toDataURL("image/png");
+        const newWindow = window.open("", "_blank");
+        const image = new Image();
+        image.src = imageURL;
+
+        newWindow.document.body.appendChild(image);
+
+        // Thêm CSS để hiển thị mã QR khi in
+        const style = newWindow.document.createElement("style");
+        style.textContent = `
+ 
+  @media screen {
+    img {
+      display: none ;
+    }
+  }
+`;
+        newWindow.document.head.appendChild(style);
+
+        image.onload = () => {
+          newWindow.document.close();
+          newWindow.focus();
+          newWindow.print();
+          newWindow.close();
+        };
+      });
+
+      // return;
+    },
     isCustom() {
       let typeObj = FormElementType;
       return !typeObj[this.model.type];
@@ -400,8 +480,8 @@ export default {
         }
       }
 
-      if (this.IsDatePicker() && !this.model.attr.disabledCrDate ) {
-        if (   IsAfterDate(this.elementValue, new Date()) ) {
+      if (this.IsDatePicker() && !this.model.attr.disabledCrDate) {
+        if (IsAfterDate(this.elementValue, new Date())) {
           return "Không được nhập quá ngày hiện tại";
         }
       }
@@ -527,7 +607,7 @@ export default {
       if (this.GetModelValue() == "") this.SetModelValue("");
       //console.log("xxx");
     }
-   
+
     //   this.model.
     //   this.formInfo.
     if (this.model.model) {

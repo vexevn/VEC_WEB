@@ -180,7 +180,7 @@ export default class fixed_assets {
         labelWidth: 135,
       }),
       Type_id: new FormElement({
-        label: "Loại tài sản",
+        label: "Nhóm tài sản",
         model: "Type_id",
         type: FormElementType.select,
         options: Para.fixed_asset_type_Get_List,
@@ -205,7 +205,7 @@ export default class fixed_assets {
         type: FormElementType.text,
       }),
       Model: new FormElement({
-        label: "Model",
+        label: "Chủng loại",
         model: "Model",
         type: FormElementType.text,
       }),
@@ -215,9 +215,10 @@ export default class fixed_assets {
         type: FormElementType.text,
       }),
       Purchase_Date: new FormElement({
-        label: "Ngày mua",
+        label: "Ngày tính bảo hành",
         model: "Purchase_Date",
         type: FormElementType.date,
+        labelWidth: 135,
         required: true,
         disabled(data) {
           if (data.Ware_house_id) return true;
@@ -392,19 +393,22 @@ export default class fixed_assets {
         child: [
           new FormElement({
             model: "Estimated_Life_Min",
+            attr:{
+              placeholder: "MM"
+            },
             type: FormElementType.number,
           }),
-          new FormElement({
-            class: "Es_md",
-            label: "-",
-            type: FormElementType.label,
-            col: 2,
-          }),
-          new FormElement({
-            model: "Estimated_Life_Max",
-            class: "esMax",
-            type: FormElementType.number,
-          }),
+          // new FormElement({
+          //   class: "Es_md",
+          //   label: "-",
+          //   type: FormElementType.label,
+          //   col: 2,
+          // }),
+          // new FormElement({
+          //   model: "Estimated_Life_Max",
+          //   class: "esMax",
+          //   type: FormElementType.number,
+          // }),
         ],
       }),
       Estimated_Life_Max: new FormElement({
@@ -587,6 +591,7 @@ export default class fixed_assets {
         attr: {
           type: "textarea",
           rows: 4,
+          qrcode: true
         },
         col: 8,
       }),
@@ -775,8 +780,8 @@ export default class fixed_assets {
                 new FormElement({
                   child: [
                     this._formElements.Warranty_Period.set((p) => (p.col = 6)),
-                    this._formElements.Purchase_Date.set((p) => (p.col = 5)),
                     this._formElements.Date_disposal.set((p) => (p.col = 6)),
+                    this._formElements.Purchase_Date.set((p) => (p.col = 6)),
                     // this._formElements.QRCode.set((p) => (p.col = 6)),
                   ],
                 }),

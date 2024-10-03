@@ -103,7 +103,7 @@ export default {
             sortable: false,
           }),
           new TablePagingCol({
-            title: "Model",
+            title: "Chủng loại",
             data: "Model",
             min_width: 150,
             sortable: false,
@@ -123,13 +123,13 @@ export default {
             formatter: "date",
           }),
 
-          new TablePagingCol({
-            // title: "Accounting voucher no./General ledger code",
-            title: "Số chứng từ kế toán/Mã số sổ cái",
-            data: "Invoice_code",
-            min_width: 200,
-            sortable: false,
-          }),
+          // new TablePagingCol({
+          //   // title: "Accounting voucher no./General ledger code",
+          //   title: "Số chứng từ kế toán/Mã số sổ cái",
+          //   data: "Invoice_code",
+          //   min_width: 200,
+          //   sortable: false,
+          // }),
           // new TablePagingCol({
           //   title: "Unit Cost",
           //   data: "Unit_cost",

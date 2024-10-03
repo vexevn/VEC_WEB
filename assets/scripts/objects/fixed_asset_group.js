@@ -11,8 +11,6 @@ export default class dm_fixed_asset_type {
   /** @type {number} - description */
   Sequency;
   /** @type {number} - description */
-  group_id;
-  /** @type {number} - description */
   Id;
   /** @type {string} - description */
   DateUpdate;
@@ -29,12 +27,6 @@ export default class dm_fixed_asset_type {
       label: "Tên",
       model: "Name",
       type: FormElementType.text,
-    }),
-    group_id: new FormElement({
-      label: "Nhóm",
-      model: "group_id",
-      type: FormElementType.select,
-      options: Para.fixed_asset_group_Get_List,
     }),
     Code: new FormElement({
       label: "Mã",
@@ -107,7 +99,7 @@ export default class dm_fixed_asset_type {
         this._formElements.Sequency,
         this._formElements.Code,
         this._formElements.Name,
-        this._formElements.group_id,
+        // this._formElements.Use,
 
       ]
     });
