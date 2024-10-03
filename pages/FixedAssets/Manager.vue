@@ -218,6 +218,12 @@ export default {
           ShowMessage("Vui lòng nhập đầy đủ thông tin!", MessageType.error);
           return;
         } else {
+          if(!this.form.obj.toJSON().Info.To_Department_Id) {
+            this.form.obj.toJSON().Info.To_Department_Id = 0
+          }
+          if(!this.form.obj.toJSON().Info.From_Department_id) {
+            this.form.obj.toJSON().Info.From_Department_id = 0
+          }
           GetDataAPI({
             url: this.isAdd ? API.Manager_Add : API.Manager_Edit,
             params:this.isAdd ?  this.form.obj.toJSON() : this.form.obj.toJSON().Info,
