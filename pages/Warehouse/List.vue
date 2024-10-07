@@ -224,7 +224,7 @@ export default {
             formatter: (value) => Para.producer_Get_List.getName(value),
           }),
           new TablePagingCol({
-            title: "Model",
+            title: "Chủng loại",
             data: "Model",
             min_width: 150,
             sortable: false,
@@ -297,7 +297,7 @@ export default {
             formatter: (value) => Para.producer_Get_List.getName(value),
           }),
           new TablePagingCol({
-            title: "Model",
+            title: "Chủng loại",
             data: "Model",
             min_width: 150,
             sortable: false,

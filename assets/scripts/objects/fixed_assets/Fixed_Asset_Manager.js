@@ -35,7 +35,16 @@ export default class Fixed_Asset_Manager {
 
   FromMangerId;
   ToMangerId;
-
+  /** @type {number} - description */
+  Id;
+  /** @type {string} - description */
+  DateUpdate;
+  /** @type {string} - description */
+  DateCreate;
+  /** @type {string} - description */
+  UserCreate;
+  /** @type {string} - description */
+  UserUpdate;
   // formE()
 
   form() {
@@ -77,7 +86,6 @@ export default class Fixed_Asset_Manager {
    */
   constructor(obj) {
     this.update(obj);
-    
   }
   /**
    *

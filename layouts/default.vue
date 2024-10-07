@@ -143,6 +143,15 @@ export default {
                         },
                     });
                 });
+                let Para_fixed_asset_group_Get_List = new Promise((rs) => {
+                    GetDataAPI({
+                        url: API.fixed_asset_group_Get_List,
+                        action: (re) => {
+                            Para.fixed_asset_group_Get_List.data = re;
+                            rs();
+                        },
+                    });
+                });
                 let Para_producer_Get_List = new Promise((rs) => {
                     GetDataAPI({
                         url: API.producer_Get_List,
@@ -199,6 +208,7 @@ export default {
                     Para_Project_Code,
                     Para_Get_Procurement_Methods,
                     Para_fixed_asset_type_Get_List,
+                    Para_fixed_asset_group_Get_List,
                     Para_producer_Get_List,
                     Para_store_Get_List,
                     Para_VehicleType,

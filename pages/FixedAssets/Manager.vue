@@ -1,5 +1,5 @@
 <template>
-  <div style="height: 100%">
+  <div style="height: 100%; overflow: hidden">
     <TablePaging ref="tp" :model="tp">
       <template slot="btn">
         <el-button
@@ -27,12 +27,42 @@
         ></el-button>
       </template>
 
-      <template slot="column-content-From_Department_id" slot-scope="{ row }">
-        {{ store.getName(Number(row.From_Department_id)) }}
+      <template slot="column-content-cn" slot-scope="{ row }">
+        <div>
+          <p>{{ Para.Para_Office.getName(row.From_Office_id) }}</p>
+          <p>{{ store.getName(Number(row.From_Department_id)) }}</p>
+          <p>
+            {{
+              Para.Para_Account.getName(
+                store
+                  .set((p) => {
+                    p.label = "Manager_id";
+                  })
+                  .getName(Number(row.From_Department_id))
+              )
+            }}
+          </p>
+        </div>
       </template>
-      <template slot="column-content-To_Department_Id" slot-scope="{ row }">
-        {{ store.getName(Number(row.To_Department_Id)) }}
+      <template slot="column-content-bn" slot-scope="{ row }">
+        <div>
+          <p>{{ Para.Para_Office.getName(row.To_Office_id) }}</p>
+          <p>{{ store.getName(Number(row.To_Department_Id)) }}</p>
+          <p>
+            {{
+              Para.Para_Account.getName(
+                store
+                  .set((p) => {
+                    p.label = "Manager_id";
+                  })
+                  .getName(Number(row.To_Department_Id))
+              )
+            }}
+          </p>
+        </div>
       </template>
+
+  
 
       <template slot="column-content-button" slot-scope="{ row }">
         <div style="display: flex; justify-content: space-between">
@@ -111,7 +141,7 @@ export default {
         visible: false,
         // type: "dialog",
         fullscreen: true,
-        title: "Chuyển nhượng tài sản",
+        title: "Chuyển giao tài sản",
         ShowForm: (title, isAdd, obj) => {
           this.isAdd = isAdd;
 
@@ -141,45 +171,67 @@ export default {
         cols: [
           new TablePagingCol({ title: "STT", data: "SttTP", min_width: 65 }),
           new TablePagingCol({
-            title: "Bên chuyển nhượng",
-
+            title: "Ngày thực hiện",
+            data: "Start_Date",
+            formatter: "date",
+            min_width: 120,
+          }),
+          new TablePagingCol({
+            title: "Bên giao",
+            data: "cn",
             sortable: false,
-            children: [
-              new TablePagingCol({
-                title: "Văn phòng",
-                width: "auto",
-                min_width: 200,
-                data: "From_Office_id",
-                formatter: (value) => Para.Para_Office.getName(value),
-              }),
-              new TablePagingCol({
-                title: "Phòng ban",
-                width: "auto",
-                min_width: 150,
-                data: "From_Department_id",
-                // formatter:(value)=> this.store.getName(Number(value)),
-              }),
-            ],
+            min_width: 200,
+            width: "auto",
+            
           }),
           new TablePagingCol({
             title: "Bên nhận",
-            children: [
-              new TablePagingCol({
-                title: "Văn phòng",
-                width: "auto",
-                data: "To_Office_id",
-                min_width: 200,
-                formatter: (value) => Para.Para_Office.getName(value),
-              }),
-              new TablePagingCol({
-                title: "Phòng ban",
-                data: "To_Department_Id",
-                width: "auto",
-                min_width: 150,
-                // formatter:(value)=> this.store.getName(Number(value)),
-              }),
-            ],
+            width: "auto",
+
+            data: "bn",
+            sortable: false,
+            min_width: 200,
           }),
+          // new TablePagingCol({
+          //   title: "Bên chuyển nhượng",
+
+          //   sortable: false,
+          //   children: [
+          //     new TablePagingCol({
+          //       title: "Văn phòng",
+          //       width: "auto",
+          //       min_width: 200,
+          //       data: "From_Office_id",
+          //       formatter: (value) => Para.Para_Office.getName(value),
+          //     }),
+          //     new TablePagingCol({
+          //       title: "Phòng ban",
+          //       width: "auto",
+          //       min_width: 150,
+          //       data: "From_Department_id",
+          //       // formatter:(value)=> this.store.getName(Number(value)),
+          //     }),
+          //   ],
+          // }),
+          // new TablePagingCol({
+          //   title: "Bên nhận",
+          //   children: [
+          //     new TablePagingCol({
+          //       title: "Văn phòng",
+          //       width: "auto",
+          //       data: "To_Office_id",
+          //       min_width: 200,
+          //       formatter: (value) => Para.Para_Office.getName(value),
+          //     }),
+          //     new TablePagingCol({
+          //       title: "Phòng ban",
+          //       data: "To_Department_Id",
+          //       width: "auto",
+          //       min_width: 150,
+          //       // formatter:(value)=> this.store.getName(Number(value)),
+          //     }),
+          //   ],
+          // }),
           new TablePagingCol({
             title: "Ghi chú",
             data: "Description",
@@ -218,15 +270,17 @@ export default {
           ShowMessage("Vui lòng nhập đầy đủ thông tin!", MessageType.error);
           return;
         } else {
-          if(!this.form.obj.toJSON().Info.To_Department_Id) {
-            this.form.obj.toJSON().Info.To_Department_Id = 0
+          if (!this.form.obj.toJSON().Info.To_Department_Id) {
+            this.form.obj.toJSON().Info.To_Department_Id = 0;
           }
-          if(!this.form.obj.toJSON().Info.From_Department_id) {
-            this.form.obj.toJSON().Info.From_Department_id = 0
+          if (!this.form.obj.toJSON().Info.From_Department_id) {
+            this.form.obj.toJSON().Info.From_Department_id = 0;
           }
           GetDataAPI({
             url: this.isAdd ? API.Manager_Add : API.Manager_Edit,
-            params:this.isAdd ?  this.form.obj.toJSON() : this.form.obj.toJSON().Info,
+            params: this.isAdd
+              ? this.form.obj.toJSON()
+              : this.form.obj.toJSON().Info,
             method: "post",
             action: (re) => {
               this.LoadTable();
@@ -303,6 +357,8 @@ export default {
   mounted() {
     // console.log(this);
     // this.LoadTable();
+    this.LoadData();
+
     GetDataAPI({
       url: API.dm_department_Get_List,
       params: {

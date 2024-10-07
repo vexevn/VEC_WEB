@@ -325,7 +325,7 @@ export default {
                 sortable: false,
               }),
               new TablePagingCol({
-                title: "Ngày mua",
+                title: "Ngày tính bảo hành",
                 data: "Purchase_Date",
                 min_width: 150,
                 sortable: false,
@@ -397,7 +397,7 @@ export default {
                 sortable: false,
               }),
               new TablePagingCol({
-                title: "Model",
+                title: "Chủng loại",
                 data: "Model",
                 min_width: 150,
                 sortable: false,
@@ -410,7 +410,7 @@ export default {
                 sortable: false,
               }),
               new TablePagingCol({
-                title: "Ngày mua",
+                title: "Ngày tính bảo hành",
                 data: "Purchase_Date",
                 min_width: 130,
                 sortable: false,

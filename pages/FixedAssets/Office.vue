@@ -30,7 +30,7 @@
         :model="
           Para.fixed_asset_type_Get_List.set((p) => {
             p.label = 'Name';
-            p.placeholder = 'Loại tài sản';
+            p.placeholder = 'Nhóm tài sản';
           })
         "
       />

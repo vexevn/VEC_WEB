@@ -46,7 +46,7 @@ import API from "~/assets/scripts/API";
 import TablePaging from "~/assets/scripts/base/TablePaging";
 import TablePagingCol from "~/assets/scripts/base/TablePagingCol";
 import DefaultForm from "~/assets/scripts/base/DefaultForm";
-import dm_fixed_asset_type from "~/assets/scripts/objects/dm_fixed_asset_type";
+import dm_fixed_asset_type from "~/assets/scripts/objects/fixed_asset_group";
 import { EventBus } from "~/assets/scripts/EventBus.js";
 import GetDataAPI from "~/assets/scripts/GetDataAPI";
 import {
@@ -62,7 +62,7 @@ export default {
       isAdd: null,
       tp: new TablePaging({
         title: "Tiêu đề",
-        data: APIHelper.fixed_asset_type.GetList,
+        data: APIHelper.fixed_asset_group.GetList,
         disableSelectRow: true,
 
         cols: [
@@ -82,7 +82,7 @@ export default {
           //   formatter: (value) => Para.Para_Active.getName(value),
           // }),
           new TablePagingCol({
-            title:  "Trình tự",
+            title: "Trình tự",
             data: "Sequency",
             min_width: 120,
           }),
@@ -136,10 +136,10 @@ export default {
       this.$refs.tp.LoadData(true);
     },
     Add() {
-      this.form.ShowForm("Thêm Nhóm tài sản", true);
+      this.form.ShowForm("Thêm nhóm tài sản", true);
     },
     Edit(row) {
-      this.form.ShowForm("Sửa Nhóm tài sản", false, row);
+      this.form.ShowForm("Sửa nhóm tài sản", false, row);
     },
     Delete(row) {
       ShowConfirm({
@@ -148,7 +148,7 @@ export default {
         type: MessageType.warning,
       })
         .then(() => {
-          APIHelper.fixed_asset_type.Delete(row).then((re) => {
+          APIHelper.fixed_asset_group.Delete(row).then((re) => {
             this.LoadData();
             ShowMessage("Xóa thành công");
           });
@@ -161,14 +161,11 @@ export default {
       var _app = this;
       this.$refs.form.getValidate().then((re) => {
         if (!re) {
-          ShowMessage(
-            "Vui lòng nhập đầy đủ thông tin!",
-            MessageType.error
-          );
+          ShowMessage("Vui lòng nhập đầy đủ thông tin!", MessageType.error);
           return;
         } else {
           if (!this.form.obj.Id) {
-            APIHelper.fixed_asset_type
+            APIHelper.fixed_asset_group
               .Add(this.form.obj.toJSON())
               .then((re) => {
                 this.LoadData();
@@ -176,7 +173,7 @@ export default {
                 ShowMessage("Lưu thành công");
               });
           } else {
-            APIHelper.fixed_asset_type
+            APIHelper.fixed_asset_group
               .Edit(this.form.obj.toJSON())
               .then((re) => {
                 this.LoadData();
@@ -201,5 +198,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
