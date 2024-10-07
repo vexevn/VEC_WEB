@@ -21,8 +21,13 @@ export default class Fixed_Asset_Inventory_Filter {
 
   Office_id = 0;
 
-  FromDate = GetStartMonth();
-  ToDate = GetTimeNow();
+  ToDate = new Date();
+  /** @type {string} - description */
+  FromDate = new Date(
+    new Date().getFullYear() - 1,
+    new Date().getMonth(),
+    new Date().getDate()
+  );
   /**
    *
    * @param {Fixed_Asset_Inventory_Filter} obj
@@ -111,17 +116,16 @@ export default class Fixed_Asset_Inventory_Filter {
     });
   }
 
-
   form2() {
     return new FormInfo({
       formData: this,
-      elements: [this._formElements.Office_id,
+      elements: [
+        this._formElements.Office_id,
         this._formElements.From,
-            this._formElements.To,
+        this._formElements.To,
       ],
     });
   }
- 
 
   formInventRequest() {
     return new FormInfo({
@@ -131,6 +135,17 @@ export default class Fixed_Asset_Inventory_Filter {
         this._formElements.Office_id,
         this._formElements.From,
         this._formElements.To,
+      ],
+    });
+  }
+  form4() {
+    return new FormInfo({
+      formData: this,
+      labelWidth: 90,
+      elements: [
+        this._formElements.Office_id,
+        this._formElements.FromDate,
+        this._formElements.ToDate,
       ],
     });
   }

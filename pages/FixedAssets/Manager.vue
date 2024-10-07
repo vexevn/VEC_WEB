@@ -355,9 +355,9 @@ export default {
   },
 
   mounted() {
-    // console.log(this);
+    console.log(this);
     // this.LoadTable();
-    this.LoadData();
+    // this.LoadData();
 
     GetDataAPI({
       url: API.dm_department_Get_List,

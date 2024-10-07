@@ -253,7 +253,7 @@ export default {
         url: API.fixed_asset_Get_List,
         params: {
           Office_id: this.data.Info.From_Office_id,
-          Store_id: this.data.Info.From_Department_id,
+          Department_id: this.data.Info.From_Department_id,
         },
         action: (re) => {
           // if(this.data.isAdd)

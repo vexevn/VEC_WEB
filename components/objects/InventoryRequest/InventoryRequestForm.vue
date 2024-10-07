@@ -29,7 +29,6 @@ export default {
         tp: new TablePaging({
         isSearchEqual: true,
         // disableSelectRow: true,
-
         cols: [
           new TablePagingCol({
             data: "SttTP",
@@ -39,7 +38,7 @@ export default {
           }),
           new TablePagingCol({
             data: "Fixed_Asset_Name",
-            title: "Tên tài s",
+            title: "Tên tài sản",
             min_width: 180,
             width: "auto",
             sortable: false,

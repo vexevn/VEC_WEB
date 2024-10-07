@@ -2,7 +2,7 @@ S
 <template>
   <div style="height: 100%; display: flex">
     <div v-if="!isIndividual" style="padding: 5px 0 0 5px; height: 100%">
-      <Office @asChange="handleASChange" :obj="tp.params" />
+      <Office ref="of" @asChange="handleASChange" :obj="tp.params" />
     </div>
     <div style="width: 100%; height: 100%; overflow: auto">
       <TablePaging ref="tp" :model="tp">
@@ -297,7 +297,7 @@ export default {
       // sheet: null,
 
       tp: new TablePaging({
-        title: "Tiêu đề",
+        title: "Danh sách tài sản",
         data: [],
         disableSelectRow: true,
         params: {
@@ -810,6 +810,8 @@ export default {
           APIHelper.fixed_asset.Delete(row).then((re) => {
             this.LoadTable();
             ShowMessage("Xóa thành công");
+            this.$refs.of.LoadData();
+
           });
         })
         .catch((err) => {
@@ -848,6 +850,8 @@ export default {
               this.LoadTable();
               this.form.visible = false;
               ShowMessage("Lưu thành công");
+              this.$refs.of.LoadData();
+
             });
           } else {
             APIHelper.fixed_asset.Edit(this.form.obj.toJSON()).then((re) => {
