@@ -78,7 +78,7 @@ export default {
           new TablePagingCol({
             title: "Nhóm",
             data: "group_id",
-            min_width: 120,
+            min_width: 180,
             formatter: (value) => Para.fixed_asset_group_Get_List.getName(value),
           }),
           new TablePagingCol({
