@@ -261,7 +261,11 @@ export default {
     // }
   },
   computed: {
-
+    currentMenu() {
+      let feature = this.$route.path
+      let find = SearchTree(StoreManager.store.state.rawMenu, feature, "path");
+      return find || {};
+    },
     /**
      * @return {Array} description
      */
@@ -477,7 +481,7 @@ export default {
           });
         });
         // console.log(cols);
-        var title = _app.model.title || opt.title  || "export";
+        var title = _app.model.title || opt.title ||  'Danh sách ' + (_app.currentMenu.title || '').toLowerCase()  || "export";
         var tD = new Date();
         var ws_name = "sheet";
 
@@ -671,7 +675,7 @@ export default {
     },
   },
   mounted() {
-    console.log(this)
+    // console.log(this)
     this.LoadData();
     // //console.log(this.$refs[this.tpRef]);
     if (this.model.control) this.formControl = this.model.control(this.model);

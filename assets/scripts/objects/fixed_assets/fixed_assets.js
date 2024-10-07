@@ -148,7 +148,7 @@ export default class fixed_assets {
       }),
       Status: new FormElement({
         label: "Tình trạng tài sản",
-        model: "State",
+        model: "Status",
         required: true,
         type: FormElementType.select,
         options() {

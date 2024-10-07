@@ -114,7 +114,7 @@ export default {
     },
   },
   mounted() {
-    console.log(this.data);
+    // console.log(this.data);
 
     GetDataAPI({
       url: API.dm_Get_Tree,
@@ -124,7 +124,7 @@ export default {
         this.tree = this.processData(re);
         // this.tree = re;
         //    this.$refs.tree.setCheckedKeys(this.data.Offices)
-        console.log(this.tree);
+        // console.log(this.tree);
         this.$refs.tree.setCheckedKeys(this.data.Store);
       },
     });
