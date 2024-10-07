@@ -190,8 +190,9 @@ export default class fixed_assets {
             p.data = p.data.filter(x=> x.group_id == data.Group_id)
           })
         },
-        labelWidth: 125,
-        required: true,
+        labelWidth: 125,  
+        // required: true,
+
       }),
       Group_id: new FormElement({
         id: 'Group_id',
@@ -208,6 +209,12 @@ export default class fixed_assets {
           // if(sl){
 
           // }
+          if(data.Group_id == 3) {
+            data._formElements.Type_id.required = false
+          }else{
+            data._formElements.Type_id.required = true
+
+          }
         }
       }),
       Type_Name: new FormElement({

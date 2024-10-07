@@ -75,12 +75,12 @@ export default {
             width: "auto",
           }),
 
-          // new TablePagingCol({
-          //   title: "Use",
-          //   data: "Use",
-          //   min_width: 120,
-          //   formatter: (value) => Para.Para_Active.getName(value),
-          // }),
+          new TablePagingCol({
+            title: "Nhóm",
+            data: "group_id",
+            min_width: 180,
+            formatter: (value) => Para.fixed_asset_group_Get_List.getName(value),
+          }),
           new TablePagingCol({
             title:  "Trình tự",
             data: "Sequency",
