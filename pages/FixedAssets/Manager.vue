@@ -158,7 +158,7 @@ export default {
 
           this.form.visible = true;
 
-          console.log(this.form.obj);
+          // console.log(this.form.obj);
         },
       }),
       tp: new TablePaging({

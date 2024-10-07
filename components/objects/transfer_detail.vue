@@ -132,13 +132,14 @@ export default {
             sortable: false,
           }),
 
-          new TablePagingCol({
+          this.data.isAdd
+          ?new TablePagingCol({
             title: "Mã tài sản",
             data: "Code",
             min_width: 150,
             // width: "auto",
             sortable: false,
-          }),
+          }) : null,
           new TablePagingCol({
             title: "Tên",
             data: "Name",

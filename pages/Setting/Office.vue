@@ -60,7 +60,7 @@ export default {
     return {
       isAdd: null,
       tp: new TablePaging({
-        // title: 'Danh sách ' + (this.currentMenu.title || '').toLowerCase(),
+        // title:
 
         data: API.Get_List_Office,
         disableSelectRow: true,
@@ -212,7 +212,7 @@ export default {
     EventBus.$off("Add", this.Add);
   },
   mounted() {
-    console.log(this);
+    // console.log(this);
   },
 };
 </script>

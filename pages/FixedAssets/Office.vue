@@ -9,7 +9,6 @@
         <div
           @click="handClickOF(item)"
           class="nameOF"
-          
           :class="{
             'active-button': activeItem && activeItem.Id === item.Id,
           }"
@@ -28,6 +27,15 @@
       </div>
     </div>
     <div class="filter-input">
+      <!-- <InputSelect
+        v-model="obj.Type"
+        :model="
+          Para.fixed_asset_type_Get_List.set((p) => {
+            p.label = 'Name';
+            p.placeholder = 'Loại tài sản';
+          })
+        "
+      /> -->
       <InputSelect
         v-model="obj.Type"
         :model="
@@ -75,7 +83,7 @@ export default {
     changeAS() {
       this.$emit("asChange", this.assetnumber);
     },
-  
+
     LoadData() {
       GetDataAPI({
         url: API.Get_List_Office_Asset,
@@ -84,7 +92,6 @@ export default {
         },
       });
     },
-
   },
 
   mounted() {

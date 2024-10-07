@@ -308,6 +308,7 @@ export default {
           State: 0,
           Type: "",
           User_ID: "",
+          // Department_id: '',
         },
         cols: this.isIndividual
           ? [
@@ -417,13 +418,13 @@ export default {
                 formatter: "date",
               }),
 
-              new TablePagingCol({
-                // title: "Accounting voucher no./General ledger code",
-                title: "Số chứng từ kế toán/Mã số sổ cái",
-                data: "Invoice_code",
-                min_width: 200,
-                sortable: false,
-              }),
+              // new TablePagingCol({
+              //   // title: "Accounting voucher no./General ledger code",
+              //   title: "Số chứng từ kế toán/Mã số sổ cái",
+              //   data: "Invoice_code",
+              //   min_width: 200,
+              //   sortable: false,
+              // }),
               // new TablePagingCol({
               //   title: "Unit Cost",
               //   data: "Unit_cost",
@@ -449,8 +450,8 @@ export default {
               //   sortable: false,
               // }),
               new TablePagingCol({
-                title: "Ví trí vật lý",
-                data: "Office_Name",
+                title: "Vị trí",
+                data: "Curent_Holder_Name",
                 min_width: 150,
                 sortable: false,
               }),
@@ -475,7 +476,7 @@ export default {
               //   sortable: false,
               // }),
               new TablePagingCol({
-                title: "Số dự án",
+                title: "Mã dự án",
                 data: "Project_Code",
                 min_width: 150,
                 sortable: false,
@@ -500,6 +501,7 @@ export default {
                 data: "Estimated_Life_Min",
                 min_width: 150,
                 sortable: false,
+                formatter: 'number'
               }),
               // new TablePagingCol({
               //   title: "Date of Disposal",
@@ -632,6 +634,7 @@ export default {
           //   this.tp.params.From = "";
           //   this.tp.params.To = "";
           // }
+          // console.log('aklc')
           this.LoadTable();
         });
       },
