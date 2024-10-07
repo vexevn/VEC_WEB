@@ -60,10 +60,11 @@ export default {
     return {
       isAdd: null,
       tp: new TablePaging({
-        title: "Tiêu đề",
+        // title: 'Danh sách ' + (this.currentMenu.title || '').toLowerCase(),
+
         data: API.Get_List_Office,
         disableSelectRow: true,
-
+        // || 
         cols: [
           new TablePagingCol({ title: "SQ", data: "Sequency", min_width: 65 }),
           new TablePagingCol({
@@ -211,7 +212,7 @@ export default {
     EventBus.$off("Add", this.Add);
   },
   mounted() {
-    console.log(this.pagePermission);
+    console.log(this);
   },
 };
 </script>

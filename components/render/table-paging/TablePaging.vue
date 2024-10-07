@@ -182,11 +182,13 @@ import {
   objContainStr,
   resolve,
   s2ab,
+  SearchTree,
   sheet_from_array_of_arrays,
   ShowMessage,
   Uni2None,
   Workbook,
 } from "@/assets/scripts/Functions";
+import StoreManager from "~/assets/scripts/StoreManager";
 export default {
   name: "TablePaging",
   props: {
@@ -259,6 +261,7 @@ export default {
     // }
   },
   computed: {
+
     /**
      * @return {Array} description
      */
@@ -474,7 +477,7 @@ export default {
           });
         });
         // console.log(cols);
-        var title = _app.model.title || opt.title || "export";
+        var title = _app.model.title || opt.title  || "export";
         var tD = new Date();
         var ws_name = "sheet";
 
@@ -668,6 +671,7 @@ export default {
     },
   },
   mounted() {
+    console.log(this)
     this.LoadData();
     // //console.log(this.$refs[this.tpRef]);
     if (this.model.control) this.formControl = this.model.control(this.model);

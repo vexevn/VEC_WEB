@@ -34,9 +34,13 @@
       </template>
       <template slot="column-content-Office_Info" slot-scope="obj">
         <!-- Object.values(obj.row.Office_Info) -->
-        <div v-for="item in Object.values(obj.row.Office_Info)" :key="item">
-          {{ item ? item : "" }}
+        <div v-if="Object.values(obj.row.Office_Info).length > 0">
+          <div v-for="item in Object.values(obj.row.Office_Info)" :key="item">
+            {{ item ? item : "" }}
+          </div>
         </div>
+        <div v-else></div>
+
       </template>
 
       <template slot="column-content-buttons" slot-scope="obj">
@@ -63,7 +67,7 @@
     </TablePaging>
     <DefaultForm :model="formFilter" @actionOK="Search()">
       <div slot="content">
-        <FormInfo :model="filter.formInventRequest()" />
+        <FormInfo :model="filter.form4()" />
       </div>
     </DefaultForm>
 
@@ -125,6 +129,22 @@ export default {
           }),
 
           new TablePagingCol({
+            data: "FromDate",
+            title: "Ngày bắt đầu",
+            min_width: 110,
+            //  width: "auto",
+            sortable: false,
+            formatter: 'date'
+          }),
+          new TablePagingCol({
+            data: "ToDate",
+            title: "Ngày kết thúc",
+            min_width: 120,
+            //  width: "auto",
+            formatter: 'date',
+            sortable: false,
+          }),
+          new TablePagingCol({
             data: "Active",
             title: "Kích hoạt",
             min_width: 80,
@@ -179,10 +199,7 @@ export default {
 
           this.$refs.formIVT.$refs.form.getValidate().then((re) => {
             if (!re) {
-              ShowMessage(
-                "Vui lòng nhập đầy đủ thông tin!",
-                MessageType.error
-              );
+              ShowMessage("Vui lòng nhập đầy đủ thông tin!", MessageType.error);
               return;
             } else {
               GetDataAPI({
@@ -237,8 +254,8 @@ export default {
         url: API.GetRequest,
         params: {
           Office_id: Number(this.filter.Office_id),
-          FromDate: this.filter.From,
-          ToDate: this.filter.To,
+          FromDate: this.filter.FromDate,
+          ToDate: this.filter.ToDate,
         },
         action: (re) => {
           this.tp.data = re;

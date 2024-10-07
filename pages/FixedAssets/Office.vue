@@ -9,7 +9,7 @@
         <div
           @click="handClickOF(item)"
           class="nameOF"
-          :style="getBackgroundColor(index)"
+          
           :class="{
             'active-button': activeItem && activeItem.Id === item.Id,
           }"
@@ -17,9 +17,12 @@
           :key="item.Id"
         >
           <div class="button-content">
-            <span style="text-align: left;    font-size: 11px;
-    font-weight: 500;">{{ item.Name }}</span>
-            <span style="color: #000000;padding-left: 10px;">{{ item.Count_Asset }}</span>
+            <span style="text-align: left; font-size: 11px; font-weight: 500">{{
+              item.Name
+            }}</span>
+            <span style="color: #000000; padding-left: 10px">{{
+              item.Count_Asset
+            }}</span>
           </div>
         </div>
       </div>
@@ -72,36 +75,20 @@ export default {
     changeAS() {
       this.$emit("asChange", this.assetnumber);
     },
-    getBackgroundColor(id) {
-      // if (!this.colorsBtn[id]) {
-      //   this.$set(this.colorsBtn, id, this.getRandomColor());
-      //   localStorage.setItem("colorsBtn", JSON.stringify(this.colorsBtn));
-      // }
-      // return {
-      //   backgroundColor: this.colorsBtn[id],
-      // };
+  
+    LoadData() {
+      GetDataAPI({
+        url: API.Get_List_Office_Asset,
+        action: (re) => {
+          this.data = re;
+        },
+      });
     },
-    getRandomColor() {
-      // //   const letter = '0123456789ABCDEF';
-      // //   let color = '#'
-      // //   for (let i = 0; i < 6; i++) {
-      // //     color+= letter[Math.floor(Math.random() *  8)];
-      // // }
-      // // return color;
-      // const h = Math.floor(Math.random() * 360);
-      // const s = Math.floor(Math.random() * 50) + 50; // Saturation between 50% and 100%
-      // const l = Math.floor(Math.random() * 20) + 30; // Lightness between 30% and 50%
-      // return `hsl(${h}, ${s}%, ${l}%)`;
-    },
+
   },
 
   mounted() {
-    GetDataAPI({
-      url: API.Get_List_Office_Asset,
-      action: (re) => {
-        this.data = re;
-      },
-    });
+    this.LoadData();
   },
 };
 </script>

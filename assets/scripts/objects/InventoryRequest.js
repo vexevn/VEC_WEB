@@ -10,10 +10,12 @@ import { SelectOption } from "../base/SelectOption";
 import API from "../API";
 
 export default class InventoryRequest {
-  /** @type {string} - description */
-  From = GetStartMonth();
-  /** @type {string} - description */
-  To = GetTimeNow();
+
+    /** @type {string} - description */
+  //   To = GetTimeNow();
+  // /** @type {string} - description */
+  // From = new Date(new Date().getFullYear() - 1, new Date().getMonth(),new Date().getDate());
+
   /** @type {string} - description */
   State;
   /** @type {string} - description */
@@ -24,10 +26,12 @@ export default class InventoryRequest {
 
   /** @type {boolean} - description */
   Active = false;
+
+   /** @type {string} - description */
+   ToDate ;
   /** @type {string} - description */
   FromDate;
-  /** @type {string} - description */
-  ToDate;
+ 
 
   /**
    *
@@ -55,7 +59,8 @@ export default class InventoryRequest {
       To: new FormElement({
         label: "Đến ngày",
         model: "ToDate",
-        type: FormElementType.datePicker, attr:{
+        type: FormElementType.datePicker,
+         attr:{
           disabledCrDate: true,
         },
         validate(data){
