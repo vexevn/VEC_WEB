@@ -191,7 +191,7 @@ export default class fixed_assets {
           })
         },
         labelWidth: 125,
-        required: true,
+        // required: true,
       }),
       Group_id: new FormElement({
         id: 'Group_id',

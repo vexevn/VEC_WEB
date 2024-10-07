@@ -15,14 +15,14 @@
       </div>
     </div>
     <div class="dashboard">
-      <div class="office" style="text-align: center">
+      <div class="office">
         <!-- <p></p> -->
         <VueChart type="pie" :chartTitle="'Thống kê tài sản theo văn phòng'" :chartData="LoadData(data.Offices || [])" />
       </div>
-      <div class="type" style="text-align: center">
+      <div class="type">
         <!-- <p></p> -->
 
-        <VueChart type="pie" :chartTitle="'Thống kê tài sản Nhóm tài sản'" :chartData="LoadData(data.Types || [])" />
+        <VueChart type="pie" :chartTitle="'Thống kê tài sản nhóm tài sản'" :chartData="LoadData(data.Types || [])" />
       </div>
     </div>
   </div>

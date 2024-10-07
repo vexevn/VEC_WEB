@@ -40,6 +40,9 @@ export default {
       const newWindow = window.open("", "_blank");
       const style = newWindow.document.createElement("style");
       style.textContent = `
+      img{
+        width: 300px;
+      }
       @media screen {
         img {
           display: none; 
