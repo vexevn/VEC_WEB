@@ -36,7 +36,7 @@ export default class transfer_fa {
         labelWidth: 110,
         // options: Para.Para_Account,
         disabled: true,
-        col:11,
+        col: 11,
       }),
       UserCreate: new FormElement({
         label: "Người lập phiếu",
@@ -44,7 +44,7 @@ export default class transfer_fa {
         type: FormElementType.select,
         labelWidth: 130,
         disabled: true,
-        options: Para.Para_Account.set(p=>p.placeholder=''),
+        options: Para.Para_Account.set((p) => (p.placeholder = "")),
 
         // col:11,
       }),
@@ -57,14 +57,14 @@ export default class transfer_fa {
         required: true,
         disabled: true,
 
-        col:10,
+        col: 10,
       }),
       Approved_User: new FormElement({
         label: "Người duyệt",
         model: "Info.Approved_User",
         type: FormElementType.select,
-        labelWidth: 130,
-        options: Para.Para_Account.set(p=>p.placeholder=''),
+        labelWidth: 125,
+        options: Para.Para_Account.set((p) => (p.placeholder = "")),
         disabled: true,
         // col:11,
       }),
@@ -76,6 +76,9 @@ export default class transfer_fa {
         labelWidth: 100,
         required: true,
         col: 11,
+        attr: {
+          disabledCrDate: true,
+        },
       }),
 
       Receive_date: new FormElement({
@@ -85,6 +88,9 @@ export default class transfer_fa {
         labelWidth: 90,
         required: true,
         col: 10,
+        attr: {
+          disabledCrDate: true,
+        },
       }),
       From_Office_id: new FormElement({
         label: "Văn phòng chuyển",
