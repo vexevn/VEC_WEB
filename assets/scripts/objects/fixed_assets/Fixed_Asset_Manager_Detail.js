@@ -63,7 +63,7 @@ export default class Fixed_Asset_Manager_Detail {
             data: API.fixed_asset_Get_List,
             params: {
               Office_id: data.From_Office_id,
-              Store_id: data.From_Department_id,
+              Department_id: data.From_Department_id,
             },
             IsItemDisabled: (item) => {
               if (data.table.some((p) => item.Id == p.Fixed_Asset_id))
