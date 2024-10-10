@@ -66,22 +66,23 @@ export default class Fixed_Asset_Transfer {
         disabled: true,
       }),
       From_Holder_Name: new FormElement({
-        label: "Từ người sở hữu",
+        label: "Từ người sử dụng",
         model: "From_Holder_Name",
         type: FormElementType.text,
         disabled: true,
       }),
       From_Type_id: new FormElement({
-        label: "Từ loại",
+        label: "Từ đối tượng",
         model: "From_Type_id",
         type: FormElementType.select,
         options: Para.TransferType,
         disabled: true,
       }),
       To_Holder_Id: new FormElement({
-        label: "Đến người sở hữu",
+        label: "Đến người sử dụng",
         model: "To_Holder_Id",
         type: FormElementType.select,
+        labelWidth: 125,
         options: Para.Para_Account,
         watch(data, nv, ov, t, isFirst) {
           if (!isFirst && data.To_Type_id == 1) {
@@ -101,9 +102,11 @@ export default class Fixed_Asset_Transfer {
         }
       }),
       To_Holder_Id_2: new FormElement({
-        label: "Đến người sở hữu",
+        label: "Đến người sử dụng",
         model: "To_Holder_Id",
         type: FormElementType.select,
+        labelWidth: 135,
+
         options(data) {
           return Para.store_Get_List.set(p => {
             p.data = p.data.filter(p1 => {
@@ -137,10 +140,11 @@ export default class Fixed_Asset_Transfer {
         }
       }),
       To_Holder_Name: new FormElement({
-        label: "Đến người sở hữu",
+        label: "Đến người sử dụng",
         model: "To_Holder_Name",
         type: FormElementType.text,
         disabled: true,
+        labelWidth: 135,
 
         isVisible(data) {
           if (data.To_Type_id != 2 && data.To_Type_id != 1 && data.To_Type_id != 3)
@@ -150,7 +154,7 @@ export default class Fixed_Asset_Transfer {
         }
       }),
       To_Type_id: new FormElement({
-        label: "Đến loại",
+        label: "Đến đối tượng",
         model: "To_Type_id",
         required: true,
         type: FormElementType.select,
@@ -214,6 +218,7 @@ export default class Fixed_Asset_Transfer {
   form() {
     return new FormInfo({
       formData: this,
+      labelWidth: 135,
       elements: [
         this._formElements.From_Type_id,
         this._formElements.From_Holder_Name,

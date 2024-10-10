@@ -41,6 +41,7 @@
                   .getName(Number(row.From_Department_id))
               )
             }}
+            <!-- {{ row.Trasnfer_user }} -->
           </p>
         </div>
       </template>
@@ -58,10 +59,19 @@
                   .getName(Number(row.To_Department_Id))
               )
             }}
+            
           </p>
         </div>
       </template>
-
+      <template slot="column-content-Approved_User" slot-scope="{ row }">
+        <div>
+          <p>{{ Para.Para_Account.getName(row.Approved_User) }}</p>
+          <p>{{ Para.TransferState.getName(row.State) }}</p>
+          <p>
+            {{ row.Receive_Reason }}
+          </p>
+        </div>
+      </template>
   
 
       <template slot="column-content-button" slot-scope="{ row }">
@@ -148,6 +158,10 @@ export default {
           if (!isAdd) {
             obj.From_Department_id = Number(obj.From_Department_id);
             obj.To_Department_Id = Number(obj.To_Department_Id);
+           
+          }else{
+            obj.DateCreate = new Date();
+            obj.UserCreate = this.user.UserSerial;
           }
 
           this.form.obj = new transfer_fa({
@@ -194,7 +208,6 @@ export default {
           }),
           // new TablePagingCol({
           //   title: "Bên chuyển nhượng",
-
           //   sortable: false,
           //   children: [
           //     new TablePagingCol({
@@ -232,6 +245,13 @@ export default {
           //     }),
           //   ],
           // }),
+          new TablePagingCol({
+            title: "Người duyệt",
+            data: "Approved_User",
+            min_width: 150,
+            sortable: false,
+            formatter: value => Para.Para_Account.getName(value)
+          }),
           new TablePagingCol({
             title: "Ghi chú",
             data: "Description",
@@ -276,6 +296,7 @@ export default {
           if (!this.form.obj.toJSON().Info.From_Department_id) {
             this.form.obj.toJSON().Info.From_Department_id = 0;
           }
+          this.form.obj.toJSON().Info._formElements = undefined;
           GetDataAPI({
             url: this.isAdd ? API.Manager_Add : API.Manager_Edit,
             params: this.isAdd

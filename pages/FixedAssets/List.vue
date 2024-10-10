@@ -129,12 +129,8 @@ S
           </span>
         </template>
         <template slot="column-content-Maintenance" slot-scope="{ row }">
-          <span v-if="row.Maintenance">
-            Có
-          </span>
-          <span v-else>
-            Không
-          </span>
+          <span v-if="row.Maintenance"> Có </span>
+          <span v-else> Không </span>
         </template>
       </TablePaging>
     </div>
@@ -278,7 +274,7 @@ import fixed_assets from "~/assets/scripts/objects/fixed_assets/fixed_assets";
 import Fixed_Asset_Transfer from "~/assets/scripts/objects/Fixed_Asset_Transfer";
 import Tickets from "~/assets/scripts/objects/Tickets";
 import fixed_asets_filter from "~/assets/scripts/objects/fixed_assets/fixed_asets_filter";
-import Fixed_Asset_Inventory from "~/assets/scripts/objects/Fixed_Asset_Fix";
+import Fixed_Asset_Fix from "~/assets/scripts/objects/Fixed_Asset_Fix";
 
 import Office from "./Office.vue";
 import { objContainStr, Uni2None } from "~/assets/scripts/Functions";
@@ -333,7 +329,7 @@ export default {
                 formatter: "date",
               }),
               new TablePagingCol({
-                title: "Ngày chuyển nhượng",
+                title: "Ngày chuyển",
                 data: "Curent_Date_Use",
                 min_width: 150,
                 sortable: false,
@@ -341,14 +337,19 @@ export default {
               }),
 
               new TablePagingCol({
-                title:  "Thời hạn bảo hành",
+                title: "Thời hạn bảo hành",
                 data: "Warranty_Period",
                 min_width: 130,
                 sortable: false,
-                formatter: "number",
+                // formatter: "number",
+                formatter: (value, row) => {
+                  return row.Purchase_Date
+                    ? ConvertStr.ToDateStr(addMonth(row.Purchase_Date, value))
+                    : value;
+                },
               }),
               new TablePagingCol({
-                title:  "Mã dự án",
+                title: "Mã dự án",
                 data: "Project_Code",
                 min_width: 130,
                 sortable: false,
@@ -456,7 +457,7 @@ export default {
                 sortable: false,
               }),
               new TablePagingCol({
-                title:  "Tình trạng tài sản",
+                title: "Tình trạng tài sản",
                 data: "Status",
                 min_width: 150,
                 sortable: false,
@@ -486,9 +487,11 @@ export default {
                 data: "Warranty_Period",
                 min_width: 150,
                 sortable: false,
-                formatter:(value,row)=>{
-              return row.Purchase_Date ? ConvertStr.ToDateStr(addMonth(row.Purchase_Date,value))  : value
-            }
+                formatter: (value, row) => {
+                  return row.Purchase_Date
+                    ? ConvertStr.ToDateStr(addMonth(row.Purchase_Date, value))
+                    : value;
+                },
               }),
               new TablePagingCol({
                 title: "Bảo trì",
@@ -501,7 +504,7 @@ export default {
                 data: "Estimated_Life_Min",
                 min_width: 150,
                 sortable: false,
-                formatter: 'number'
+                formatter: "number",
               }),
               // new TablePagingCol({
               //   title: "Date of Disposal",
@@ -587,10 +590,13 @@ export default {
           if (viewOnly) this.form.type = "dialog";
           else this.form.type = "";
           this.form.obj = new fixed_assets({
-            ...obj, isAdd: isAdd
+            ...obj,
+            isAdd: isAdd,
           });
-          if(this.form.obj.Use_Type_id !== 1){
-            this.form.obj.Curent_Holder_Id = Number(this.form.obj.Curent_Holder_Id)
+          if (this.form.obj.Use_Type_id !== 1) {
+            this.form.obj.Curent_Holder_Id = Number(
+              this.form.obj.Curent_Holder_Id
+            );
           }
           this.form.visible = true;
         },
@@ -599,13 +605,13 @@ export default {
         },
       }),
       formInventory: new DefaultForm({
-        obj: new Fixed_Asset_Inventory(),
+        obj: new Fixed_Asset_Fix(),
         title: "",
         visible: false,
         width: "500px",
         ShowForm: (title, obj) => {
           this.formInventory.title = title;
-          this.formInventory.obj = new Fixed_Asset_Inventory({
+          this.formInventory.obj = new Fixed_Asset_Fix({
             Fixed_Asset_id: obj.Id,
             FA_Code: obj.Code,
             FA_Name: obj.Name,
@@ -697,10 +703,7 @@ export default {
       // return;
       this.$refs.form.getValidate().then((re) => {
         if (!re) {
-          ShowMessage(
-            "Vui lòng nhập đầy đủ thông tin!",
-            MessageType.error
-          );
+          ShowMessage("Vui lòng nhập đầy đủ thông tin!", MessageType.error);
           return;
         } else {
           GetDataAPI({
@@ -740,10 +743,7 @@ export default {
     SaveTicket() {
       this.$refs.form.getValidate().then((re) => {
         if (!re) {
-          ShowMessage(
-            "Vui lòng nhập đầy đủ thông tin!",
-            MessageType.error
-          );
+          ShowMessage("Vui lòng nhập đầy đủ thông tin!", MessageType.error);
           return;
         } else {
           APIHelper.ticket.Add(this.formTicket.obj.toJSON()).then((re) => {
@@ -814,7 +814,6 @@ export default {
             this.LoadTable();
             ShowMessage("Xóa thành công");
             this.$refs.of.LoadData();
-
           });
         })
         .catch((err) => {
@@ -824,10 +823,7 @@ export default {
     SaveTransfer() {
       this.$refs.form.getValidate().then((re) => {
         if (!re) {
-          ShowMessage(
-            "Vui lòng nhập đầy đủ thông tin!",
-            MessageType.error
-          );
+          ShowMessage("Vui lòng nhập đầy đủ thông tin!", MessageType.error);
           return;
         } else {
           APIHelper.transfer.Add(this.form_transfer.obj.toJSON()).then((re) => {
@@ -842,10 +838,7 @@ export default {
       var _app = this;
       this.$refs.form.getValidate().then((re) => {
         if (!re) {
-          ShowMessage(
-            "Vui lòng nhập đầy đủ thông tin!",
-            MessageType.error
-          );
+          ShowMessage("Vui lòng nhập đầy đủ thông tin!", MessageType.error);
           return;
         } else {
           if (!this.form.obj.Id) {
@@ -854,7 +847,6 @@ export default {
               this.form.visible = false;
               ShowMessage("Lưu thành công");
               this.$refs.of.LoadData();
-
             });
           } else {
             APIHelper.fixed_asset.Edit(this.form.obj.toJSON()).then((re) => {

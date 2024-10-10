@@ -449,6 +449,12 @@ export default {
       APIHelper.disposal.GetList().then((re) => {
         this.data = re;
       });
+      GetDataAPI({
+        url: API.Get_Fixed_Denghi_thanhly,
+        action: re=>{
+          console.log(re)
+        }
+      })
     },
     ReloadFA() {
       console.log(this.obj.FA_Id_Lists);

@@ -148,7 +148,7 @@ export default {
             min_width: 120,
           }),
           new TablePagingCol({
-            title: "Use",
+            title: "Trạng thái",
             data: "Use",
             min_width: 120,
             formatter: (value) => Para.Para_Active.getName(value),

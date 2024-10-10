@@ -136,10 +136,10 @@ export default {
       this.$refs.tp.LoadData(true);
     },
     Add() {
-      this.form.ShowForm("Thêm Nhóm tài sản", true);
+      this.form.ShowForm("Thêm loại tài sản", true);
     },
     Edit(row) {
-      this.form.ShowForm("Sửa Nhóm tài sản", false, row);
+      this.form.ShowForm("Sửa loại tài sản", false, row);
     },
     Delete(row) {
       ShowConfirm({

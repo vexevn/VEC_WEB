@@ -56,17 +56,33 @@ export default class transfer_fa {
         // options: Para.Para_Account,
         required: true,
         disabled: true,
-
         col: 10,
+        attr: {
+          disabledCrDate: true,
+        },
       }),
       Approved_User: new FormElement({
         label: "Người duyệt",
         model: "Info.Approved_User",
         type: FormElementType.select,
         labelWidth: 125,
-        options: Para.Para_Account.set((p) => (p.placeholder = "")),
-        disabled: true,
-        // col:11,
+        // options: Para.Para_Account.set((p) => (p.placeholder = "")).set(p=>p.disabled(item){
+        //   item.Id == 
+        // }),
+        // disabled: true,
+        options(obj){
+          // console.log(obj)
+          return new SelectOption({
+            data: API.Get_User_QLTS,
+            // data: [],
+            label: 'FullName',
+            // IsItemDisabled: item=>{
+            //   if(item.Id == obj.Info.UserCreate)
+            //     return true;
+            //   // return 
+            // }
+          })
+        }
       }),
 
       Start_Date: new FormElement({
@@ -87,6 +103,7 @@ export default class transfer_fa {
         type: FormElementType.datePicker,
         labelWidth: 90,
         required: true,
+        disabled: true,
         col: 10,
         attr: {
           disabledCrDate: true,
@@ -101,7 +118,7 @@ export default class transfer_fa {
         disabled: this.isAdd ? false : true,
         options: Para.Para_Office,
         watch(data) {
-          // console.log("data.Info.FromMangerId", data.Info.FromMangerId);
+          // console.log("data.Info.Trasnfer_user", data.Info.Trasnfer_user);
         },
       }),
 
@@ -126,7 +143,7 @@ export default class transfer_fa {
             t.getEntry(data._formElements.From_Department_id.id).selectedData ||
             {};
           //   if (slData) {
-          data.Info.FromMangerId = Para.Para_Account.getName(slData.Manager_id);
+          data.Info.Trasnfer_user = Para.Para_Account.getName(slData.Manager_id);
         },
 
         options(data) {
@@ -164,7 +181,7 @@ export default class transfer_fa {
             {};
 
           //   console.log(slData);
-          data.Info.ToMangerId = Para.Para_Account.getName(slData.Manager_id);
+          data.Info.Receive_user = Para.Para_Account.getName(slData.Manager_id);
         },
       }),
 
@@ -179,21 +196,21 @@ export default class transfer_fa {
         },
       }),
 
-      FromMangerId: new FormElement({
+      Trasnfer_user: new FormElement({
         label: "Người giao",
-        model: "Info.FromMangerId",
+        model: "Info.Trasnfer_user",
         type: FormElementType.text,
 
         labelWidth: 130,
         // options: Para.Para_Account,
         disabled: true,
         // watch(data){
-        //     console.log('data.Info.FromMangerId',data.Info.FromMangerId)
+        //     console.log('data.Info.Trasnfer_user',data.Info.Trasnfer_user)
         // }
       }),
-      ToMangerId: new FormElement({
+      Receive_user: new FormElement({
         label: "Người nhận",
-        model: "Info.ToMangerId",
+        model: "Info.Receive_user",
         type: FormElementType.text,
         labelWidth: 125,
         // options: Para.Para_Account,
@@ -223,7 +240,7 @@ export default class transfer_fa {
 
                 new FormElement({
                   child: [
-                    this._formElements.FromMangerId.set((p) => (p.col = 18)),
+                    this._formElements.Trasnfer_user.set((p) => (p.col = 18)),
 
                     // this._formElements.Deli_user.set((p) => (p.col = 18)),
 
@@ -252,11 +269,11 @@ export default class transfer_fa {
                 this._formElements.To_Department_Id,
                 //   ],
                 // }),
-                // this._formElements.ToMangerId,
+                // this._formElements.Receive_user,
 
                 new FormElement({
                   child: [
-                    this._formElements.ToMangerId.set((p) => (p.col = 19)),
+                    this._formElements.Receive_user.set((p) => (p.col = 19)),
 
                     // this._formElements.Receive_user,
 
@@ -293,6 +310,7 @@ export default class transfer_fa {
     return {
       ...this,
       _formElements: undefined,
+      // Info._formElements: undefined,
       table: undefined,
       From_Department_id: undefined,
       From_Office_id: undefined,

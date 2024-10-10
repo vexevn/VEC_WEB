@@ -1,27 +1,14 @@
 import { FormElement, FormElementType, FormInfo } from "~/assets/scripts/base/FormInfo";
 import { SelectOption } from "../base/SelectOption";
 import { Para } from "../Para";
-export default class dm_vehicle_Type {
-  /** @type {string} - description */
-  Name;
-  /** @type {string} - description */
-  Serial;
-  /** @type {string} - description */
-  Description;
+export default class dm_fixed_asset_type {
+ 
+  Reason;
   /** @type {number} - description */
-  Use;
-  /** @type {number} - description */
-  Sequency;
+  Approved;
   /** @type {number} - description */
   Id;
-  /** @type {string} - description */
-  DateUpdate;
-  /** @type {string} - description */
-  DateCreate;
-  /** @type {string} - description */
-  UserCreate;
-  /** @type {string} - description */
-  UserUpdate;
+
 
 
   _formElements = {
@@ -30,14 +17,9 @@ export default class dm_vehicle_Type {
       model: "Name",
       type: FormElementType.text,
     }),
-    Serial: new FormElement({
-      label: "Serial",
-      model: "Serial",
-      type: FormElementType.text,
-    }),
-    Description: new FormElement({
-      label: "Mô tả",
-      model: "Description",
+    Code: new FormElement({
+      label: "Mã",
+      model: "Code",
       type: FormElementType.text,
     }),
     Use: new FormElement({
@@ -81,14 +63,14 @@ export default class dm_vehicle_Type {
 
   /**
    *
-   * @param {dm_vehicle_Type} obj
+   * @param {dm_fixed_asset_type} obj
    */
   constructor(obj) {
     this.update(obj);
   }
   /**
    *
-   * @param {dm_vehicle_Type} obj
+   * @param {dm_fixed_asset_type} obj
    */
   update(obj) {
     Object.assign(this, obj);
@@ -103,9 +85,9 @@ export default class dm_vehicle_Type {
     return new FormInfo({
       formData: this,
       elements: [
-        this._formElements.Serial,
+        this._formElements.Sequency,
+        this._formElements.Code,
         this._formElements.Name,
-        this._formElements.Description,
         // this._formElements.Use,
 
       ]

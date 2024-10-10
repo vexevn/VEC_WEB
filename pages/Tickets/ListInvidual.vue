@@ -18,7 +18,7 @@
       </template>
       <template slot="column-content-button" slot-scope="{ row }">
         <div style="display: flex">
-          <el-button class="icon-btn" type="primary" @click="OpenTicket(row)">
+          <el-button class="icon-btn" type="primary" @click="Edit(row)">
             <i class="fa fa-edit"></i
           ></el-button>
         </div>
@@ -204,6 +204,12 @@
         <FormInfo :model="filter.form()" />
       </div>
     </DefaultForm>
+    <DefaultForm :model="formEdit" @actionOK="SaveEdit">
+      <div slot="content">
+        <FormInfo ref="form" :model="obj.formEdit()" />
+
+      </div>
+    </DefaultForm>
   </div>
 </template>
 
@@ -257,40 +263,52 @@ export default {
           }),
           new TablePagingCol({
             sortable: false,
-            title: "Asset Serial",
+            title: "Serial",
             data: "Fixed_Serial",
             min_width: 200,
           }),
           new TablePagingCol({
-            title: "Asset model",
+            title: "Chủng loại",
             data: "Fixed_Model",
             min_width: 200,
             sortable: false,
           }),
           new TablePagingCol({
-            title: "Asset Producer",
+            title: "Nhà sản xuất",
             data: "Fixed_Producer",
             min_width: 200,
             sortable: false,
           }),
           new TablePagingCol({
-            title: "Ticket content",
+            // title: "Ticket content",
+            title: "Nội dung",
             data: "Content",
             min_width: 120,
             width: "auto",
             sortable: false,
           }),
           new TablePagingCol({
-            title: "Ticket State",
-            data: "State",
-            min_width: 200,
+            // title: "Ticket content",
+            title: "Ngày cập nhật",
+            data: "DateUpdate",
+            min_width: 120,
+            // width: "auto",
+            formatter: 'date',
             sortable: false,
-            formatter: (value) => Para.TicketsState.getName(value),
           }),
+          // new TablePagingCol({
+          //   // title: "Ticket State",
+          //   title: "Tình trạng",
+          //   data: "State",
+          //   min_width: 150,
+          //   sortable: false,
+          //   formatter: (value) => Para.TicketsState.getName(value),
+          // }),
           new TablePagingCol({
             title: "",
             data: "button",
-            min_width: 100,
+            min_width: 80,
+            
             sortable: false,
           }),
         ],
@@ -358,7 +376,8 @@ export default {
       obj: new Tickets(),
       form: new DefaultForm({
         title: "Ticket Monitoring",
-        type: "dialog",
+
+        // type: "dialog",
         width: "calc(100vw - 200px)",
         visible: false,
       }),
@@ -370,6 +389,11 @@ export default {
         OKtext: "Assign",
       }),
       filter: new TicketsFilter(),
+      formEdit: new DefaultForm({
+        
+        width: "400px",
+        title: "Sửa",
+      }),
       formFilter: new DefaultForm({
         OKtext: "Tìm kiếm",
         // visible: true,
@@ -390,6 +414,24 @@ export default {
     },
   },
   methods: {
+    SaveEdit(){
+      console.log(this.obj)
+      GetDataAPI({
+        url: API.Ticket_Edit,
+        params:this.obj.toJSON(),
+        method:'post',
+        action: re=>{
+          ShowMessage("Sửa thành công",'success');
+          this.formEdit.visible = false;
+          this.LoadData();
+        }
+      })
+    },
+    Edit(row){
+      this.obj = new Tickets(row);
+
+      this.formEdit.visible = true;
+    },
     Search() {
       Object.assign(this.tp.params, this.filter);
       this.formFilter.visible = false;

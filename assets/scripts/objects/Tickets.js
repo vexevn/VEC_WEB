@@ -57,7 +57,7 @@ export default class Tickets {
         type: FormElementType.text,
       }),
       Content: new FormElement({
-        label: "Your request",
+        label: "Nội dung",
         model: "Content",
         type: FormElementType.text,
         attr: {
@@ -89,7 +89,7 @@ export default class Tickets {
       Act_User: new FormElement({
         label: "Act User",
         model: "Act_User",
-        type: FormElementType.text,
+        type: FormElementType.select,
         disabled: true
 
       }),
@@ -98,6 +98,22 @@ export default class Tickets {
         model: "Act_Name",
         type: FormElementType.text,
       }),
+
+      Act_User: new FormElement({
+        label: "Người sửa",
+        model: "Act_User",
+        type: FormElementType.select,
+        options: Para.Para_Account,
+        required: true,
+        watch(data,n,o,t,iF){
+          // console.log(data,t)
+          let slData = t.getEntry(data._formElements.Act_User.id).selectedData || {};
+          
+          data.Act_Name = slData.FullName
+        }
+      }),
+
+
       Order_id: new FormElement({
         label: "Order_id",
         model: "Order_id",
@@ -163,6 +179,22 @@ export default class Tickets {
         type: FormElementType.text,
         disabled: true
       }),
+      Fixed_State: new FormElement({
+        label: "Trạng thái",
+        model: "Fixed_State",
+        type: FormElementType.select,
+        options: Para.fixed_asset_state_Get_List,
+
+        disabled: true
+      }),
+      Fixed_Name: new FormElement({
+        label: "Tên tài sản",
+        model: "Fixed_Name",
+        type: FormElementType.text,
+        // options: Para.fixed_asset_state_Get_List,
+
+        disabled: true
+      }),
 
     };
   }
@@ -173,6 +205,20 @@ export default class Tickets {
       elements: [
         this._formElements.Content,
         this._formElements.State,
+      ]
+    });
+  }
+
+  formEdit(){
+    return new FormInfo({
+      formData: this,
+      labelWidth: 100,
+      elements: [
+        this._formElements.Fixed_Code,
+        this._formElements.Fixed_Name,
+        this._formElements.Act_User,
+        this._formElements.Fixed_State.set(p=>p.disabled = false),
+        this._formElements.Content,
       ]
     });
   }

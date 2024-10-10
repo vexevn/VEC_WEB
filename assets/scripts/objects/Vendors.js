@@ -48,7 +48,7 @@ export default class Vendors {
             type: FormElementType.text,
         }),
         Use: new FormElement({
-            label: "Use",
+            label: "Trạng thái",
             model: "Use",
             type: FormElementType.select,
             options: Para.Para_Active,
