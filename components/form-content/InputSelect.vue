@@ -242,7 +242,7 @@ export default {
           }
         } else this.optionsProcess = this.optionsProcess.slice(0, 100);
 
-        console.log(this.optionsProcess)
+        console.log(this.optionsProcess);
         // console.log("ProcessData");
         // console.log(this.optionsProcess.length);
         // if (this.optionsProcess.length < length) {
@@ -420,7 +420,7 @@ export default {
           if (!Object.equals(val, oldVal)) {
             if (!this.firstLoad) this.$emit("input", "");
             // if (oldVal[0]) {
-              this.Init();
+            this.Init();
             // }
           }
         }
@@ -456,21 +456,19 @@ export default {
     },
     value: {
       handler(val, oldVal) {
-        console.log(this)
+        console.log(this);
         if (this.valueSelect !== val) {
           this.valueSelect = val || "";
           // console.log("select_change", val, oldVal);
           this.loaded = false;
-          this.InitData()
-          this.$nextTick(()=>{
-            setTimeout(()=>{
-              console.log(this.optionsProcess)
+          this.InitData();
+          this.$nextTick(() => {
+            console.log(this.optionsProcess);
             this.loaded = true;
-            },1000)
-          })
+          });
         }
         // if (!val) {
-        this.onFilterMethod("");
+        // this.onFilterMethod("");
         // }
       },
     },
