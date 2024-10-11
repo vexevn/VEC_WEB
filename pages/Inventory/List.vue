@@ -207,24 +207,24 @@ export default {
           }),
           new TablePagingCol({
             sortable: false,
-            title: "Asset Serial",
+            title: "Serial",
             data: "Fixed_Serial",
             min_width: 200,
           }),
           new TablePagingCol({
-            title: "Asset model",
+            title: "Chủng loại",
             data: "Fixed_Model",
             min_width: 200,
             sortable: false,
           }),
           new TablePagingCol({
-            title: "Asset Producer",
+            title: "Nhà sản xuất",
             data: "Fixed_Producer",
             min_width: 200,
             sortable: false,
           }),
           new TablePagingCol({
-            title: "Asset State",
+            title: "Trạng thái",
             data: "Fixed_Asset_State",
             min_width: 200,
             sortable: false,

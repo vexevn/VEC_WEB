@@ -35,7 +35,7 @@ export default class Document_Folder {
             disabled: true,
         }),
         Use: new FormElement({
-            label: "Use",
+            label: "Trạng thái",
             model: "Use",
             type: FormElementType.select,
             options: Para.Para_Active,

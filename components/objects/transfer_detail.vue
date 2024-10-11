@@ -10,12 +10,22 @@
       </template>
 
       <template slot="column-header-btn">
-        <el-button class="icon-btn icon-btn" type="primary" @click="Add()">
+        <el-button
+          v-if="!data.disBtn"
+          class="icon-btn icon-btn"
+          type="primary"
+          @click="Add()"
+        >
           <i class="el-icon-plus"></i
         ></el-button>
       </template>
       <template slot="column-content-btn" slot-scope="{ row }">
-        <el-button class="icon-btn icon-btn" type="warning" @click="Edit(row)">
+        <el-button
+          v-if="!data.disBtn"
+          class="icon-btn icon-btn"
+          type="warning"
+          @click="Edit(row)"
+        >
           <i class="el-icon-edit"></i
         ></el-button>
       </template>
@@ -132,19 +142,18 @@ export default {
             sortable: false,
           }),
 
-          this.data.isAdd
-          ?new TablePagingCol({
-            title: "Mã tài sản",
-            data: "Code",
-            min_width: 150,
-            // width: "auto",
-            sortable: false,
-          }) : null,
+         new TablePagingCol({
+                title: "Mã tài sản",
+                data:  this.data.isAdd ? "Code" : 'Fixed_Code',
+                min_width: 150,
+                // width: "auto",
+                sortable: false,
+              })
+            ,
           new TablePagingCol({
             title: "Tên",
             data: "Name",
-            min_width: 130,
-            width: "auto",
+            min_width: 160,
             sortable: false,
           }),
 
@@ -168,9 +177,9 @@ export default {
 
           new TablePagingCol({
             title: "Tình trạng",
-            data: this.data.isAdd ? "State" : "Fixed_State",
+            data: this.data.isAdd ? "Status" : "Fixed_State",
             // data: "",
-            min_width: 100,
+            min_width: 130,
             sortable: false,
             formatter: (value) =>
               Para.fixed_asset_state_Get_List.getName(value),
@@ -180,6 +189,7 @@ export default {
             data: this.data.isAdd ? "Note" : "Description",
             min_width: 150,
             sortable: false,
+            width: "auto",
           }),
           !this.data.isAdd
             ? new TablePagingCol({
@@ -208,6 +218,10 @@ export default {
       handler: function (n, o) {
         // console.log(this);
         if (n) this.LoadTable();
+        // else{
+        //   this.tp_detail.data = []
+        //   this.LoadTable();
+        // }
       },
       deep: true,
     },
@@ -225,7 +239,8 @@ export default {
         if (item.CheckBox) {
           // Clone this.obj to avoid reference issues
           const newObj = { ...this.obj };
-          newObj.Fixed_State = item.State;
+          newObj.Fixed_State = item.Status;
+          newObj.Fixed_Code = item.Code;
           newObj.Fixed_Asset_id = item.Id;
           newObj.Name = item.Name;
 
@@ -271,6 +286,8 @@ export default {
           // Store_id: this.data.Info.From_Department_id,
         },
         action: (re) => {
+          this.data.Details = re;
+
           this.tp_detail.data = re;
           this.LoadData();
         },
@@ -280,6 +297,7 @@ export default {
 
   mounted() {
     // console.log(this);
+
     if (!this.data.isAdd) {
       this.LoadDetail();
     }

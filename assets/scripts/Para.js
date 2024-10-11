@@ -65,12 +65,12 @@ export var Para = {
   TicketsState: new SelectOption({
     data: [
       { Id: 1, Name: "New Ticket" },
-      { Id: 2, Name: "Approved" },
+      { Id: 2, Name: "Duyệt" },
       { Id: 3, Name: "Processing" },
-      { Id: 4, Name: "Finish" },
-      { Id: 5, Name: "Cancel" },
-      { Id: 6, Name: "Rejected" },
-      { Id: 7, Name: "Success" },
+      { Id: 4, Name: "Kết thúc" },
+      { Id: 5, Name: "Hủy" },
+      { Id: 6, Name: "Từ chối" },
+      { Id: 7, Name: "Thành công" },
     ]
   }),
   TransferType: new SelectOption({
@@ -79,6 +79,27 @@ export var Para = {
       { Id: 2, Name: "Kho" },
       { Id: 3, Name: "Phòng làm việc" },
       { Id: 4, Name: "Đối tác" },
+    ]
+  }),
+  TransferState: new SelectOption({
+    data: [
+      // { Id: 0, Name: "Không xác định" },
+      { Id: 1, Name: "Chờ duyệt" },
+      { Id: 2, Name: "Đã duyệt" },
+      { Id: 3, Name: "Không duyệt" },
+      { Id: 4, Name: "Từ chối" },
+      { Id: 5, Name: "Thành công" },
+    ]
+  }),
+
+  TransferRecivedState: new SelectOption({
+    data: [
+      // { Id: 0, Name: "Không xác định" },
+      
+      { Id: 2, Name: "Phiếu chờ nhận" },
+
+      { Id: 4, Name: "Phiếu từ chối nhận" },
+      { Id: 5, Name: "Phiếu đã nhận" },
     ]
   }),
   StoreType: new SelectOption({
@@ -90,7 +111,7 @@ export var Para = {
   }),
   OfficeType: new SelectOption({
     data: [
-      { Id: 1, Name: "Địa phương" },
+      { Id: 1, Name: "Trong nước" },
       { Id: 2, Name: "Quốc tế" },
     ]
   }),

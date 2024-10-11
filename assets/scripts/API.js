@@ -26,6 +26,8 @@ export default {
   GetUserInfo: linkAPI + "Account/GetUserInfo",
   UpdateProfile: linkAPI + "Account/UpdateProfile",
   Account: linkAPI + "Account",
+  Get_User_QLTS: linkAPI + "Account/Get_User_QLTS",
+
 
   GroupPermission: linkAPI + "GroupPermission",
   Menu: linkAPI + "Menu",
@@ -159,6 +161,7 @@ export default {
   fixed_asset_type_Add: linkAPI + "fixed_asset_type/Add",
   fixed_asset_type_Edit: linkAPI + "fixed_asset_type/Edit",
   fixed_asset_type_Delete: linkAPI + "fixed_asset_type/Delete",
+  Get_Fixed_Denghi_thanhly: linkAPI + "Fixed_Asset/Get_Fixed_Denghi_thanhly",
 
   fixed_asset_state_Get_List: linkAPI + "fixed_asset_state/Get_List",
   fixed_asset_state_Add: linkAPI + "fixed_asset_state/Add",
@@ -222,6 +225,7 @@ export default {
   Ticket_Get_Info: linkAPI + "Ticket/Get_Info",
   Ticket_Get_List: linkAPI + "Ticket/Get_List",
   Ticket_Add: linkAPI + "Ticket/Add",
+  Ticket_Edit: linkAPI + "Ticket/Edit",
   Ticket_Approved: linkAPI + "Ticket/Approved",
   Ticket_Finish: linkAPI + "Ticket/Finish",
   Ticket_Success: linkAPI + "Ticket/Success",
@@ -270,6 +274,9 @@ export default {
   Manager_Edit: linkAPI + "Manager/Edit",
   Manager_Approved: linkAPI + "Manager/Approved",
   Manager_Delete: linkAPI + "Manager/Delete",
+  Manager_GetList_Approved: linkAPI + "Manager/GetList_Approved",
+  Manager_GetList_Received: linkAPI + "Manager/GetList_Received",
+  Manager_Accept: linkAPI + "Manager/Accept",
 
 
   //Office

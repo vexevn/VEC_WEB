@@ -47,6 +47,9 @@
           v-html="GetPagingDetail()"
           style="padding-left: 5px"
         ></span>
+
+        <slot name="btn2" v-bind:tempRows="tempRows"> </slot>
+
       </div>
       <div class="paging-page">
         <span v-if="pagingShowOpt.recordOfPage">Hiển thị</span>

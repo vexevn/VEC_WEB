@@ -931,6 +931,7 @@ export default class fixed_assets {
   formView() {
     return new FormInfo({
       formData: this,
+      labelWidth: 135,
       elements: [
         this._formElements.Code.set((p) => (p.disabled = true)),
         this._formElements.Serial.set((p) => (p.disabled = true)),

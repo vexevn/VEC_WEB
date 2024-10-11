@@ -21,7 +21,7 @@ export default class Fixed_Asset_Manager {
   /** @type {number} - description */
   Description;
   /** @type {string} - description */
-  Start_Date;
+  Start_Date = new Date();
   /** @type {number} - description */
   State;
   /** @type {string} - description */
@@ -32,6 +32,9 @@ export default class Fixed_Asset_Manager {
   Receive_date;
   /** @type {string} - description */
   Receive_user;
+  /** @type {string} - description */
+  Trasnfer_user;
+
 
   FromMangerId;
   ToMangerId;

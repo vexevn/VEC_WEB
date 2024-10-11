@@ -35,12 +35,12 @@ export default class Disposal {
     Object.assign(this, obj);
     this._formElements = {
       Serial: new FormElement({
-        label: "Serial",
+        label: "Số biên bản",
         model: "Serial",
         type: FormElementType.text,
       }),
       DateActive: new FormElement({
-        label: "Ngày kích hoạt",
+        label: "Ngày thanh lý",
         model: "DateActive",
         type: FormElementType.datePicker,
         labelWidth: 110,
