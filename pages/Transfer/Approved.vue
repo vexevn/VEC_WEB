@@ -164,12 +164,12 @@ export default {
             sortable: false,
             formatter: (value) => Para.Para_Account.getName(value),
           }),
-          //   new TablePagingCol({
-          //     title: "Lý do",
-          //     data: "Receive_Reason",
-          //     min_width: 150,
-          //     sortable: false,
-          //   }),
+          new TablePagingCol({
+            title: "Ghi chú",
+            data: "Description",
+            min_width: 270,
+            sortable: false,
+          }),
           new TablePagingCol({
             title: "",
             data: "button",
