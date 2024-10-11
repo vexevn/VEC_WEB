@@ -199,6 +199,7 @@ export default class transfer_fa {
       Description: new FormElement({
         label: "Mô tả",
         model: "Info.Description",
+        disabled: this.disBtn,
         labelWidth: 130,
         type: FormElementType.text,
         attr: {
