@@ -275,7 +275,6 @@ export default {
   Manager_Approved: linkAPI + "Manager/Approved",
   Manager_Delete: linkAPI + "Manager/Delete",
   Manager_GetList_Approved: linkAPI + "Manager/GetList_Approved",
-  Manager_Approved: linkAPI + "Manager/Approved",
   Manager_GetList_Received: linkAPI + "Manager/GetList_Received",
   Manager_Accept: linkAPI + "Manager/Accept",
 

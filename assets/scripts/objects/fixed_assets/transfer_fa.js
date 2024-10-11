@@ -143,7 +143,7 @@ export default class transfer_fa {
             t.getEntry(data._formElements.From_Department_id.id).selectedData ||
             {};
           //   if (slData) {
-          data.Info.Trasnfer_user = Para.Para_Account.getName(slData.Manager_id);
+          data.Info.Trasnfer_user = slData.Manager_id
         },
 
         options(data) {
@@ -165,7 +165,7 @@ export default class transfer_fa {
         // required: true,
 
         options(data) {
-          console.log("data.Info.To_Office_id", data.Info.To_Office_id);
+          // console.log("data.Info.To_Office_id", data.Info.To_Office_id);
 
           return new SelectOption({
             data: data.Info.To_Office_id ? API.dm_department_Get_List : [],
@@ -180,8 +180,10 @@ export default class transfer_fa {
             t.getEntry(data._formElements.To_Department_Id.id).selectedData ||
             {};
 
-          //   console.log(slData);
-          data.Info.Receive_user = Para.Para_Account.getName(slData.Manager_id);
+            console.log(slData.Manager_id,Para.Para_Account.getName(slData.Manager_id));
+
+          data.Info.Receive_user = slData.Manager_id
+          //  ;
         },
       }),
 
@@ -199,7 +201,8 @@ export default class transfer_fa {
       Trasnfer_user: new FormElement({
         label: "Người giao",
         model: "Info.Trasnfer_user",
-        type: FormElementType.text,
+        type: FormElementType.select,
+        options: Para.Para_Account,
 
         labelWidth: 130,
         // options: Para.Para_Account,
@@ -211,10 +214,10 @@ export default class transfer_fa {
       Receive_user: new FormElement({
         label: "Người nhận",
         model: "Info.Receive_user",
-        type: FormElementType.text,
+        type: FormElementType.select,
+        options: Para.Para_Account,
         labelWidth: 125,
-        // options: Para.Para_Account,
-        disabled: true,
+        // disabled: true,
       }),
     };
   }

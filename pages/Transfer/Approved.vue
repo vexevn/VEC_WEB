@@ -20,11 +20,7 @@
           <p>
             {{
               Para.Para_Account.getName(
-                store
-                  .set((p) => {
-                    p.label = "Manager_id";
-                  })
-                  .getName(Number(row.From_Department_id))
+                row.Trasnfer_user
               )
             }}
           </p>
@@ -35,15 +31,7 @@
           <p>{{ Para.Para_Office.getName(row.To_Office_id) }}</p>
           <p>{{ store.getName(Number(row.To_Department_Id)) }}</p>
           <p>
-            {{
-              Para.Para_Account.getName(
-                store
-                  .set((p) => {
-                    p.label = "Manager_id";
-                  })
-                  .getName(Number(row.To_Department_Id))
-              )
-            }}
+            {{ Para.Para_Account.getName(row.Receive_user) }}
           </p>
         </div>
       </template>
@@ -60,27 +48,25 @@
       </template>
 
       <template slot="column-content-button" slot-scope="{ row }">
-      <div style="display:flex">
-        <el-tooltip  content="Duyệt" placement="top">
-          <el-button class="icon-btn" type="primary">
-            <i class="fa fa-check-square" aria-hidden="true"></i
-          ></el-button>
-        </el-tooltip>
+        <div v-if="row.State == 1" style="display: flex">
+          <el-tooltip content="Duyệt" placement="top">
+            <el-button @click="Approve(row)" class="icon-btn" type="primary">
+              <i class="fa fa-check-square" aria-hidden="true"></i
+            ></el-button>
+          </el-tooltip>
 
-
-
-        <el-tooltip content="Từ chối" placement="top">
-            <el-button class="icon-btn" type="warning"> <i class="fa fa-exclamation-circle" aria-hidden="true"></i> </el-button>
-
-        </el-tooltip>
-      </div>
-     
+          <el-tooltip content="Từ chối duyệt" placement="top">
+            <el-button @click="Reject(row)" class="icon-btn" type="warning">
+              <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+            </el-button>
+          </el-tooltip>
+        </div>
       </template>
     </TablePaging>
 
     <DefaultForm :model="form" @actionOK="form.Save.call(this)">
       <div slot="content">
-        <FormInfo ref="form" :model="form.obj.form()" />
+        <FormInfo ref="form" :model="obj.form()" />
       </div>
     </DefaultForm>
   </div>
@@ -91,7 +77,7 @@ import API from "~/assets/scripts/API";
 import TablePaging from "~/assets/scripts/base/TablePaging";
 import TablePagingCol from "~/assets/scripts/base/TablePagingCol";
 import DefaultForm from "~/assets/scripts/base/DefaultForm";
-import dm_fixed_asset_type from "~/assets/scripts/objects/fixed_asset_group";
+import AprovedST from "~/assets/scripts/objects/AprovedST";
 import { EventBus } from "~/assets/scripts/EventBus.js";
 import GetDataAPI from "~/assets/scripts/GetDataAPI";
 import { SelectOption } from "~/assets/scripts/base/SelectOption";
@@ -108,7 +94,7 @@ export default {
     return {
       isAdd: null,
       store: new SelectOption({ data: [] }),
-
+      obj: new AprovedST(),
       tp: new TablePaging({
         title: "Tiêu đề",
         data: API.Manager_GetList_Approved,
@@ -164,27 +150,27 @@ export default {
         ],
       }),
       form: new DefaultForm({
-        obj: new dm_fixed_asset_type(),
         title: "",
         visible: false,
-        width: "500px",
-        ShowForm: (title, isAdd, obj) => {
-          this.isAdd = isAdd;
-          var _app = this;
-          // var obj = null;
-          // if (!isAdd) {
-          //   obj = obj;
-          //   if (!obj) {
-          //     ShowMessage("You need choose 1 selection!");
-          //     return;
-          //   }
-          // }
-          this.form.title = title;
-          this.form.obj = new dm_fixed_asset_type(obj);
-          this.form.visible = true;
-        },
+        width: "400px",
         Save: () => {
-          this.Save();
+          this.$refs.form.getValidate().then((re) => {
+            if (re) {
+              GetDataAPI({
+                url: API.Manager_Approved,
+                params: this.obj.toJSON(),
+                method: "POST",
+
+                action: (re) => {
+                  ShowMessage("Đã từ chối phiếu", "success");
+                  this.LoadData();
+                  this.form.visible = false;
+                },
+              });
+            } else {
+              ShowMessage("Vui lòng nhập đầy đủ thông tin", "error");
+            }
+          });
         },
       }),
     };
@@ -201,6 +187,49 @@ export default {
     },
   },
   methods: {
+    Reject(row) {
+      ShowConfirm({
+        message: "Bạn chắc chắn từ chối duyệt phiếu luân chuyển này?",
+        title: "Cảnh báo!",
+        type: MessageType.warning,
+      })
+        .then(() => {
+          this.form.title = "Lý do từ chối";
+          this.obj.Id = row.Id;
+          this.obj.Approved = false;
+          // console.log(this.obj);
+          this.form.visible = true;
+        })
+        .catch((err) => {
+          // An error occurred
+        });
+    },
+    Approve(row) {
+      ShowConfirm({
+        message: "Duyệt luân chuyển tài sản",
+        title: "Cảnh báo!",
+        type: MessageType.warning,
+      })
+        .then(() => {
+          this.obj.Id = row.Id;
+          // return
+          GetDataAPI({
+            url: API.Manager_Approved,
+            params: this.obj.toJSON(),
+            method: "POST",
+
+            action: (re) => {
+              ShowMessage("Đã duyệt thành công", "success");
+              this.LoadData();
+            },
+          });
+          //  this.obj.
+        })
+        .catch((err) => {
+          // An error occurred
+        });
+    },
+
     getColor(state) {
       switch (state) {
         // case 1:

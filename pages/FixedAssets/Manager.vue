@@ -66,9 +66,11 @@
       <template slot="column-content-Approved_User" slot-scope="{ row }">
         <div>
           <p>{{ Para.Para_Account.getName(row.Approved_User) }}</p>
-          <p>{{ Para.TransferState.getName(row.State) }}</p>
+          <p  :style="{ color: getColor(row.State),fontWeight: 'bold' }">
+            {{ Para.TransferState.getName(row.State) }}
+          </p>
           <p>
-            {{ row.Receive_Reason }}
+            {{ row.Description }}
           </p>
         </div>
       </template>
@@ -284,6 +286,22 @@ export default {
     //     },
     //   });
     // },
+    getColor(state) {
+      switch (state) {
+        // case 1:
+        //   return 'black';
+        case 2:
+          return "blue";
+        case 3:
+          return "red";
+        case 4:
+          return "red";
+        case 5:
+          return "green";
+        default:
+          return "black";
+      }
+    },
     Save() {
       this.$refs.form.getValidate().then((re) => {
         if (!re) {

@@ -18,15 +18,7 @@
           <p>{{ Para.Para_Office.getName(row.From_Office_id) }}</p>
           <p>{{ store.getName(Number(row.From_Department_id)) }}</p>
           <p>
-            {{
-              Para.Para_Account.getName(
-                store
-                  .set((p) => {
-                    p.label = "Manager_id";
-                  })
-                  .getName(Number(row.From_Department_id))
-              )
-            }}
+            {{ Para.Para_Account.getName(row.Trasnfer_user) }}
           </p>
         </div>
       </template>
@@ -35,58 +27,42 @@
           <p>{{ Para.Para_Office.getName(row.To_Office_id) }}</p>
           <p>{{ store.getName(Number(row.To_Department_Id)) }}</p>
           <p>
-            {{
-              Para.Para_Account.getName(
-                store
-                  .set((p) => {
-                    p.label = "Manager_id";
-                  })
-                  .getName(Number(row.To_Department_Id))
-              )
-            }}
+            {{ Para.Para_Account.getName(row.Receive_user) }}
           </p>
         </div>
       </template>
       <template slot="column-content-Approved_User" slot-scope="{ row }">
         <div>
           <p>{{ Para.Para_Account.getName(row.Approved_User) }}</p>
-          <p>{{ Para.TransferState.getName(row.State) }}</p>
+          <p class="state" :style="{ color: getColor(row.State) }">
+            {{ Para.TransferState.getName(row.State) }}
+          </p>
           <p>
-            {{ row.Receive_Reason }}
+            {{ row.Manager_Reason }}
           </p>
         </div>
       </template>
 
       <template slot="column-content-button" slot-scope="{ row }">
-        <div style="display: flex; justify-content: space-between">
-          <el-button
-            class="icon-btn"
-            v-if="pagePermission.edit"
-            type="warning"
-            @click="Edit(row)"
-          >
-            <i class="el-icon-edit"></i
-          ></el-button>
-          <el-button
-            class="icon-btn"
-            v-if="pagePermission.delete"
-            type="danger"
-            @click="Delete(row)"
-          >
-            <i class="el-icon-delete"></i
-          ></el-button>
+        <div v-if="row.State == 2" style="display: flex">
+          <el-tooltip content="Nhận tài sản" placement="top">
+            <el-button @click="Approve(row)" class="icon-btn" type="primary">
+              <i class="fa fa-check-square" aria-hidden="true"></i
+            ></el-button>
+          </el-tooltip>
+
+          <el-tooltip content="Từ chối" placement="top">
+            <el-button @click="Reject(row)" class="icon-btn" type="warning">
+              <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+            </el-button>
+          </el-tooltip>
         </div>
-      </template>
-      <template slot="column-content-button" slot-scope="{ row }">
-        <el-button class="icon-btn" type="primary">
-          <i class="el-icon-edit"></i
-        ></el-button>
       </template>
     </TablePaging>
 
     <DefaultForm :model="form" @actionOK="form.Save.call(this)">
       <div slot="content">
-        <FormInfo ref="form" :model="form.obj.form()" />
+        <FormInfo ref="form" :model="obj.form()" />
       </div>
     </DefaultForm>
   </div>
@@ -97,7 +73,7 @@ import API from "~/assets/scripts/API";
 import TablePaging from "~/assets/scripts/base/TablePaging";
 import TablePagingCol from "~/assets/scripts/base/TablePagingCol";
 import DefaultForm from "~/assets/scripts/base/DefaultForm";
-import dm_fixed_asset_type from "~/assets/scripts/objects/fixed_asset_group";
+import AprovedST from "~/assets/scripts/objects/AprovedST";
 import { EventBus } from "~/assets/scripts/EventBus.js";
 import GetDataAPI from "~/assets/scripts/GetDataAPI";
 import { SelectOption } from "~/assets/scripts/base/SelectOption";
@@ -114,12 +90,12 @@ export default {
     return {
       isAdd: null,
       store: new SelectOption({ data: [] }),
-
+      obj: new AprovedST(),
       tp: new TablePaging({
         title: "Tiêu đề",
         data: API.Manager_GetList_Received,
         params: {
-          iState: 1,
+          iState:2,
         },
         disableSelectRow: true,
 
@@ -170,27 +146,27 @@ export default {
         ],
       }),
       form: new DefaultForm({
-        obj: new dm_fixed_asset_type(),
         title: "",
         visible: false,
-        width: "500px",
-        ShowForm: (title, isAdd, obj) => {
-          this.isAdd = isAdd;
-          var _app = this;
-          // var obj = null;
-          // if (!isAdd) {
-          //   obj = obj;
-          //   if (!obj) {
-          //     ShowMessage("You need choose 1 selection!");
-          //     return;
-          //   }
-          // }
-          this.form.title = title;
-          this.form.obj = new dm_fixed_asset_type(obj);
-          this.form.visible = true;
-        },
+        width: "400px",
         Save: () => {
-          this.Save();
+          this.$refs.form.getValidate().then((re) => {
+            if (re) {
+              GetDataAPI({
+                url: API.Manager_Accept,
+                params: this.obj.toJSON(),
+                method: "POST",
+
+                action: (re) => {
+                  ShowMessage("Đã từ nhận", "success");
+                  this.LoadData();
+                  this.form.visible = false;
+                },
+              });
+            } else {
+              ShowMessage("Vui lòng nhập đầy đủ thông tin", "error");
+            }
+          });
         },
       }),
     };
@@ -198,64 +174,78 @@ export default {
   watch: {
     "tp.params.iState": {
       deep: true,
-      handle: (n, o) => {
-        this.LoadData();
+      handler: function (n, o) {
+        this.$nextTick(() => {
+          this.LoadData();
+          // console.log(n)
+        });
       },
     },
   },
   methods: {
-    LoadData() {
-      this.$refs.tp.LoadData(true);
-    },
-    Add() {
-      this.form.ShowForm("Thêm nhóm tài sản", true);
-    },
-    Edit(row) {
-      this.form.ShowForm("Sửa nhóm tài sản", false, row);
-    },
-    Delete(row) {
+    Reject(row) {
       ShowConfirm({
-        message: "Xóa [" + row.Name + "]",
+        message: "Bạn chắc chắn từ chối nhận tài sản?",
         title: "Cảnh báo!",
         type: MessageType.warning,
       })
         .then(() => {
-          APIHelper.fixed_asset_group.Delete(row).then((re) => {
-            this.LoadData();
-            ShowMessage("Xóa thành công");
-          });
+          this.form.title = "Lý do từ chối";
+          this.obj.Id = row.Id;
+          this.obj.Approved = false;
+          // console.log(this.obj);
+          this.form.visible = true;
         })
         .catch((err) => {
           // An error occurred
         });
     },
-    Save() {
-      var _app = this;
-      this.$refs.form.getValidate().then((re) => {
-        if (!re) {
-          ShowMessage("Vui lòng nhập đầy đủ thông tin!", MessageType.error);
-          return;
-        } else {
-          if (!this.form.obj.Id) {
-            APIHelper.fixed_asset_group
-              .Add(this.form.obj.toJSON())
-              .then((re) => {
-                this.LoadData();
-                this.form.visible = false;
-                ShowMessage("Lưu thành công");
-              });
-          } else {
-            APIHelper.fixed_asset_group
-              .Edit(this.form.obj.toJSON())
-              .then((re) => {
-                this.LoadData();
-                this.form.visible = false;
-                ShowMessage("Lưu thành công");
-              });
-          }
-        }
-      });
+    Approve(row) {
+      ShowConfirm({
+        message: "Nhận tài sản",
+        title: "Cảnh báo!",
+        type: MessageType.warning,
+      })
+        .then(() => {
+          this.obj.Id = row.Id;
+          // return
+          GetDataAPI({
+            url: API.Manager_Accept,
+            params: this.obj.toJSON(),
+            method: "POST",
+
+            action: (re) => {
+              ShowMessage("Thao tác thành công", "success");
+              this.LoadData();
+            },
+          });
+          //  this.obj.
+        })
+        .catch((err) => {
+          // An error occurred
+        });
     },
+
+    getColor(state) {
+      switch (state) {
+        // case 1:
+        //   return 'black';
+        case 2:
+          return "blue";
+        case 3:
+          return "red";
+        case 4:
+          return "red";
+        case 5:
+          return "green";
+        default:
+          return "black";
+      }
+    },
+    LoadData() {
+      this.$refs.tp.LoadData(true);
+    },
+   
   },
 
   mounted() {
@@ -273,4 +263,10 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.state {
+  font-weight: bold;
+  [color] {
+  }
+}
+</style>
