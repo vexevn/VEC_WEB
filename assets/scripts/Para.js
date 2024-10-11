@@ -91,6 +91,17 @@ export var Para = {
       { Id: 5, Name: "Thành công" },
     ]
   }),
+
+  TransferRecivedState: new SelectOption({
+    data: [
+      // { Id: 0, Name: "Không xác định" },
+      
+      { Id: 2, Name: "Phiếu chờ nhận" },
+
+      { Id: 4, Name: "Phiếu từ chối nhận" },
+      { Id: 5, Name: "Phiếu đã nhận" },
+    ]
+  }),
   StoreType: new SelectOption({
     data: [
       { Id: 1, Name: "Store" },

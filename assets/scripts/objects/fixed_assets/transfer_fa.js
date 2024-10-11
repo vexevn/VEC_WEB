@@ -66,23 +66,25 @@ export default class transfer_fa {
         model: "Info.Approved_User",
         type: FormElementType.select,
         labelWidth: 125,
+        disabled: this.disBtn,
+        required: true,
         // options: Para.Para_Account.set((p) => (p.placeholder = "")).set(p=>p.disabled(item){
-        //   item.Id == 
+        //   item.Id ==
         // }),
         // disabled: true,
-        options(obj){
+        options(obj) {
           // console.log(obj)
           return new SelectOption({
             data: API.Get_User_QLTS,
             // data: [],
-            label: 'FullName',
+            label: "FullName",
             // IsItemDisabled: item=>{
             //   if(item.Id == obj.Info.UserCreate)
             //     return true;
-            //   // return 
+            //   // return
             // }
-          })
-        }
+          });
+        },
       }),
 
       Start_Date: new FormElement({
@@ -91,6 +93,7 @@ export default class transfer_fa {
         type: FormElementType.datePicker,
         labelWidth: 100,
         required: true,
+        disabled: this.disBtn,
         col: 11,
         attr: {
           disabledCrDate: true,
@@ -128,6 +131,7 @@ export default class transfer_fa {
         type: FormElementType.select,
         // labelWidth: 120,
         options: Para.Para_Office,
+        disabled: this.disBtn,
         required: true,
         watch(data) {},
       }),
@@ -137,13 +141,14 @@ export default class transfer_fa {
         model: "Info.From_Department_id",
         disabled: this.isAdd ? false : true,
         type: FormElementType.select,
+        required: true,
         labelWidth: 130,
         watch(data, n, o, t) {
           let slData =
             t.getEntry(data._formElements.From_Department_id.id).selectedData ||
             {};
           //   if (slData) {
-          data.Info.Trasnfer_user = slData.Manager_id
+          data.Info.Trasnfer_user = slData.Manager_id;
         },
 
         options(data) {
@@ -162,7 +167,8 @@ export default class transfer_fa {
         label: "Phòng ban nhận",
         model: "Info.To_Department_Id",
         type: FormElementType.select,
-        // required: true,
+        required: true,
+        disabled: this.disBtn,
 
         options(data) {
           // console.log("data.Info.To_Office_id", data.Info.To_Office_id);
@@ -180,9 +186,12 @@ export default class transfer_fa {
             t.getEntry(data._formElements.To_Department_Id.id).selectedData ||
             {};
 
-            console.log(slData.Manager_id,Para.Para_Account.getName(slData.Manager_id));
+          console.log(
+            slData.Manager_id,
+            Para.Para_Account.getName(slData.Manager_id)
+          );
 
-          data.Info.Receive_user = slData.Manager_id
+          data.Info.Receive_user = slData.Manager_id;
           //  ;
         },
       }),
@@ -217,7 +226,7 @@ export default class transfer_fa {
         type: FormElementType.select,
         options: Para.Para_Account,
         labelWidth: 125,
-        // disabled: true,
+        disabled: true,
       }),
     };
   }

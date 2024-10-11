@@ -56,6 +56,13 @@
         </slot>
       </div>
       <span slot="footer" class="dialog-footer" v-if="model.type != 'dialog'">
+       
+        <el-button
+          v-if="model.type != 'dialog'"
+          type="primary"
+          @click="$emit('actionOK')"
+          >{{ model.OKtext || "Lưu" }}</el-button
+        >
         <template v-if="model.type != 'dialog'">
           <el-button
             v-for="item in model.btns"
@@ -66,12 +73,6 @@
             >{{ item.text }}</el-button
           >
         </template>
-        <el-button
-          v-if="model.type != 'dialog'"
-          type="primary"
-          @click="$emit('actionOK')"
-          >{{ model.OKtext || "Lưu" }}</el-button
-        >
         <el-button
           v-if="model.type != 'dialog'"
           type="default"

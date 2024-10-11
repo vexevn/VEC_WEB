@@ -69,15 +69,18 @@
           <p  :style="{ color: getColor(row.State),fontWeight: 'bold' }">
             {{ Para.TransferState.getName(row.State) }}
           </p>
-          <p>
-            {{ row.Description }}
+          <p v-if="row.State == 3">
+            {{ row.Manager_Reason }}
+          </p>
+          <p v-if="row.State == 4">
+            {{ row.Receive_Reason }}
           </p>
         </div>
       </template>
   
 
       <template slot="column-content-button" slot-scope="{ row }">
-        <div style="display: flex; justify-content: space-between">
+        <div style="display: flex;">
           <el-button
             class="icon-btn"
             v-if="pagePermission.edit"
@@ -94,11 +97,18 @@
           >
             <i class="el-icon-delete"></i
           ></el-button>
+          <!-- <el-button
+            class="icon-btn"
+            v-if="row.State == 5"
+            type="primary"
+            @click="Print(row)"
+          >
+          <i class="fa fa-print" aria-hidden="true"></i></el-button> -->
         </div>
       </template>
     </TablePaging>
 
-    <DefaultForm :model="form" @actionOK="Save()">
+    <DefaultForm :model="form" @Print="Print()" @actionOK="Save()">
       <div class="form" style="height: 100%" slot="content">
         <FormInfo ref="form" :model="form.obj.form()" />
       </div>
@@ -149,11 +159,12 @@ export default {
       form: new DefaultForm({
         obj: new transfer_fa(),
         // OKtext: "Tìm kiếm",
+        btns: [{Id: 1, text:'In phiếu',action: 'Print',type:'warning'},],
 
         visible: false,
         // type: "dialog",
         fullscreen: true,
-        title: "Chuyển giao tài sản",
+        title: "Luân chuyển tài sản",
         ShowForm: (title, isAdd, obj) => {
           this.isAdd = isAdd;
 
@@ -190,7 +201,7 @@ export default {
             title: "Ngày thực hiện",
             data: "Start_Date",
             formatter: "date",
-            min_width: 120,
+            min_width: 130,
           }),
           new TablePagingCol({
             title: "Bên giao",
@@ -257,15 +268,15 @@ export default {
           new TablePagingCol({
             title: "Ghi chú",
             data: "Description",
-            min_width: 150,
+            min_width: 270,
             sortable: false,
           }),
           new TablePagingCol({
             title: "",
             data: "button",
-            min_width: 70,
+            min_width: 100,
             sortable: false,
-            align: "center",
+            // align: "center",
             fix: "right",
           }),
         ],
@@ -286,6 +297,13 @@ export default {
     //     },
     //   });
     // },
+    Print(){
+      localStorage.dataPrint = JSON.stringify(this.form.obj);
+      console.log(this.form.obj)
+      window.open("/Print/PhieuLuanChuyen");
+        
+      // console.log(this.form.obj)
+    },
     getColor(state) {
       switch (state) {
         // case 1:
@@ -413,7 +431,7 @@ export default {
 
 <style lang="scss" scoped>
 .icon-btn {
-  margin: 0 !important;
+  margin-left: 5px !important;
 }
 .form {
   ::v-deep .form-info {
