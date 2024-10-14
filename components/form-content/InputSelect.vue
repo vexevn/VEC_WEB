@@ -466,7 +466,7 @@ export default {
             setTimeout(()=>{
               console.log(this.optionsProcess)
             this.loaded = true;
-            },1000)
+            },0)
           })
         }
         // if (!val) {
