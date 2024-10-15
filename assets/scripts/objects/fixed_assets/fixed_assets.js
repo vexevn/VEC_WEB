@@ -187,7 +187,7 @@ export default class fixed_assets {
         label: "Mã tài sản",
         model: "Code",
         type: FormElementType.text,
-        disabled:true,
+        disabled: true,
         labelWidth: 135,
       }),
       Type_id: new FormElement({
@@ -644,7 +644,7 @@ export default class fixed_assets {
           qrcode: true,
         },
         col: 8,
-      })
+      }),
     };
   }
 
