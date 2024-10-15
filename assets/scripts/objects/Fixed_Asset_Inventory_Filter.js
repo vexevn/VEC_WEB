@@ -82,7 +82,7 @@ export default class Fixed_Asset_Inventory_Filter {
         label: "Tình trạng",
         model: "State",
         type: FormElementType.select,
-        options: Para.InventoryState.set((p) => (p.placeholder = "All")),
+        options: Para.InventoryState.set((p) => (p.placeholder = "Tát cả")),
       }),
       Office_id: new FormElement({
         label: "Văn phòng",
@@ -97,9 +97,11 @@ export default class Fixed_Asset_Inventory_Filter {
   form() {
     return new FormInfo({
       formData: this,
+      labelWidth: 90,
+
       elements: [
         new FormElement({
-          direction: FormDirectionType.horizontal,
+          direction: FormDirectionType.vertical,
           child: [
             this._formElements.From,
             this._formElements.To,

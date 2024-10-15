@@ -40,11 +40,18 @@
           </div>
         </div>
         <div v-else></div>
-
       </template>
 
       <template slot="column-content-buttons" slot-scope="obj">
         <div style="display: flex">
+          <el-button
+            class="icon-btn icon-btn"
+            type="primary"
+            @click="Print(obj.row)"
+          >
+            <i class="fa fa-print" aria-hidden="true"></i
+          ></el-button>
+
           <el-button
             class="icon-btn icon-btn"
             v-if="pagePermission.edit"
@@ -71,7 +78,7 @@
       </div>
     </DefaultForm>
 
-    <DefaultForm :model="form" @actionOK="form.Save.call(this)">
+    <DefaultForm :model="form" @Reject="Print()" @actionOK="form.Save.call(this)">
       <div style="height: 100%" slot="content">
         <InventoryRequestForm :obj="form.obj" ref="formIVT" />
       </div>
@@ -134,14 +141,14 @@ export default {
             min_width: 110,
             //  width: "auto",
             sortable: false,
-            formatter: 'date'
+            formatter: "date",
           }),
           new TablePagingCol({
             data: "ToDate",
             title: "Ngày kết thúc",
             min_width: 120,
             //  width: "auto",
-            formatter: 'date',
+            formatter: "date",
             sortable: false,
           }),
           new TablePagingCol({
@@ -157,6 +164,7 @@ export default {
             title: "",
             min_width: 80,
             sortable: false,
+            width: "auto",
           }),
         ],
         data: [],
@@ -172,6 +180,8 @@ export default {
       }),
       form: new DefaultForm({
         obj: new InventoryRequest(),
+        btns: [{ Id: 1, text: "In phiếu", action: "Reject", type: "warning" }],
+
         title: "",
         visible: false,
         // width: "600px",
@@ -219,6 +229,10 @@ export default {
     };
   },
   methods: {
+    Print() {
+      localStorage.dataPrint = JSON.stringify(this.form.obj);
+      window.open("/Print/BienBanKiemKe");
+    },
     Delete(row) {
       // var app = this;
       ShowConfirm({

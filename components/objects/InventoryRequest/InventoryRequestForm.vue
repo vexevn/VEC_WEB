@@ -60,7 +60,7 @@ export default {
           }),
           new TablePagingCol({
             data: "State",
-            title: "Tình trạng hàng tồn kho",
+            title: "Tình trạng kiểm kê",
             min_width: 180,
             width: "auto",
             sortable: false,
