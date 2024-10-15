@@ -67,11 +67,12 @@
       />
       <InputSelect
         v-if="obj.Use_Type_id == 1"
+        key="para_account"
         :disabled="disabledSelect"
         v-model="obj.User_ID"
         :model="
-          Para.Para_Account.set(p=>{
-            p.placeholder = 'Nhân viên'
+          Para.Para_Account.set((p) => {
+            p.placeholder = 'Nhân viên';
           }).set(
             (p) => (p.data = p.data.filter((x) => x.Office_id == obj.Office_id))
           )
@@ -79,6 +80,7 @@
       />
       <InputSelect
         v-else
+        key="para_other"
         :disabled="disabledSelect"
         v-model="obj.User_ID"
         :model="typeUser"
@@ -106,7 +108,7 @@ export default {
       assetnumber: null,
       department_select: new SelectOption(),
       // GroupSelect: new SelectOption(),
-      abc: '',
+      abc: "",
     };
   },
   props: {
