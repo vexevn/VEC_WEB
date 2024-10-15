@@ -343,7 +343,7 @@ export default class fixed_assets {
         },
       }),
       Curent_Holder_person: new FormElement({
-        label: "Người giữ hiện tại",
+        label: "Vị trí đặt tài sản",
         model: "Curent_Holder_Id",
         type: FormElementType.select,
         required: true,
@@ -377,7 +377,7 @@ export default class fixed_assets {
 
           return false;
         },
-        label: "Người giữ hiện tại",
+        label: "Vị trí đặt tài sản",
         model: "Curent_Holder_Id",
         type: FormElementType.select,
         disabled(data) {
