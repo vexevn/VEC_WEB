@@ -90,7 +90,7 @@ S
                   class="icon-btn"
                   type="primary"
                   @click="Transfer(row)"
-                  :disabled="row.State == 1 || row.State == 2 || row.State == 5"
+                  :disabled="row.State == 3"
                 >
                   <i class="fa fa-exchange"></i>
                 </el-button>
@@ -297,14 +297,16 @@ export default {
         data: [],
         disableSelectRow: true,
         params: {
-          From: GetStartMonth(),
-          To: GetTimeNow(),
-          Office_id: "",
+          From: '',
+          To: '',
+          Office_id: 0,
           Project_Code: "",
           State: 0,
           Type: "",
           User_ID: "",
-          // Department_id: '',
+          Department_id: 0,
+          Group_id: 0,
+          Use_Type_id: 0,
         },
         cols: this.isIndividual
           ? [
@@ -640,8 +642,9 @@ export default {
           //   this.tp.params.From = "";
           //   this.tp.params.To = "";
           // }
-          // console.log('aklc')
+          console.log('aklc')
           this.LoadTable();
+
         });
       },
     },
@@ -656,25 +659,26 @@ export default {
       } else {
         GetDataAPI({
           url: API.fixed_asset_Get_List,
-          params: {
-            From:
-              this.tp.params.Type ||
-              this.tp.params.User_ID ||
-              this.tp.params.Office_id
-                ? null
-                : this.tp.params.From,
-            To:
-              this.tp.params.Type ||
-              this.tp.params.User_ID ||
-              this.tp.params.Office_id
-                ? null
-                : this.tp.params.To,
-            Office_id: this.tp.params.Office_id,
-            Project_Code: this.tp.params.Project_Code,
-            State: this.tp.params.State,
-            Type: this.tp.params.Type,
-            User_ID: this.tp.params.User_ID,
-          },
+          // params: {
+          //   From:
+          //     this.tp.params.Type ||
+          //     this.tp.params.User_ID ||
+          //     this.tp.params.Office_id
+          //       ? null
+          //       : this.tp.params.From,
+          //   To:
+          //     this.tp.params.Type ||
+          //     this.tp.params.User_ID ||
+          //     this.tp.params.Office_id
+          //       ? null
+          //       : this.tp.params.To,
+          //   Office_id: this.tp.params.Office_id,
+          //   Project_Code: this.tp.params.Project_Code,
+          //   State: this.tp.params.State,
+          //   Type: this.tp.params.Type,
+          //   User_ID: this.tp.params.User_ID,
+          // },params
+          params: this.tp.params,
           action: (re) => {
             this.tp.data = re;
             this.$refs.tp.LoadData(true);

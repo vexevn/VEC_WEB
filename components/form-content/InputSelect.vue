@@ -463,14 +463,14 @@ export default {
           this.loaded = false;
           this.InitData()
           this.$nextTick(()=>{
-            setTimeout(()=>{
-              console.log(this.optionsProcess)
+            // setTimeout(()=>{
+              // console.log(this.optionsProcess)
             this.loaded = true;
-            },0)
+           
           })
         }
         // if (!val) {
-        this.onFilterMethod("");
+        // this.onFilterMethod("");
         // }
       },
     },

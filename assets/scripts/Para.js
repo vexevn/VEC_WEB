@@ -3,6 +3,7 @@
 import InputFileModel, { InputFileAccept, InputFileType } from "~/components/form-content/InputFile/InputFIleModel";
 import API from "./API";
 import { SelectOption } from "./base/SelectOption";
+import Group from "~/pages/Setting/group.vue";
 
 export var Para = {
   EmailConfigType: new SelectOption({
