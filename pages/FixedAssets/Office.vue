@@ -119,33 +119,27 @@ export default {
       return this.obj.Office_id == 0;
     },
     typeUser() {
-      let filterOption = (data) => {
-        let arr = [];
-        arr = data.filter((p1) => {
-          if (this.obj.Use_Type_id == 2)
-            if (p1.isStore == 1 && this.obj.Office_id == p1.Office_id)
-              return true;
-          if (this.obj.Use_Type_id == 3 && this.obj.Office_id == p1.Office_id)
-            if (p1.isStore == 2) return true;
+     
 
-          return false;
+      let filterOption = (data) => {
+        return data.filter((p1) => {
+          if (this.obj.Office_id !== p1.Office_id) return false;
+
+          switch (this.obj.Use_Type_id) {
+            case 2:
+              return p1.isStore === 1;
+            case 3:
+              return p1.isStore === 2;
+            case 4:
+              return p1.isStore === 3;
+            default:
+              return false;
+          }
         });
-        return arr;
       };
 
-      // let filterPerson = (data) => {
-      //   let arr = [];
-      //   arr = data.filter((p1) => p1.Office_id == this.obj.Office_id);
-      //   return arr;
-      // };
-
-      // let options = Para.Para_Account;
-      // if (this.obj.Use_Type_id != 1) {
       return Para.store_Get_List.set((p) => (p.data = filterOption(p.data)));
-      // }
-      // return options
-      //   .set((p) => (p.placeholder = "Nhân viên"))
-      //   .set((p) => (p.data = filterPerson(p.data)));
+      
     },
   },
   methods: {
