@@ -91,6 +91,8 @@ export default class fixed_assets {
   Chassis_no;
   /** @type {string} - description */
   Check_Date;
+  /** @type {string} - description */
+  Person_id;
 
   /** @type {string} - description */
   Insurance_Date;
@@ -330,11 +332,11 @@ export default class fixed_assets {
         type: FormElementType.text,
       }),
       Use_Type_id: new FormElement({
-        label: "Đối tượng sử dụng",
+        label: "Kho/Phòng làm việc",
         model: "Use_Type_id",
         type: FormElementType.select,
         options: Para.TransferType,
-        labelWidth: 135,
+        labelWidth: 140,
         watch(data, nv, ov, _this, isFirst) {
           if (!isFirst) {
             data.Curent_Holder_Id = undefined;
@@ -342,9 +344,9 @@ export default class fixed_assets {
           }
         },
       }),
-      Curent_Holder_person: new FormElement({
-        label: "Người giữ hiện tại",
-        model: "Curent_Holder_Id",
+      Person_id: new FormElement({
+        label: "Người sử dụng",
+        model: "Person_id",
         type: FormElementType.select,
         required: true,
         // disabled: true,
@@ -356,28 +358,24 @@ export default class fixed_assets {
           // console.log(dataPara.data);
           return dataPara;
         },
-        isVisible(data) {
-          if (data.Use_Type_id == 1 || !data.Use_Type_id) return true;
-          return false;
-        },
-        watch(data, nv, ov, t, isFirst) {
-          if (!isFirst && data.Use_Type_id == 1) {
-            let entry = t.getEntry(data._formElements.Curent_Holder_person.id);
-            if (entry) {
-              let sltd = entry.selectedData || {};
-              data.Curent_Holder_Name = sltd.FullName;
-              // console.log(data.Curent_Holder_Name);
-            }
-          }
-        },
+        // isVisible(data) {
+        //   if (data.Use_Type_id == 1 || !data.Use_Type_id) return true;
+        //   return false;
+        // },
+        // watch(data, nv, ov, t, isFirst) {
+        //   if (!isFirst && data.Use_Type_id == 1) {
+        //     let entry = t.getEntry(data._formElements.Curent_Holder_person.id);
+        //     if (entry) {
+        //       let sltd = entry.selectedData || {};
+        //       data.Curent_Holder_Name = sltd.FullName;
+        //       // console.log(data.Curent_Holder_Name);
+        //     }
+        //   }
+        // },
       }),
       Curent_Holder_Id: new FormElement({
-        isVisible(data) {
-          if (data.Use_Type_id != 1 && data.Use_Type_id) return true;
-
-          return false;
-        },
-        label: "Người giữ hiện tại",
+       
+        label: "Vị trí đặt tài sản",
         model: "Curent_Holder_Id",
         type: FormElementType.select,
         disabled(data) {
@@ -775,30 +773,13 @@ export default class fixed_assets {
                   child: [
                     // this._formElements.Initial_Holder_id,
                     this._formElements.Use_Type_id.set((p) => (p.col = 6)),
-                    this._formElements.Curent_Holder_Id.set((p) => (p.col = 8)),
-                    this._formElements.Curent_Holder_person.set(
-                      (p) => (p.col = 8)
-                    ),
+                    this._formElements.Curent_Holder_Id.set((p) => (p.col = 6)),
+                  
                     this._formElements.Status.set((p) => (p.col = 6)),
-                    new FormElement({
-                      col: 4,
-                      class: "Estimated",
-                      child: [
-                        new FormElement({
-                          direction: FormDirectionType.horizontal,
-                          child: [
-                            new FormElement({
-                              label: "Khấu hao",
-                              class: "Es_label",
-                              type: "label",
-                              // labelWidth: 125,
-                              col: 12,
-                            }),
-                            this._formElements.Estimated_Life,
-                          ],
-                        }),
-                      ],
-                    }),
+                   
+                    this._formElements.Person_id.set(
+                      (p) => (p.col = 6)
+                    ),
                   ],
                 }),
 
@@ -825,6 +806,7 @@ export default class fixed_assets {
                     ),
                     ,
                     this._formElements.Purchase_Date.set((p) => (p.col = 6)),
+                    
                   ],
                 }),
                 new FormElement({
@@ -834,7 +816,25 @@ export default class fixed_assets {
                     this._formElements.RF_Id.set((p) => (p.col = 4)),
                     this._formElements.Maintenance.set((p) => (p.col = 2)),
                     this._formElements.Quantity.set((p) => (p.col = 3)),
-
+                    new FormElement({
+                      col: 3,
+                      class: "Estimated",
+                      child: [
+                        new FormElement({
+                          direction: FormDirectionType.horizontal,
+                          child: [
+                            new FormElement({
+                              label: "Khấu hao",
+                              class: "Es_label",
+                              type: "label",
+                              // labelWidth: 125,
+                              col: 18,
+                            }),
+                            this._formElements.Estimated_Life,
+                          ],
+                        }),
+                      ],
+                    }),
                     // this._formElements.QRCode.set((p) => (p.col = 6)),
                   ],
                 }),

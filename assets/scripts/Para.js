@@ -76,10 +76,10 @@ export var Para = {
   }),
   TransferType: new SelectOption({
     data: [
-      { Id: 1, Name: "Người" },
+      // { Id: 1, Name: "Người" },
       { Id: 2, Name: "Kho" },
       { Id: 3, Name: "Phòng làm việc" },
-      { Id: 4, Name: "Đối tác" },
+      // { Id: 4, Name: "Đối tác" },
     ]
   }),
   TransferState: new SelectOption({

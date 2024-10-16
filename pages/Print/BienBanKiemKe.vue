@@ -1,72 +1,97 @@
 <template lang="">
-  <!-- <Printer :model="printConfig"> -->
-  <div class="phieu">
-    <div class="phieu-header">
-      <h3>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</h3>
-      <h5 style="font-size: 16px; text-decoration: underline">
-        Độc lập tự do hạnh phúc
-      </h5>
-      <br />
-      <br />
-      <h4>BIÊN BẢN KIỂM KÊ</h4>
-      <h4>{{ data.Inventory.Description }}</h4>
+  <Printer :model="printConfig">
+    <div class="phieu">
+      <div class="phieu-header">
+        <h3>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</h3>
+        <h5 style="font-size: 16px; text-decoration: underline">
+          Độc lập tự do hạnh phúc
+        </h5>
+        <br />
+        <br />
+        <h4>BIÊN BẢN KIỂM KÊ</h4>
+        <h4>{{ data.Inventory.Description }}</h4>
 
-      <!-- <hr style="width: 40%;"> -->
-    </div>
-
-    <div>
-      <span>Từ </span><span>{{ConvertStr.ToDateStr(data.Inventory.FromDate)}} </span>
-      <span>- Đến </span><span>{{ConvertStr.ToDateStr(data.Inventory.ToDate)}}</span>
-    </div>
-
-    <div
-      style="text-align: justify; margin-top: 15px"
-      class="phieu-content"
-    ></div>
-    {{data.Details.length}}
-    <div style="margin: 6px 0" class="as-table">
-      <table style="width: 100%">
-        <tr>
-          <th style="width: 40px">STT</th>
-          <th>Mã tài sản</th>
-          <th>Tên tài sản</th>
-          <th style="width: 80px">Phòng quản lý</th>
-          <th style="width: 60px">Trạng thái</th>
-          <th style="width: 100px">Ghi chú</th>
-        </tr>
-        <!-- <tr
-          v-for="(item, index) in dataPrint.Details"
-          :key="item.Fixed_Asset_id"
-        >
-          <th style="font-weight: normal">{{ index + 1 }}</th>
-          <th style="font-weight: normal">{{ item.Fixed_Code }}</th>
-          <th style="font-weight: normal">{{ item.Name }}</th>
-          <th style="font-weight: normal">
-            {{ Para.fixed_asset_state_Get_List.getName(item.Fixed_State) }}
-          </th>
-          <th style="font-weight: normal">01</th>
-        </tr> -->
-      </table>
-    </div>
-
-    <div class="phieu-footer">
-      <div class="qltt">
-        <!-- <b>Bên giao</b> -->
-        <!-- <p>{{ dataPrint.Info.Trasnfer_user }}</p> -->
-
-        <p style="font-weight: bold; margin-top: 50px">
-          <!-- {{ Para.Para_Account.getName(dataPrint.Info.Trasnfer_user) }} -->
-        </p>
+        <!-- <hr style="width: 40%;"> -->
       </div>
-      <div class="ungvien">
-        <!-- <b>Bên nhận</b> -->
-        <p style="font-weight: bold; margin-top: 50px">
-          <!-- {{ Para.Para_Account.getName(dataPrint.Info.Receive_user) }} -->
-        </p>
+
+      <div>
+        <span>Từ </span
+        ><span>{{ ConvertStr.ToDateStr(data.Inventory.FromDate) }} </span>
+        <span>- Đến </span
+        ><span>{{ ConvertStr.ToDateStr(data.Inventory.ToDate) }}</span>
+      </div>
+
+      <div
+        style="text-align: justify; margin-top: 15px"
+        class="phieu-content"
+      ></div>
+      <!-- {{ data.Details.length }} -->
+      <div style="margin: 6px 0" class="as-table">
+        <table style="width: 100%">
+          <tr>
+            <th style="width: 40px">STT</th>
+            <th>Mã tài sản</th>
+            <th>Tên tài sản</th>
+            <th style="width: 80px">Phòng quản lý</th>
+            <th style="width: 80px">Trạng thái</th>
+            <th style="width: 100px">Ghi chú</th>
+          </tr>
+          <tr v-for="(item, index) in data.Details" :key="index">
+            <td
+              :colspan="item.hasOwnProperty('Stt') ? '6' : '1'"
+              :style="{
+                padding: '5px 0',
+                backgroundColor: item.hasOwnProperty('Stt')
+                  ? 'rgb(182 218 255)'
+                  : '',
+                textAlign: item.hasOwnProperty('Stt') ? 'left' : 'center',
+                paddingLeft: item.hasOwnProperty('Stt') ? '5px' : '',
+                fontWeight: item.hasOwnProperty('Stt') ? 'bold' : '',
+              }"
+            >
+              {{
+                item.hasOwnProperty("Stt")
+                  ? " " + item.Stt + ". " + item.Name
+                  : item.i + 1
+              }}
+            </td>
+            <td v-if="!item.hasOwnProperty('Stt')" style="font-weight: normal">
+              {{ item.Fixed_Code }}
+            </td>
+            <td v-if="!item.hasOwnProperty('Stt')" style="font-weight: normal">
+              {{ item.Fixed_Name }}
+            </td>
+            <td v-if="!item.hasOwnProperty('Stt')" style="font-weight: normal">
+              {{ item.Initial_Holder_Name }}
+            </td>
+            <td v-if="!item.hasOwnProperty('Stt')" style="font-weight: normal">
+              {{ Para.fixed_asset_state_Get_List.getName(item.State) }}
+            </td>
+            <td v-if="!item.hasOwnProperty('Stt')" style="font-weight: normal">
+              {{ item.Note }}
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="phieu-footer">
+        <div class="qltt">
+          <!-- <b>Bên giao</b> -->
+          <!-- <p>{{ dataPrint.Info.Trasnfer_user }}</p> -->
+
+          <p style="font-weight: bold; margin-top: 50px">
+            <!-- {{ Para.Para_Account.getName(dataPrint.Info.Trasnfer_user) }} -->
+          </p>
+        </div>
+        <div class="ungvien">
+          <!-- <b>Bên nhận</b> -->
+          <p style="font-weight: bold; margin-top: 50px">
+            <!-- {{ Para.Para_Account.getName(dataPrint.Info.Receive_user) }} -->
+          </p>
+        </div>
       </div>
     </div>
-  </div>
-  <!-- </Printer> -->
+  </Printer>
 </template>
 <script>
 import API from "~/assets/scripts/API";
@@ -81,8 +106,67 @@ export default {
     return {
       dataPrint: JSON.parse(localStorage.dataPrint),
       printConfig: "",
-      data: { Inventory: {},Details:[] },
+      data: { Inventory: {}, Details: [] },
+      nonSttCounter: 0,
     };
+  },
+  watch: {},
+  methods: {
+    // getNonSttIndex() {
+    //   this.nonSttCounter += 1; // Tăng bộ đếm
+    //   return this.nonSttCounter; // Trả về giá trị bộ đếm
+    // },
+    toRoman(num) {
+      const romanNumerals = [
+        { value: 1000, symbol: "M" },
+        { value: 900, symbol: "CM" },
+        { value: 500, symbol: "D" },
+        { value: 400, symbol: "CD" },
+        { value: 100, symbol: "C" },
+        { value: 90, symbol: "XC" },
+        { value: 50, symbol: "L" },
+        { value: 40, symbol: "XL" },
+        { value: 10, symbol: "X" },
+        { value: 9, symbol: "IX" },
+        { value: 5, symbol: "V" },
+        { value: 4, symbol: "IV" },
+        { value: 1, symbol: "I" },
+      ];
+
+      let roman = "";
+
+      romanNumerals.forEach(({ value, symbol }) => {
+        while (num >= value) {
+          roman += symbol;
+          num -= value;
+        }
+      });
+
+      return roman;
+    },
+    processData(data) {
+      let tmp = [];
+      data.forEach((p, index) => {
+        let obj = {};
+        obj.Name = p.Name;
+        obj.Stt = this.toRoman(index + 1);
+        tmp.push(obj);
+        if (p.Childs && p.Childs.length) {
+          tmp = [
+            ...tmp,
+            ...p.Childs.map((child, i) => {
+              this.$set(
+                child,
+                "i",
+                i + ((data[index - 1] || {}).Childs || []).length
+              ); // Thêm thuộc tính 'i' vào đối tượng
+              return child;
+            }),
+          ];
+        }
+      });
+      return tmp;
+    },
   },
 
   mounted() {
@@ -92,13 +176,17 @@ export default {
         iInventory_id: this.dataPrint.Id,
       },
       action: (re) => {
-        console.log(re);
+        // console.log(re);
         this.data = re;
-        console.log(this);
+        this.data.Details = this.processData(re.Details);
+        // console.log(this.data);
+
         this.$nextTick(() => {
-          this.printConfig = new PrintCfg({
-            layout: "portrait",
-          });
+          setTimeout(() => {
+            this.printConfig = new PrintCfg({
+              layout: "portrait",
+            });
+          }, 200);
         });
       },
     });
@@ -110,7 +198,7 @@ export default {
 <style lang="scss" scoped>
 @media screen {
   .phieu {
-    // display: none;
+    display: none;
   }
 }
 table,
