@@ -107,7 +107,7 @@ export var Para = {
     data: [
       { Id: 1, Name: "Kho" },
       { Id: 2, Name: "Phòng làm việc" },
-      { Id: 3, Name: "Đối tác" },
+      // { Id: 3, Name: "Đối tác" },
     ]
   }),
   OfficeType: new SelectOption({

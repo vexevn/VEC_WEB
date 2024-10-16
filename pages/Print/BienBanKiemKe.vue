@@ -8,18 +8,19 @@
         </h5>
         <br />
         <br />
-        <h4>BIÊN BẢN KIỂM KÊ</h4>
-        <h4>{{ data.Inventory.Description }}</h4>
-
-        <!-- <hr style="width: 40%;"> -->
-      </div>
-
-      <div>
+        <h2>BIÊN BẢN KIỂM KÊ</h2>
+        <div>
         <span>Từ </span
         ><span>{{ ConvertStr.ToDateStr(data.Inventory.FromDate) }} </span>
         <span>- Đến </span
         ><span>{{ ConvertStr.ToDateStr(data.Inventory.ToDate) }}</span>
       </div>
+        <p>{{ data.Inventory.Description }}</p>
+
+        <!-- <hr style="width: 40%;"> -->
+      </div>
+
+     
 
       <div
         style="text-align: justify; margin-top: 15px"
@@ -27,14 +28,14 @@
       ></div>
       <!-- {{ data.Details.length }} -->
       <div style="margin: 6px 0" class="as-table">
-        <table style="width: 100%">
+        <table style="width:100%">
           <tr>
             <th style="width: 40px">STT</th>
-            <th>Mã tài sản</th>
+            <th style="width:130px">Mã tài sản</th>
             <th>Tên tài sản</th>
-            <th style="width: 80px">Phòng quản lý</th>
-            <th style="width: 80px">Trạng thái</th>
-            <th style="width: 100px">Ghi chú</th>
+            <th style="width: 150px">Phòng quản lý</th>
+            <th style="width: 100px">Trạng thái</th>
+            <th style="width:200px">Ghi chú</th>
           </tr>
           <tr v-for="(item, index) in data.Details" :key="index">
             <td
@@ -45,7 +46,7 @@
                   ? 'rgb(182 218 255)'
                   : '',
                 textAlign: item.hasOwnProperty('Stt') ? 'left' : 'center',
-                paddingLeft: item.hasOwnProperty('Stt') ? '5px' : '',
+                paddingLeft: item.hasOwnProperty('Stt') ? '5px' : '0px',
                 fontWeight: item.hasOwnProperty('Stt') ? 'bold' : '',
               }"
             >
@@ -184,7 +185,7 @@ export default {
         this.$nextTick(() => {
           setTimeout(() => {
             this.printConfig = new PrintCfg({
-              layout: "portrait",
+              layout: "landscape",
             });
           }, 200);
         });
@@ -196,6 +197,11 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+@page {
+  margin: 0;
+  padding: 0;
+}
+
 @media screen {
   .phieu {
     display: none;
@@ -207,13 +213,22 @@ td {
   border: 1px solid rgb(130, 130, 130);
   border-collapse: collapse;
 }
+
+th{
+  padding: 5px;
+}
+
+td{
+  padding-left: 5px;
+}
+
 ol li {
   padding-bottom: 10px;
 }
 .phieu {
   // display: none;;
   font-family: "Times New Roman", Times, serif;
-  margin: 0 10%;
+  margin: 0 5%;
   .phieu-header {
     text-align: center;
     margin-top: 10px;

@@ -204,7 +204,7 @@ export default {
           const obj = this.form.obj.toJSON();
           obj.Offices = obj.Offices.join(",");
           obj.Store = obj.Store.join(",");
-          console.log(this);
+          // console.log(this);
           // return;
 
           this.$refs.formIVT.$refs.form.getValidate().then((re) => {
@@ -229,8 +229,14 @@ export default {
     };
   },
   methods: {
-    Print() {
+    Print(row) {
+      // console.log(row)
+      // return;
       localStorage.dataPrint = JSON.stringify(this.form.obj);
+
+      if(row){
+        localStorage.dataPrint = JSON.stringify(row);
+      }
       window.open("/Print/BienBanKiemKe");
     },
     Delete(row) {

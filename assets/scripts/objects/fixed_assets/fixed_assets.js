@@ -149,9 +149,10 @@ export default class fixed_assets {
         isVisible: this.isAdd,
       }),
       Status: new FormElement({
-        label: "Tình trạng tài sản",
+        label: "Tình trạng",
         model: "Status",
         required: true,
+        labelWidth: 90,
         type: FormElementType.select,
         options() {
           return Para.fixed_asset_state_Get_List;
@@ -190,7 +191,7 @@ export default class fixed_assets {
         model: "Code",
         type: FormElementType.text,
         disabled: true,
-        labelWidth: 135,
+        labelWidth: 140,
       }),
       Type_id: new FormElement({
         label: "Loại tài sản",
@@ -210,7 +211,8 @@ export default class fixed_assets {
         model: "Group_id",
         type: FormElementType.select,
         options: Para.fixed_asset_group_Get_List,
-        labelWidth: 125,
+        labelWidth: 100,
+
         required: true,
         watch(data, n, o, t, iF) {
           if (!iF) data.Type_id = null;
@@ -235,7 +237,7 @@ export default class fixed_assets {
         model: "Producer_id",
         type: FormElementType.select,
         options: Para.producer_Get_List,
-        labelWidth: 135,
+        labelWidth: 140,
       }),
       Producer_Name: new FormElement({
         label: "Producer_Name",
@@ -246,6 +248,7 @@ export default class fixed_assets {
         label: "Chủng loại",
         model: "Model",
         type: FormElementType.text,
+        labelWidth: 100,
       }),
       Serial: new FormElement({
         label: "Serial",
@@ -324,7 +327,7 @@ export default class fixed_assets {
         label: "Mã dự án",
         model: "Project_Code",
         type: FormElementType.text,
-        labelWidth: 135,
+        labelWidth: 140,
       }),
       Initial_Holder_id: new FormElement({
         label: "Initial Holder id",
@@ -332,7 +335,7 @@ export default class fixed_assets {
         type: FormElementType.text,
       }),
       Use_Type_id: new FormElement({
-        label: "Kho/Phòng làm việc",
+        label: "Đối tượng sử dụng",
         model: "Use_Type_id",
         type: FormElementType.select,
         options: Para.TransferType,
@@ -348,10 +351,11 @@ export default class fixed_assets {
         label: "Người sử dụng",
         model: "Person_id",
         type: FormElementType.select,
-        required: true,
+        // required: true,
         // disabled: true,
         options(data) {
           // console.log($t);
+          data.Person_id = '';
           let dataPara = Para.Para_Account.set((p) => {
             p.data = p.data.filter((p1) => p1.Office_id == data.Office_id);
           });
@@ -374,8 +378,9 @@ export default class fixed_assets {
         // },
       }),
       Curent_Holder_Id: new FormElement({
+        labelWidth: 100,
        
-        label: "Vị trí đặt tài sản",
+        label: "Kho/Phòng",
         model: "Curent_Holder_Id",
         type: FormElementType.select,
         disabled(data) {
@@ -421,7 +426,7 @@ export default class fixed_assets {
         label: "Thời hạn bảo hành",
         model: "Warranty_Period",
         type: FormElementType.number,
-        labelWidth: 135,
+        labelWidth: 140,
         attr: {
           placeholder: "tháng",
         },
@@ -461,9 +466,13 @@ export default class fixed_assets {
         type: FormElementType.number,
       }),
       Estimated_Life_Min: new FormElement({
-        label: "Estimated Min",
+        label: "Khấu hao",
         model: "Estimated_Life_Min",
         type: FormElementType.number,
+        attr:{
+          placeholder: 'tháng',
+        },
+        labelWidth: 90,
       }),
       Disposal_Date: new FormElement({
         label: "Disposal_Date",
@@ -596,6 +605,8 @@ export default class fixed_assets {
         model: "Date_disposal",
         type: FormElementType.date,
         disabled: true,
+        labelWidth: 100,
+
         // options: Para.Para_VehicleType
       }),
       // Vehicle_Type_id: new FormElement({
@@ -775,18 +786,19 @@ export default class fixed_assets {
                     this._formElements.Use_Type_id.set((p) => (p.col = 6)),
                     this._formElements.Curent_Holder_Id.set((p) => (p.col = 6)),
                   
-                    this._formElements.Status.set((p) => (p.col = 6)),
-                   
                     this._formElements.Person_id.set(
                       (p) => (p.col = 6)
                     ),
+                    this._formElements.Status.set((p) => (p.col = 6)),
+                   
+                   
                   ],
                 }),
 
                 new FormElement({
                   child: [
                     this._formElements.Project_Code.set((p) => (p.col = 6)),
-                    this._formElements.Group_id.set((p) => (p.col = 8)),
+                    this._formElements.Group_id.set((p) => (p.col = 6)),
                     this._formElements.Type_id.set((p) => (p.col = 6)),
                     // this._formElements.Unit_cost.set((p) => (p.col = 4)).set(
                     //   (p) => (p.labelWidth = 80)
@@ -794,7 +806,7 @@ export default class fixed_assets {
                     // this._formElements.Currency_Code.set((p) => {
                     //   (p.col = 1), (p.label = "");
                     // }).set((p) => (p.disabled = true)),
-                    this._formElements.Local_currency.set((p) => (p.col = 4)),
+                    this._formElements.Local_currency.set((p) => (p.col = 6)),
                   ],
                 }),
                 new FormElement({
@@ -816,49 +828,30 @@ export default class fixed_assets {
                     this._formElements.RF_Id.set((p) => (p.col = 4)),
                     this._formElements.Maintenance.set((p) => (p.col = 2)),
                     this._formElements.Quantity.set((p) => (p.col = 3)),
-                    new FormElement({
-                      col: 3,
-                      class: "Estimated",
-                      child: [
-                        new FormElement({
-                          direction: FormDirectionType.horizontal,
-                          child: [
-                            new FormElement({
-                              label: "Khấu hao",
-                              class: "Es_label",
-                              type: "label",
-                              // labelWidth: 125,
-                              col: 18,
-                            }),
-                            this._formElements.Estimated_Life,
-                          ],
-                        }),
-                      ],
-                    }),
+                    this._formElements.Estimated_Life_Min.set((p) => (p.col = 3)),
+                    // new FormElement({
+                    //   col: 3,
+                    //   class: "Estimated",
+                    //   child: [
+                    //     new FormElement({
+                    //       direction: FormDirectionType.horizontal,
+                    //       child: [
+                    //         new FormElement({
+                    //           label: "Khấu hao",
+                    //           class: "Es_label",
+                    //           type: "label",
+                    //           // labelWidth: 125,
+                    //           col: 18,
+                    //         }),
+                    //         this._formElements.Estimated_Life,
+                    //       ],
+                    //     }),
+                    //   ],
+                    // }),
                     // this._formElements.QRCode.set((p) => (p.col = 6)),
                   ],
                 }),
-                // new FormElement({
-                //  col: 10,
-                //   class:"Estimated",
-                //   child: [
-                //     new FormElement({
-                //       direction: FormDirectionType.horizontal,
-                //       child:[
-
-                //         new FormElement({
-                //           label: 'Estimated',
-                //           class:"Es_label",
-                //           type: 'label',
-                //           // labelWidth: 125,
-                //           col: 9,
-                //         }),
-                //         this._formElements.Estimated_Life,
-                //       ]
-                //     }),
-
-                //   ]
-                // }),
+             
                 new FormElement({
                   label: "Thông tin phương tiện",
                   type: FormElementType.label,
