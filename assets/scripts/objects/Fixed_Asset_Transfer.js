@@ -82,7 +82,7 @@ export default class Fixed_Asset_Transfer {
         label: "Đến người sử dụng",
         model: "To_Holder_Id",
         type: FormElementType.select,
-        labelWidth: 125,
+        // labelWidth: 140,
         options: Para.Para_Account,
         watch(data, nv, ov, t, isFirst) {
           if (!isFirst && data.To_Type_id == 1) {
@@ -105,7 +105,7 @@ export default class Fixed_Asset_Transfer {
         label: "Đến người sử dụng",
         model: "To_Holder_Id",
         type: FormElementType.select,
-        labelWidth: 135,
+        // labelWidth: 140,
 
         options(data) {
           return Para.store_Get_List.set(p => {
@@ -144,7 +144,7 @@ export default class Fixed_Asset_Transfer {
         model: "To_Holder_Name",
         type: FormElementType.text,
         disabled: true,
-        labelWidth: 135,
+        // labelWidth: 140,
 
         isVisible(data) {
           if (data.To_Type_id != 2 && data.To_Type_id != 1 && data.To_Type_id != 3)
@@ -218,7 +218,7 @@ export default class Fixed_Asset_Transfer {
   form() {
     return new FormInfo({
       formData: this,
-      labelWidth: 135,
+      labelWidth: 150,
       elements: [
         this._formElements.From_Type_id,
         this._formElements.From_Holder_Name,

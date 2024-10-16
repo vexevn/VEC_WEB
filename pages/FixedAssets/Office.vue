@@ -16,7 +16,7 @@
           :key="item.Id"
         >
           <div class="button-content">
-            <span style="text-align: left; font-size: 11px; font-weight: 500">{{
+            <span style="text-align: left; font-size: 13px; font-weight: 500">{{
               item.Name
             }}</span>
             <span style="color: #000000; padding-left: 10px">{{
@@ -209,18 +209,18 @@ export default {
 }
 
 .Filter {
-  width: 180px;
+  width: 200px;
   height: 100%;
   display: flex;
   flex-direction: column;
-
+  overflow-y: auto;
+  overflow-x: hidden;
   .main_ofs {
     display: flex;
     flex-direction: column;
     justify-content: center;
     border: 1px solid rgb(210, 210, 210);
-    overflow-y: auto;
-    overflow-x: hidden;
+
     // padding: 2px;
     .header {
       display: flex;

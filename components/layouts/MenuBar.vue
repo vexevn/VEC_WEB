@@ -228,7 +228,7 @@ export default {
       .el-submenu__title {
         height: 45px;
         line-height: 45px;
-        font-size: 13px;
+        font-size: 14px;
       }
     }
   }

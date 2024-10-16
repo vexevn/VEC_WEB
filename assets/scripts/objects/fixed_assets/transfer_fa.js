@@ -33,7 +33,7 @@ export default class transfer_fa {
         label: "Ngày lập phiếu",
         model: "Info.DateCreate",
         type: FormElementType.datePicker,
-        labelWidth: 110,
+        labelWidth: 125,
         // options: Para.Para_Account,
         disabled: true,
         col: 11,
@@ -52,7 +52,7 @@ export default class transfer_fa {
         label: "Ngày duyệt",
         model: "Info.Approved_Date",
         type: FormElementType.datePicker,
-        labelWidth: 90,
+        labelWidth: 100,
         // options: Para.Para_Account,
         required: true,
         disabled: true,
@@ -91,7 +91,7 @@ export default class transfer_fa {
         label: "Ngày chuyển",
         model: "Info.Start_Date",
         type: FormElementType.datePicker,
-        labelWidth: 100,
+        labelWidth: 110,
         required: true,
         disabled: this.disBtn,
         col: 11,
@@ -104,7 +104,7 @@ export default class transfer_fa {
         label: "Ngày nhận",
         model: "Info.Receive_date",
         type: FormElementType.datePicker,
-        labelWidth: 90,
+        labelWidth: 100,
         required: true,
         disabled: true,
         col: 10,
@@ -116,7 +116,7 @@ export default class transfer_fa {
         label: "Văn phòng chuyển",
         model: "Info.From_Office_id",
         type: FormElementType.select,
-        labelWidth: 130,
+        labelWidth: 145,
         required: true,
         disabled: this.isAdd ? false : true,
         options: Para.Para_Office,
@@ -129,7 +129,7 @@ export default class transfer_fa {
         label: "Văn phòng nhận",
         model: "Info.To_Office_id",
         type: FormElementType.select,
-        // labelWidth: 120,
+        labelWidth: 140,
         options: Para.Para_Office,
         disabled: this.disBtn,
         required: true,
@@ -142,7 +142,7 @@ export default class transfer_fa {
         disabled: this.isAdd ? false : true,
         type: FormElementType.select,
         required: true,
-        labelWidth: 130,
+        labelWidth: 145,
         watch(data, n, o, t) {
           let slData =
             t.getEntry(data._formElements.From_Department_id.id).selectedData ||
@@ -169,6 +169,7 @@ export default class transfer_fa {
         type: FormElementType.select,
         required: true,
         disabled: this.disBtn,
+        labelWidth: 140,
 
         options(data) {
           // console.log("data.Info.To_Office_id", data.Info.To_Office_id);

@@ -128,6 +128,7 @@ export default {
       overflow: hidden;
       .form-c {
         height: 100%;
+        // overflow: hidden auto;
         > div {
           height: 100%;
         }
@@ -161,6 +162,7 @@ export default {
   }
   .el-dialog__body {
     padding: 10px;
+    overflow:hidden auto ;
   }
   .el-dialog__footer {
     padding: 10px;

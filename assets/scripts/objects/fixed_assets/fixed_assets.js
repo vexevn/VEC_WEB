@@ -145,14 +145,14 @@ export default class fixed_assets {
         label: "Số lượng",
         model: "Estimated_Life_Max",
         type: FormElementType.number,
-        labelWidth: 75,
+        labelWidth: 82,
         isVisible: this.isAdd,
       }),
       Status: new FormElement({
         label: "Tình trạng",
         model: "Status",
         required: true,
-        labelWidth: 90,
+        labelWidth: 95,
         type: FormElementType.select,
         options() {
           return Para.fixed_asset_state_Get_List;
@@ -191,7 +191,7 @@ export default class fixed_assets {
         model: "Code",
         type: FormElementType.text,
         disabled: true,
-        labelWidth: 140,
+        labelWidth: 147,
       }),
       Type_id: new FormElement({
         label: "Loại tài sản",
@@ -211,7 +211,7 @@ export default class fixed_assets {
         model: "Group_id",
         type: FormElementType.select,
         options: Para.fixed_asset_group_Get_List,
-        labelWidth: 100,
+        labelWidth: 115,
 
         required: true,
         watch(data, n, o, t, iF) {
@@ -237,7 +237,7 @@ export default class fixed_assets {
         model: "Producer_id",
         type: FormElementType.select,
         options: Para.producer_Get_List,
-        labelWidth: 140,
+        labelWidth: 147,
       }),
       Producer_Name: new FormElement({
         label: "Producer_Name",
@@ -248,7 +248,7 @@ export default class fixed_assets {
         label: "Chủng loại",
         model: "Model",
         type: FormElementType.text,
-        labelWidth: 100,
+        labelWidth: 115,
       }),
       Serial: new FormElement({
         label: "Serial",
@@ -259,7 +259,7 @@ export default class fixed_assets {
         label: "Ngày tính bảo hành",
         model: "Purchase_Date",
         type: FormElementType.date,
-        labelWidth: 135,
+        labelWidth: 155,
         required: true,
         disabled(data) {
           if (data.Ware_house_id) return true;
@@ -327,7 +327,7 @@ export default class fixed_assets {
         label: "Mã dự án",
         model: "Project_Code",
         type: FormElementType.text,
-        labelWidth: 140,
+        labelWidth: 147,
       }),
       Initial_Holder_id: new FormElement({
         label: "Initial Holder id",
@@ -339,7 +339,7 @@ export default class fixed_assets {
         model: "Use_Type_id",
         type: FormElementType.select,
         options: Para.TransferType,
-        labelWidth: 140,
+        labelWidth: 147,
         watch(data, nv, ov, _this, isFirst) {
           if (!isFirst) {
             data.Curent_Holder_Id = undefined;
@@ -378,7 +378,7 @@ export default class fixed_assets {
         // },
       }),
       Curent_Holder_Id: new FormElement({
-        labelWidth: 100,
+        labelWidth: 115,
        
         label: "Kho/Phòng",
         model: "Curent_Holder_Id",
@@ -426,7 +426,7 @@ export default class fixed_assets {
         label: "Thời hạn bảo hành",
         model: "Warranty_Period",
         type: FormElementType.number,
-        labelWidth: 140,
+        labelWidth: 147,
         attr: {
           placeholder: "tháng",
         },
@@ -435,7 +435,7 @@ export default class fixed_assets {
         label: "Bảo trì",
         model: "Maintenance",
         type: FormElementType.checkbox,
-        labelWidth: 60,
+        labelWidth: 66,
       }),
       Estimated_Life: new FormElement({
         direction: FormDirectionType.horizontal,
@@ -472,7 +472,7 @@ export default class fixed_assets {
         attr:{
           placeholder: 'tháng',
         },
-        labelWidth: 90,
+        labelWidth: 85,
       }),
       Disposal_Date: new FormElement({
         label: "Disposal_Date",
@@ -504,7 +504,7 @@ export default class fixed_assets {
         label: "Tên tài sản",
         model: "Name",
         type: FormElementType.text,
-        labelWidth: 100,
+        labelWidth: 115,
         required: true,
       }),
       State: new FormElement({
@@ -532,6 +532,7 @@ export default class fixed_assets {
         label: "Ngày đăng kiểm",
         model: "Check_Date",
         type: FormElementType.datePicker,
+        labelWidth: 130,
       }),
       Insurance_Date: new FormElement({
         label: "Ngày bảo hiểm",
@@ -554,7 +555,7 @@ export default class fixed_assets {
         label: "Giá trị tài sản",
         model: "VND",
         type: FormElementType.number,
-        labelWidth: 100,
+        labelWidth: 110,
         attr: {
           placeholder: "VNĐ",
         },
@@ -564,7 +565,7 @@ export default class fixed_assets {
         label: "Văn phòng",
         model: "Office_id",
         type: FormElementType.select,
-        labelWidth: 90,
+        labelWidth: 100,
         options: Para.Para_Office,
         required: true,
         watch(data, nv, ov, _this, isFirst) {
@@ -580,7 +581,7 @@ export default class fixed_assets {
         model: "Department_id",
         type: FormElementType.select,
         required: true,
-        labelWidth: 90,
+        labelWidth: 95,
         options(data) {
           // const arr = [data.Office_id];
           // console.log(arr);
@@ -605,7 +606,7 @@ export default class fixed_assets {
         model: "Date_disposal",
         type: FormElementType.date,
         disabled: true,
-        labelWidth: 100,
+        labelWidth: 115,
 
         // options: Para.Para_VehicleType
       }),
@@ -926,10 +927,10 @@ export default class fixed_assets {
       formData: this,
       labelWidth: 135,
       elements: [
-        this._formElements.Code.set((p) => (p.disabled = true)),
-        this._formElements.Serial.set((p) => (p.disabled = true)),
-        this._formElements.Producer_id.set((p) => (p.disabled = true)),
-        this._formElements.Model.set((p) => (p.disabled = true)),
+        this._formElements.Code.set((p) => (p.disabled = true)).set(p=>p.labelWidth = 135),
+        this._formElements.Serial.set((p) => (p.disabled = true)).set(p=>p.labelWidth = 135),
+        this._formElements.Producer_id.set((p) => (p.disabled = true)).set(p=>p.labelWidth = 135),
+        this._formElements.Model.set((p) => (p.disabled = true)).set(p=>p.labelWidth = 135),
       ],
     });
   }

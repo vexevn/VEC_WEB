@@ -88,7 +88,7 @@ export default {
         }
       }
       .menu-c-t {
-        font-size: 10px;
+        font-size: 13px;
       }
     }
   }

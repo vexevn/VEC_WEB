@@ -53,7 +53,7 @@ export default {
           params: {},
 
           cols: [
-            { Index: 1, data: "SttTP", title: "STT", min_width: 60 },
+            { Index: 1, data: "SttTP", title: "STT", min_width: 70 },
             {
               Index: 2,
               data: "Name",

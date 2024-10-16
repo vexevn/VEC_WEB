@@ -142,7 +142,7 @@ export default {
     ::v-deep .el-tree-node__content {
       height: 20px;
       .el-tree-node__label {
-        font-size: 12px;
+        font-size: 14px;
       }
     }
   }

@@ -6,6 +6,8 @@ export default class Office {
   Name;
   /** @type {string} - description */
   Serial;
+  /** @type {string} - description */
+  ADCode;
   /** @type {number} - description */
   Use;
   /** @type {number} - description */
@@ -33,6 +35,11 @@ export default class Office {
     Serial: new FormElement({
       label: "Serial",
       model: "Serial",
+      type: FormElementType.text,
+    }),
+    ADCode: new FormElement({
+      label: "AD Code",
+      model: "ADCode",
       type: FormElementType.text,
     }),
     Use: new FormElement({
@@ -107,6 +114,7 @@ export default class Office {
         this._formElements.Serial,
         this._formElements.Name,
         this._formElements.OfficeType,
+        this._formElements.ADCode,
         this._formElements.Use,
         this._formElements.Sequency,
 
