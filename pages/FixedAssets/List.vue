@@ -142,7 +142,7 @@ S
       </div>
     </DefaultForm>
     <DefaultForm :model="form" @actionOK="form.Save.call(this)">
-      <div style="padding: 20px 0 35px 0" slot="content">
+      <div style="" slot="content">
         <FormInfo
           ref="form"
           :model="form.obj.form2()"
@@ -584,7 +584,8 @@ export default {
         obj: new fixed_assets(),
         title: "",
         visible: false,
-        width: "1200px",
+        fullscreen: true,
+        // width: "1200px",
         ShowForm: (title, isAdd, obj, viewOnly) => {
           this.isAdd = isAdd;
           this.form.title = title;

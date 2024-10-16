@@ -83,12 +83,12 @@ export default {
       .app-main-item-title-text {
         padding-left: 15px;
         font-weight: bold;
-        font-size: 14px;
+        font-size: 16px;
       }
     }
     .app-main-item-notes {
       min-height: 32px;
-      font-size: 12px;
+      font-size: 14px;
     }
   }
 }

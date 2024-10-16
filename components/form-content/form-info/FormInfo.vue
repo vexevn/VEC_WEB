@@ -168,13 +168,13 @@ export default {
   font-size: 13px;
   .form-info-c,
   ::v-deep  .form-element-child-vertical {
-    margin-bottom: -5px;
+    margin-bottom: -7px;
     & > *:empty {
       display: none !important;
     }
 
     & > *:not(:empty) {
-      margin-bottom: 5px;
+      margin-bottom: 7px;
       // &:last-child {
       //   margin-bottom: 0px;
       // }

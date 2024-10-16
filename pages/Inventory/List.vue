@@ -272,7 +272,7 @@ export default {
         OKtext: "Tìm kiếm",
         // visible: true,
         // type: "dialog",
-        width: "800px",
+        width: "400px",
         title: "Lọc dữ liệu",
       }),
     };

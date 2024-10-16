@@ -91,11 +91,11 @@ export default {
             min_width: 120,
             formatter: (value) => Para.Para_Active.getName(value),
           }),
-          // new TablePagingCol({
-          //   title:  "Trình tự",
-          //   data: "Sequency",
-          //   min_width: 120,
-          // }),
+          new TablePagingCol({
+            title:  "AD Code",
+            data: "ADCode",
+            min_width: 120,
+          }),
           new TablePagingCol({
             title: "Người cập nhật",
             data: "UserUpdate",

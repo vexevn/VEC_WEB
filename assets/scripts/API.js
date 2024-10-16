@@ -235,6 +235,7 @@ export default {
   Ticket_Get_Comment: linkAPI + "Ticket/Get_Comment",
 
   Inventory_Get_Info: linkAPI + "Inventory/Get_Info",
+  Inventory_Get_Print: linkAPI + "Inventory/Get_Print",
   Inventory_Get_List_ByAssets: linkAPI + "Inventory/Get_List_ByAssets",
   Inventory_Get_List: linkAPI + "Inventory/Get_List",
   Inventory_Add: linkAPI + "Inventory/Add",

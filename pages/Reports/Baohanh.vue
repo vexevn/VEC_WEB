@@ -21,9 +21,9 @@
     <DefaultForm :model="formFilter" @actionOK="Search()">
       <div slot="content">
         <!-- <FormInfo :model="tp.params.form2()" /> -->
-        <InputContainer label="Số tháng bảo hành còn lại" :labelWidth="180">
+        <InputContainer label="Số tháng bảo hành còn lại" :labelWidth="200">
           
-            <InputNumber   style="width: 80%"  v-model="tp.params.iMonth"
+            <InputNumber   style="width: 70%"  v-model="tp.params.iMonth"
         />
         
         <label>  tháng</label>

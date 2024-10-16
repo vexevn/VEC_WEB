@@ -34,7 +34,7 @@ import API from "../../API";
             label: "Văn phòng",
             model: "Office_id",
             type: FormElementType.select,
-            labelWidth: 90,
+            labelWidth: 100,
             options: Para.Para_Office,
             
           }),
@@ -43,7 +43,7 @@ import API from "../../API";
             label: "Phòng ban",
             model: "Store_id",
             type: FormElementType.select,
-            labelWidth: 90,
+            labelWidth: 100,
             options(data) {
               // const arr = [data.Office_id];
               // console.log(arr);
@@ -63,7 +63,7 @@ import API from "../../API";
           options: Para.fixed_asset_type_Get_List
             .set((p) => (p.placeholder = "Tất cả")),
             // .set((p) => (p.labelFormat = p.labelFormat:(item)=> item.Code + item.Name)),
-            labelWidth: 90,
+            labelWidth: 100,
 
         }),
       };

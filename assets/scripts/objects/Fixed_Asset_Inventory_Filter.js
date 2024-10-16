@@ -49,7 +49,7 @@ export default class Fixed_Asset_Inventory_Filter {
         attr: {
           disabledCrDate: true,
         },
-        labelWidth: 90,
+        labelWidth: 100,
       }),
       FromDate: new FormElement({
         label: "Từ ngày",
@@ -58,7 +58,7 @@ export default class Fixed_Asset_Inventory_Filter {
         attr: {
           disabledCrDate: true,
         },
-        labelWidth: 90,
+        labelWidth: 100,
       }),
       To: new FormElement({
         label: "Đến ngày",
@@ -67,7 +67,7 @@ export default class Fixed_Asset_Inventory_Filter {
         attr: {
           disabledCrDate: true,
         },
-        labelWidth: 90,
+        labelWidth: 100,
       }),
       ToDate: new FormElement({
         label: "Đến ngày",
@@ -76,20 +76,20 @@ export default class Fixed_Asset_Inventory_Filter {
         attr: {
           disabledCrDate: true,
         },
-        labelWidth: 90,
+        labelWidth: 100,
       }),
       State: new FormElement({
         label: "Tình trạng",
         model: "State",
         type: FormElementType.select,
-        options: Para.InventoryState.set((p) => (p.placeholder = "All")),
+        options: Para.InventoryState.set((p) => (p.placeholder = "Tát cả")),
       }),
       Office_id: new FormElement({
         label: "Văn phòng",
         model: "Office_id",
         type: FormElementType.select,
         options: Para.Para_Office,
-        labelWidth: 90,
+        labelWidth: 100,
       }),
     };
   }
@@ -97,9 +97,11 @@ export default class Fixed_Asset_Inventory_Filter {
   form() {
     return new FormInfo({
       formData: this,
+      labelWidth: 100,
+
       elements: [
         new FormElement({
-          direction: FormDirectionType.horizontal,
+          direction: FormDirectionType.vertical,
           child: [
             this._formElements.From,
             this._formElements.To,
@@ -130,7 +132,7 @@ export default class Fixed_Asset_Inventory_Filter {
   formInventRequest() {
     return new FormInfo({
       formData: this,
-      labelWidth: 90,
+      labelWidth: 100,
       elements: [
         this._formElements.Office_id,
         this._formElements.From,
@@ -141,7 +143,7 @@ export default class Fixed_Asset_Inventory_Filter {
   form4() {
     return new FormInfo({
       formData: this,
-      labelWidth: 90,
+      labelWidth: 100,
       elements: [
         this._formElements.Office_id,
         this._formElements.FromDate,

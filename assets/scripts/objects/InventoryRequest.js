@@ -77,8 +77,8 @@ export default class InventoryRequest {
         model: "Active",
         type: FormElementType.checkbox,
         // options: Para.InventoryState.set((p) => (p.placeholder = "All")),
-        col: 8,
-        labelWidth: 80,
+        col: 9,
+        labelWidth: 90,
       }),
       Description: new FormElement({
         label: "Mô tả",
