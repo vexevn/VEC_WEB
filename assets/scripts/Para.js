@@ -126,7 +126,7 @@ export var Para = {
     data: [
       { Id: 1, Name: "Hoạt động" },
       { Id: 2, Name: "Không hoạt động" },
-      { Id: 3, Name: "Deactivate" },
+      { Id: 3, Name: "Vô hiệu hóa" },
     ]
   }),
   SignImage: new InputFileModel({
