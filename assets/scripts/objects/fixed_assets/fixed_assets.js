@@ -380,7 +380,7 @@ export default class fixed_assets {
       }),
       Curent_Holder_Id: new FormElement({
         labelWidth: 115,
-       
+
         label: "Kho/Phòng",
         model: "Curent_Holder_Id",
         type: FormElementType.select,
@@ -787,13 +787,13 @@ export default class fixed_assets {
                     // this._formElements.Initial_Holder_id,
                     this._formElements.Use_Type_id.set((p) => (p.col = 6)),
                     this._formElements.Curent_Holder_Id.set((p) => (p.col = 6)),
-                  
+
                     this._formElements.Person_id.set(
                       (p) => (p.col = 6)
                     ),
                     this._formElements.Status.set((p) => (p.col = 6)),
-                   
-                   
+
+
                   ],
                 }),
 
@@ -820,7 +820,7 @@ export default class fixed_assets {
                     ),
                     ,
                     this._formElements.Purchase_Date.set((p) => (p.col = 6)),
-                    
+
                   ],
                 }),
                 new FormElement({
@@ -853,7 +853,7 @@ export default class fixed_assets {
                     // this._formElements.QRCode.set((p) => (p.col = 6)),
                   ],
                 }),
-             
+
                 new FormElement({
                   label: "Thông tin phương tiện",
                   type: FormElementType.label,
