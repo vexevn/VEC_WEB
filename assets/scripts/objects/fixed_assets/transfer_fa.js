@@ -33,7 +33,7 @@ export default class transfer_fa {
         label: "Ngày lập phiếu",
         model: "Info.DateCreate",
         type: FormElementType.datePicker,
-        labelWidth: 140,
+        labelWidth: 125,
         // options: Para.Para_Account,
         disabled: true,
         col: 11,
@@ -91,7 +91,7 @@ export default class transfer_fa {
         label: "Ngày chuyển",
         model: "Info.Start_Date",
         type: FormElementType.datePicker,
-        labelWidth: 140,
+        labelWidth: 125,
         required: true,
         disabled: this.disBtn,
         col: 11,
@@ -187,10 +187,10 @@ export default class transfer_fa {
             t.getEntry(data._formElements.To_Department_Id.id).selectedData ||
             {};
 
-          console.log(
-            slData.Manager_id,
-            Para.Para_Account.getName(slData.Manager_id)
-          );
+          // console.log(
+          //   slData.Manager_id,
+          //   Para.Para_Account.getName(slData.Manager_id)
+          // );
 
           data.Info.Receive_user = slData.Manager_id;
           //  ;
@@ -255,9 +255,6 @@ export default class transfer_fa {
                 new FormElement({
                   child: [
                     this._formElements.Trasnfer_user.set((p) => (p.col = 18)),
-
-                    // this._formElements.Deli_user.set((p) => (p.col = 18)),
-
                     this._formElements.Start_Date,
                   ],
                 }),
@@ -265,9 +262,6 @@ export default class transfer_fa {
                 new FormElement({
                   child: [
                     this._formElements.UserCreate.set((p) => (p.col = 18)),
-
-                    // this._formElements.Deli_user.set((p) => (p.col = 18)),
-
                     this._formElements.DateCreate,
                   ],
                 }),
@@ -277,13 +271,8 @@ export default class transfer_fa {
               direction: FormDirectionType.vertical,
 
               child: [
-                // new FormElement({
-                //   child: [
                 this._formElements.To_Office_id,
                 this._formElements.To_Department_Id,
-                //   ],
-                // }),
-                // this._formElements.Receive_user,
 
                 new FormElement({
                   child: [
@@ -297,9 +286,6 @@ export default class transfer_fa {
                 new FormElement({
                   child: [
                     this._formElements.Approved_User.set((p) => (p.col = 19)),
-
-                    // this._formElements.Receive_user,
-
                     this._formElements.Approved_Date,
                   ],
                 }),
