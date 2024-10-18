@@ -132,6 +132,11 @@ S
           <span v-if="row.Maintenance"> Có </span>
           <span v-else> Không </span>
         </template>
+        <template slot="column-content-Note" slot-scope="{ row }">
+          <div class="Note-cell">
+            {{ row.Note }}
+          </div>
+        </template>
       </TablePaging>
     </div>
 
@@ -297,8 +302,8 @@ export default {
         data: [],
         disableSelectRow: true,
         params: {
-          From: '',
-          To: '',
+          From: "",
+          To: "",
           Office_id: 0,
           Project_Code: "",
           State: 0,
@@ -518,7 +523,7 @@ export default {
               new TablePagingCol({
                 title: "Ghi chú",
                 data: "Note",
-                min_width: 150,
+                min_width: 250,
                 sortable: false,
               }),
               new TablePagingCol({
@@ -643,9 +648,8 @@ export default {
           //   this.tp.params.From = "";
           //   this.tp.params.To = "";
           // }
-          console.log('aklc')
+          console.log("aklc");
           this.LoadTable();
-
         });
       },
     },
@@ -887,6 +891,17 @@ export default {
 ::v-deep tr td {
   cursor: inherit !important;
 }
+
+.Note-cell {
+  height: 100%;
+  width: 100%;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .name-link {
   color: #464feb;
   text-decoration: underline;

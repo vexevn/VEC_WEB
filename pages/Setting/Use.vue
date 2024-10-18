@@ -1,6 +1,19 @@
 <template>
   <div style="height: 100%">
     <TablePaging ref="tp" :model="tp">
+      <template slot="btn2">
+        <InputContainer
+          style="width: 500px; padding-left: 10px"
+          label="Văn phòng"
+          :labelWidth="120"
+        >
+          <InputSelect
+            style="width: 100%"
+            v-model="tp.params.iOffice_id"
+            :model="Para.Para_Office"
+        /></InputContainer>
+      </template>
+
       <template slot="column-header-button">
         <el-button
           class="icon-btn icon-btn"
@@ -67,6 +80,9 @@ export default {
       tp: new TablePaging({
         title: "Tiêu đề",
         data: API.Account,
+        params: {
+          iOffice_id: 0,
+        },
         disableSelectRow: true,
 
         cols: [
@@ -112,9 +128,10 @@ export default {
             formatter: (value) => Para.Para_Use.getName(value),
           }),
           new TablePagingCol({
-            title: "Người cập nhật",
-            data: "UserUpdate",
-            min_width: 160,
+            title: "Văn phòng",
+            data: "Office_id",
+            min_width: 200,
+            formatter: (value) => Para.Para_Office.getName(value),
           }),
           new TablePagingCol({
             title: "Ngày cập nhật",
@@ -157,6 +174,14 @@ export default {
       }),
     };
   },
+
+  watch: {
+    "tp.params.iOffice_id"(n, o) {
+      this.$nextTick(() => {
+        this.LoadData();
+      });
+    },
+  },
   methods: {
     LoadData() {
       this.$refs.tp.LoadData(true);
@@ -196,10 +221,7 @@ export default {
       var _app = this;
       this.$refs.form.getValidate().then((re) => {
         if (!re) {
-          ShowMessage(
-            "Vui lòng nhập đầy đủ thông tin!",
-            MessageType.error
-          );
+          ShowMessage("Vui lòng nhập đầy đủ thông tin!", MessageType.error);
           return;
         } else {
           GetDataAPI({

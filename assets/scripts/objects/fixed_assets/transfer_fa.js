@@ -33,7 +33,7 @@ export default class transfer_fa {
         label: "Ngày lập phiếu",
         model: "Info.DateCreate",
         type: FormElementType.datePicker,
-        labelWidth: 125,
+        labelWidth: 140,
         // options: Para.Para_Account,
         disabled: true,
         col: 11,
@@ -42,7 +42,7 @@ export default class transfer_fa {
         label: "Người lập phiếu",
         model: "Info.UserCreate",
         type: FormElementType.select,
-        labelWidth: 130,
+        labelWidth: 145,
         disabled: true,
         options: Para.Para_Account.set((p) => (p.placeholder = "")),
 
@@ -65,7 +65,7 @@ export default class transfer_fa {
         label: "Người duyệt",
         model: "Info.Approved_User",
         type: FormElementType.select,
-        labelWidth: 125,
+        labelWidth: 140,
         disabled: this.disBtn,
         required: true,
         // options: Para.Para_Account.set((p) => (p.placeholder = "")).set(p=>p.disabled(item){
@@ -91,7 +91,7 @@ export default class transfer_fa {
         label: "Ngày chuyển",
         model: "Info.Start_Date",
         type: FormElementType.datePicker,
-        labelWidth: 110,
+        labelWidth: 140,
         required: true,
         disabled: this.disBtn,
         col: 11,
@@ -201,7 +201,7 @@ export default class transfer_fa {
         label: "Mô tả",
         model: "Info.Description",
         disabled: this.disBtn,
-        labelWidth: 130,
+        labelWidth: 145,
         type: FormElementType.text,
         attr: {
           rows: 2,
@@ -215,7 +215,7 @@ export default class transfer_fa {
         type: FormElementType.select,
         options: Para.Para_Account,
 
-        labelWidth: 130,
+        labelWidth: 145,
         // options: Para.Para_Account,
         disabled: true,
         // watch(data){
@@ -227,7 +227,7 @@ export default class transfer_fa {
         model: "Info.Receive_user",
         type: FormElementType.select,
         options: Para.Para_Account,
-        labelWidth: 125,
+        labelWidth: 140,
         disabled: true,
       }),
     };

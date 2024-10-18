@@ -31,7 +31,7 @@
         <table style="width:100%">
           <tr>
             <th style="width: 40px">STT</th>
-            <th style="width:130px">Mã tài sản</th>
+            <th style="width:150px">Mã tài sản</th>
             <th>Tên tài sản</th>
             <th style="width: 150px">Phòng quản lý</th>
             <th style="width: 100px">Trạng thái</th>
