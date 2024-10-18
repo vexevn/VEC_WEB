@@ -152,6 +152,7 @@ export default class fixed_assets {
         label: "Tình trạng",
         model: "Status",
         required: true,
+        disabled: !this.isAdd,
         labelWidth: 95,
         type: FormElementType.select,
         options() {
