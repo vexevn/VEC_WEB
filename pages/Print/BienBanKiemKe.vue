@@ -17,7 +17,6 @@
       </div>
         <p>{{ data.Inventory.Description }}</p>
 
-        <!-- <hr style="width: 40%;"> -->
       </div>
 
      
@@ -63,7 +62,7 @@
               {{ item.Fixed_Name }}
             </td>
             <td v-if="!item.hasOwnProperty('Stt')" style="font-weight: normal">
-              {{ item.Initial_Holder_Name }}
+              {{ item.Department }}
             </td>
             <td v-if="!item.hasOwnProperty('Stt')" style="font-weight: normal">
               {{ Para.fixed_asset_state_Get_List.getName(item.State) }}
@@ -187,7 +186,7 @@ export default {
             this.printConfig = new PrintCfg({
               layout: "landscape",
             });
-          }, 200);
+          }, 0);
         });
       },
     });

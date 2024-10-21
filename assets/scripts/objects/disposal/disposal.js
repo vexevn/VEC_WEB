@@ -43,7 +43,7 @@ export default class Disposal {
         label: "Ngày thanh lý",
         model: "DateActive",
         type: FormElementType.datePicker,
-        labelWidth: 110,
+        labelWidth: 120,
       }),
       FileAttach: new FormElement({
         // label: "FileAttach",

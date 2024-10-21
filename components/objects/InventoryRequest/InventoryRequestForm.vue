@@ -1,7 +1,7 @@
 <template lang="">
   <div style="display: flex; height: 100%">
-    <FormInfo style="width: 30%" ref="form" :model="obj.form()" />
-    <div style="width:70%" class="asset-info">
+    <FormInfo style="width: 25%" ref="form" :model="obj.form()" />
+    <div style="width:70%;flex:1" class="asset-info">
         <TablePaging :model="tp" ref="tp">
      
             <template slot="column-content-State" slot-scope="obj">
@@ -37,6 +37,13 @@ export default {
             sortable: false,
           }),
           new TablePagingCol({
+            data: "Fixed_Code",
+            title: "Mã tài sản",
+            min_width: 180,
+            width: "auto",
+            sortable: false,
+          }),
+          new TablePagingCol({
             data: "Fixed_Asset_Name",
             title: "Tên tài sản",
             min_width: 180,
@@ -44,28 +51,36 @@ export default {
             sortable: false,
           }),
           new TablePagingCol({
+            data: "QRCode",
+            title: "Mã QR",
+            min_width: 180,
+            // width: "auto",
+            sortable: false,
+          }),
+          new TablePagingCol({
             data: "Fixed_Asset_State",
             title: "Trạng thái",
-            min_width: 180,
+            min_width: 120,
             width: "auto",
             sortable: false,
             formatter: (value) =>  Para.fixed_asset_state_Get_List.getName(value)
           }),
           new TablePagingCol({
-            data: "Description",
-            title: "Mô tả",
-            min_width: 180,
-            width: "auto",
-            sortable: false,
-          }),
-          new TablePagingCol({
             data: "State",
             title: "Tình trạng kiểm kê",
-            min_width: 180,
-            width: "auto",
+            min_width: 160,
+            // width: "auto",
             sortable: false,
             align: 'center'
           }),
+          new TablePagingCol({
+            data: "Note",
+            title: "Ghi chú",
+            min_width: 250,
+            width: "auto",
+            sortable: false,
+          }),
+        
      
 
           // new TablePagingCol({

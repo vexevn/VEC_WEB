@@ -37,7 +37,7 @@ export default class User {
             type: FormElementType.text,
         }),
         Title: new FormElement({
-            label: "Tiêu đề",
+            label: "Chức vụ",
             model: "Title",
             type: FormElementType.text,
         }),
@@ -111,7 +111,7 @@ export default class User {
                 this._formElements.Title,
                 this._formElements.Office_id,
                 this._formElements.UserLevel_id,
-                this._formElements.Country_id,
+                // this._formElements.Country_id,
                 this._formElements.UserStatus,
                 this._formElements.Name_Excel,
 

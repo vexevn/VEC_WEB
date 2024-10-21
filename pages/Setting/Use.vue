@@ -106,7 +106,7 @@ export default {
             formatter: (value) => Para.GroupPermission.getName(value),
           }),
           new TablePagingCol({
-            title: "Tiêu đề",
+            title: "Chức vụ",
             data: "Title",
             min_width: 250,
           }),
@@ -116,11 +116,11 @@ export default {
           //   min_width: 120,
           //   formatter: (value) => Para.Para_Office.getName(value),
           // }),
-          new TablePagingCol({
-            title: "Quốc gia",
-            data: "Country_id",
-            min_width: 120,
-          }),
+          // new TablePagingCol({
+          //   title: "Quốc gia",
+          //   data: "Country_id",
+          //   min_width: 120,
+          // }),
           new TablePagingCol({
             title: "Trạng thái",
             data: "UserStatus",

@@ -296,9 +296,33 @@ b {
   font-weight: 600;
 }
 
-.el-tooltip__popper[x-placement^="top"] {
+
+
+
+.el-tooltip__popper[x-placement^=top] {
   margin-bottom: 5px;
 }
+
 .el-tooltip__popper[x-placement^=bottom] {
   margin-top: 5px;
+}
+
+.iValid-class.el-tooltip__popper.is-light[x-placement^=bottom] .popper__arrow::after {
+  border-bottom-color: #fef0f0;
+}
+
+.iValid-class.el-tooltip__popper[x-placement^=bottom] .popper__arrow {
+  border-bottom-color: red;
+}
+.iValid-class.el-tooltip__popper[x-placement^=top] .popper__arrow {
+  border-top-color: red;
+}
+
+.el-tooltip__popper .popper__arrow::after {
+  content: " ";
+  border-width: 5.2px;
+}
+
+.iValid-class.el-tooltip__popper.is-light[x-placement^=top] .popper__arrow::after {
+  border-top-color: #fef0f0;
 }
