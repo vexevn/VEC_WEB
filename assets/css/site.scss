@@ -7,20 +7,38 @@ body {
   height: 100%;
   background: #eee;
   padding-bottom: 0;
-  font-family: "Segoe UI", "Segoe UI Web (West European)", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue",
+  font-family:
+    "Segoe UI",
+    "Segoe UI Web (West European)",
+    -apple-system,
+    BlinkMacSystemFont,
+    Roboto,
+    "Helvetica Neue",
     sans-serif;
   font-size: 15px;
   color: #444;
   box-sizing: border-box;
 }
 pre {
-  font-family: "Segoe UI", "Segoe UI Web (West European)", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue",
+  font-family:
+    "Segoe UI",
+    "Segoe UI Web (West European)",
+    -apple-system,
+    BlinkMacSystemFont,
+    Roboto,
+    "Helvetica Neue",
     sans-serif;
   font-size: 15px;
   color: #444;
 }
 textarea {
-  font-family: "Segoe UI", "Segoe UI Web (West European)", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue",
+  font-family:
+    "Segoe UI",
+    "Segoe UI Web (West European)",
+    -apple-system,
+    BlinkMacSystemFont,
+    Roboto,
+    "Helvetica Neue",
     sans-serif;
   font-size: 15px;
   color: #444;
@@ -276,4 +294,11 @@ textarea {
 
 b {
   font-weight: 600;
+}
+
+.el-tooltip__popper[x-placement^="top"] {
+  margin-bottom: 5px;
+}
+.el-tooltip__popper[x-placement^=bottom] {
+  margin-top: 5px;
 }
