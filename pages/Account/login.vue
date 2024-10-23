@@ -13,7 +13,7 @@
           Quản lý tài sản
         </div>
         <div>
-          <label style="font-weight: bold">Email:</label>
+          <label style="font-weight: bold">Tài khoản:</label>
           <el-input
             placeholder="Nhập tên tài khoản"
             size="medium"
