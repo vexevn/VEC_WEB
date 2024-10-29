@@ -188,11 +188,20 @@ export default class fixed_assets {
         label: "Tình trạng",
         model: "Status",
         required: true,
-        disabled: !this.isAdd,
+        // disabled: !this.isAdd,
         labelWidth: 95,
         type: FormElementType.select,
-        options() {
-          return Para.fixed_asset_state_Get_List;
+        options(data) {
+          // let arr = Para.fixed_asset_state_Get_List
+          return new SelectOption({
+            data: Para.fixed_asset_state_Get_List.data,
+            IsItemDisabled: (item)=> {
+              if(!data.isAdd){
+                if(item.Id == 6 ||item.Id == 2 ||item.Id == 5 ||item.Id ==1 )
+                  return true;
+              }else return false;
+            }
+          })
         },
       }),
       QRCode: new FormElement({

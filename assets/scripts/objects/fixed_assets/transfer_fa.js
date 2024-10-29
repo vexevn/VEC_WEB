@@ -301,6 +301,16 @@ export default class transfer_fa {
           attr: {
             data: this,
           },
+          // watch(data, n, o, t, iF, model) {
+          //   console.log(data, n, o, t, iF, model);
+          //   // t.$emit('changeSelectTB',)
+          //   if (!iF && data?.Details) {
+          //     data.Details = data.Details.map((p) =>
+          //       p.Id === model.Id ? { ...p, ...model } : p
+          //     );
+          //   }
+            
+          // },
         }),
       ],
     });

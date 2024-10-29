@@ -57,7 +57,7 @@ export default {
         title: "Lọc dữ liệu",
       }),
       tp: new TablePaging({
-        title: "Tiêu đề",
+        // title: "Tiêu đề",
         data: API.Get_Asset_Mapping,
         disableSelectRow: true,
         params: new Fixed_Asset_Inventory_Filter(),

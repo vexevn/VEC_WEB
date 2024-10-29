@@ -74,7 +74,7 @@ export default {
         title: "Lọc dữ liệu",
       }),
       tp: new TablePaging({
-        title: "Tiêu đề",
+        // title: "Tiêu đề",
         data: [],
         disableSelectRow: true,
         params: {

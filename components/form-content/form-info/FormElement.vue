@@ -45,6 +45,7 @@
           ref="entry"
           v-model.lazy="elementValue"
           :disabled="disabled"
+          @change="componentsValueChange"
         ></component>
         <quill-editor
           ref="entry"
@@ -371,6 +372,21 @@ export default {
       });
 
       // return;
+    },
+
+    componentsValueChange(model, newValue, oldValue) {
+      console.log(model, newValue, oldValue);
+      if (this.model.watch) {
+        // console.log(model)
+        this.model.watch(
+          this.formInfo.formData,
+          newValue,
+          oldValue,
+          this,
+          false,
+          model
+        );
+      }
     },
     isCustom() {
       let typeObj = FormElementType;

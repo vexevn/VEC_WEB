@@ -9,10 +9,13 @@
         />
       </template>
 
-
-      <template slot="column-content-New_Store_id" slot-scope="{ row }">
-       <input
-      </template>
+      <!-- <template slot="column-content-New_Store_id" slot-scope="{ row }">
+        <InputSelect
+        @input="changeSl(row)"
+          :model="Para.store_Get_List"
+          v-model="row.New_Store_id"
+        />
+      </template> -->
 
       <template slot="column-header-btn">
         <el-button
@@ -92,7 +95,6 @@ export default {
             From_Office_id: _app.data.Info.From_Office_id,
             To_Office_id: _app.data.Info.To_Office_id,
             table: _app.tp_detail.data,
-
           });
           _app.form.visible = true;
         },
@@ -149,14 +151,13 @@ export default {
             sortable: false,
           }),
 
-         new TablePagingCol({
-                title: "Mã tài sản",
-                data:  this.data.isAdd ? "Code" : 'Fixed_Code',
-                min_width: 150,
-                // width: "auto",
-                sortable: false,
-              })
-            ,
+          new TablePagingCol({
+            title: "Mã tài sản",
+            data: this.data.isAdd ? "Code" : "Fixed_Code",
+            min_width: 150,
+            // width: "auto",
+            sortable: false,
+          }),
           new TablePagingCol({
             title: "Tên",
             data: "Name",
@@ -191,36 +192,34 @@ export default {
             formatter: (value) =>
               Para.fixed_asset_state_Get_List.getName(value),
           }),
-         
-     
 
           new TablePagingCol({
             title: "Kho/phòng hiện tại",
-            data:'Curent_Store_id',
+            data: "Curent_Store_id",
             min_width: 180,
             sortable: false,
-            formatter: value => Para.store_Get_List.getName(value)
+            formatter: (value) => Para.store_Get_List.getName(value),
           }),
           new TablePagingCol({
             title: "Người đang sử dụng",
-            data:'Curent_Person',
+            data: "Curent_Person",
             min_width: 180,
-            formatter: value => Para.Para_Account.getName(value),
+            formatter: (value) => Para.Para_Account.getName(value),
             sortable: false,
           }),
 
           new TablePagingCol({
             title: "Kho/phòng mới",
-            data:'New_Store_id',
+            data: "New_Store_id",
             min_width: 180,
             sortable: false,
-            formatter: value => Para.store_Get_List.getName(value)
+            formatter: (value) => Para.store_Get_List.getName(value),
           }),
           new TablePagingCol({
             title: "Người sử dụng mới",
-            data:'New_Person',
+            data: "New_Person",
             min_width: 180,
-            formatter: value => Para.Para_Account.getName(value),
+            formatter: (value) => Para.Para_Account.getName(value),
             sortable: false,
           }),
 
@@ -268,6 +267,11 @@ export default {
     },
   },
   methods: {
+    changeSl(row){
+      // console.log(row)
+      // this.$emit('change',row)
+      // console.log(this)
+    },  
     Edit(row) {
       this.form.ShowForm("Sửa tài sản luân chuyển", false, row);
     },

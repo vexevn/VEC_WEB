@@ -1,32 +1,33 @@
 <template>
-  <div style="height: 100%">
-   
-    <TablePaging ref="tp" :model="tp">
-      <template slot="btn">
-        <el-button
-          style="
-            height: 25px;
-            width: 25px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 5px;
-          "
-          @click="showFilter()"
-        >
-          <i class="fa fa-filter"></i>
-        </el-button>
-      
-      </template>
-    </TablePaging>
-  
-    
-    <DefaultForm :model="formFilter" @actionOK="Search()">
+  <div style="height: 100%; display: flex">
+    <div v-if="!isIndividual" style="padding: 5px 0 0 5px; height: 100%">
+      <Office ref="of" @asChange="handleASChange" :obj="tp.params" />
+    </div>
+    <div style="width: 100%; height: 100%; overflow: auto">
+      <TablePaging ref="tp" :model="tp">
+        <template slot="btn">
+          <el-button
+            style="
+              height: 25px;
+              width: 25px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin: 0 5px;
+            "
+            @click="showFilter()"
+          >
+            <i class="fa fa-filter"></i>
+          </el-button>
+        </template>
+      </TablePaging>
+    </div>
+
+    <!-- <DefaultForm :model="formFilter" @actionOK="Search()">
       <div slot="content">
         <FormInfo :model="tp.params.form()" />
-       
       </div>
-    </DefaultForm>
+    </DefaultForm> -->
   </div>
 </template>
 
@@ -35,6 +36,7 @@ import API from "~/assets/scripts/API";
 import TablePaging from "~/assets/scripts/base/TablePaging";
 import TablePagingCol from "~/assets/scripts/base/TablePagingCol";
 import DefaultForm from "~/assets/scripts/base/DefaultForm";
+import Office from "~/pages/FixedAssets/Office.vue";
 
 import GetDataAPI from "~/assets/scripts/GetDataAPI";
 import {
@@ -48,10 +50,28 @@ import { Para } from "~/assets/scripts/Para";
 import report_Fa from "~/assets/scripts/objects/fixed_assets/report_Fa";
 import ConvertStr from "~/assets/scripts/ConvertStr";
 export default {
+  components: {
+    Office,
+  },
+  watch: {
+    "tp.params": {
+      deep: true,
+      handler() {
+        this.$nextTick(() => {
+          // if (this.tp.params.Type || this.tp.params.User_ID) {
+          //   this.tp.params.From = "";
+          //   this.tp.params.To = "";
+          // }
+          console.log("aklc");
+          this.LoadTable();
+        });
+      },
+    },
+  },
   data() {
     return {
       isAdd: null,
-      
+
       //   filter: ,
       formFilter: new DefaultForm({
         OKtext: "Tìm kiếm",
@@ -61,10 +81,21 @@ export default {
         title: "Lọc dữ liệu",
       }),
       tp: new TablePaging({
-        title: "Tiêu đề",
+        // title: "Tiêu đề",
         data: [],
         disableSelectRow: true,
-        params:  new report_Fa(),
+         params: {
+          From: "",
+          To: "",
+          Office_id: 0,
+          Project_Code: "",
+          State: 0,
+          Type: "",
+          User_ID: "",
+          Department_id: 0,
+          Group_id: 0,
+          Use_Type_id: 0,
+        },
         cols: [
           new TablePagingCol({ title: "STT", data: "SttTP", min_width: 65 }),
           new TablePagingCol({
@@ -100,7 +131,7 @@ export default {
             sortable: false,
           }),
           new TablePagingCol({
-            title: "Ngày mua",
+            title: "Ngày tính bảo hành",
             data: "Purchase_Date",
             min_width: 130,
             sortable: false,
@@ -139,8 +170,8 @@ export default {
           //   sortable: false,
           // }),
           new TablePagingCol({
-            title: "Ví trí vật lý",
-            data: "Office_Name",
+            title: "Vị trí",
+            data: "Curent_Holder_Name",
             min_width: 150,
             sortable: false,
           }),
@@ -175,9 +206,11 @@ export default {
             data: "Warranty_Period",
             min_width: 150,
             sortable: false,
-            formatter:(value,row)=>{
-              return row.Purchase_Date ? ConvertStr.ToDateStr(addMonth(row.Purchase_Date,value))  : value
-            }
+            formatter: (value, row) => {
+              return row.Purchase_Date
+                ? ConvertStr.ToDateStr(addMonth(row.Purchase_Date, value))
+                : value;
+            },
           }),
           new TablePagingCol({
             title: "Bảo trì",
@@ -204,7 +237,7 @@ export default {
           new TablePagingCol({
             title: "Ghi chú",
             data: "Note",
-            min_width: 150,
+            min_width: 250,
             sortable: false,
           }),
         ],
@@ -212,6 +245,16 @@ export default {
     };
   },
   methods: {
+    handleASChange(value) {
+      if (value) {
+        this.$refs.tp.tempRows = this.tp.data.filter((p) =>
+          objContainStr(p.Code, Uni2None(value), false)
+        );
+      } else {
+        this.$refs.tp.tempRows = this.tp.data;
+      }
+      // console.log("after", newTP);
+    },
     LoadTable() {
       GetDataAPI({
         url: API.fixed_asset_Get_List,
@@ -227,7 +270,6 @@ export default {
     //   console.log(this.date)
     // },
     LoadData() {
-
       // this.tp.params.iMonth =  ;
       this.$refs.tp.LoadData(true);
     },

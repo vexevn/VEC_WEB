@@ -42,17 +42,18 @@ export default class Fixed_Asset_Manager_Detail {
             new FormElement({
               direction: FormDirectionType.vertical,
               child: [
-                this._formElements.Curent_Store_id,
-                this._formElements.Curent_Person,
+                this._formElements.New_Store_id,
+                this._formElements.New_Person,
               ],
             }),
             new FormElement({
               direction: FormDirectionType.vertical,
               child: [
-                this._formElements.New_Store_id,
-                this._formElements.New_Person,
+                this._formElements.Curent_Store_id,
+                this._formElements.Curent_Person,
               ],
             }),
+            
           ],
         }),
         this._formElements.Description,
@@ -128,7 +129,7 @@ export default class Fixed_Asset_Manager_Detail {
         label: "Người đang sử dụng",
         model: "Curent_Person",
         disabled: true,
-        labelWidth: 170,
+        labelWidth: 180,
         type: "select",
         options(data) {
           // console.log($t);
