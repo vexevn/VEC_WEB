@@ -116,6 +116,10 @@ function wc_hex_is_light(color) {
   return brightness > 155;
 }
 
+function totalValue(data){
+  return data.reduce((sum, val) => sum + val, 0)
+}
+
 function isLowValue(context) {
   const dataset = context.chart.data.datasets[0];
   const total = dataset.data.reduce((sum, val) => sum + val, 0);
@@ -143,49 +147,73 @@ export default {
         // events: ['mousemove'],
 
         plugins: {
-          datalabels: this.type == 'pie' ? {
-            align: "end",
-            font: {
-              weight: "bold",
-              size: "14px",
-            },
-            offset: -3,
-            rotation: function (context) {
-              return isLowValue(context) > 15 ? 0 : -91;
-            },
-            color: (context) => {
-              let is_light = wc_hex_is_light(
-                context.dataset.backgroundColor[context.dataIndex]
-              );
-              let angle = isLowValue(context) > 15 ? true : false;
-              if (!angle) return "#444";
-              else return is_light ? "#444" : "white";
-            },
-            formatter: (value) => {
-              if (this.type == "pie") {
-                let total = this.chartData.datasets[0].data.reduce(
-                  (a, b) => a + b
-                );
-                return Math.round((value / total) * 100) + "%";
-              }
-            },
-            anchor: (context) => {
-              return isLowValue(context) > 15 ? "center" : "end";
-            },
-          } : null,
+          datalabels:
+            this.type == "pie"
+              ? {
+                  align: "end",
+                  font: {
+                    weight: "bold",
+                    size: "14px",
+                  },
+                  offset: -3,
+                  rotation: function (context) {
+                    return isLowValue(context) > 15 ? 0 : -91;
+                  },
+                  color: (context) => {
+                    let is_light = wc_hex_is_light(
+                      context.dataset.backgroundColor[context.dataIndex]
+                    );
+                    let angle = isLowValue(context) > 15 ? true : false;
+                    if (!angle) return "#444";
+                    else return is_light ? "#444" : "white";
+                  },
+                  display: function (context) {
+                    return isLowValue(context) > 20; // display labels with an odd index
+                  },
+                  formatter: (value) => {
+                    if (this.type == "pie") {
+                      let total = this.chartData.datasets[0].data.reduce(
+                        (a, b) => a + b
+                      );
+                      return Math.round((value / total) * 100) + "%";
+                    }
+                  },
+                  anchor: (context) => {
+                    return isLowValue(context) > 15 ? "center" : "end";
+                  },
+                }
+              : null,
           title: {
             display: true,
             text: this.chartTitle,
             padding: {
-              top: 5, 
-              bottom: 25, 
+              top: 5,
+              bottom: 25,
             },
             font: {
-              size: 18, 
+              size: 18,
             },
           },
+
           tooltip: {
             enabled: true,
+            callbacks: {
+              label: function (tooltipItem) {
+                console.log(tooltipItem)
+                let percentage = ((tooltipItem.raw / totalValue(tooltipItem.dataset.data)) * 100).toFixed(2); // Tính tỷ lệ %
+                if(percentage > 1){
+                  percentage = Math.round(percentage)
+                }
+
+                let label = (tooltipItem.label || " ") + ` (${tooltipItem.raw}): ${percentage}%`   ;
+                // if (label) {
+                //   label += ": ";
+                // }
+                // label += ; // Giá trị data hiện tại
+                // label += " units"; // Thêm đơn vị tùy chỉnh
+                return label;
+              },
+            },
           },
           legend:
             // this.legend !== false

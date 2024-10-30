@@ -4,7 +4,13 @@
             :disabled="disabled"
             @blur="blur()"
             @focus="focus()"
-            :is-focus="isFocus" />
+            :class="{'hasSuffix': suffixIcon && data? true : false}"
+         
+            :is-focus="isFocus" >
+            
+            <div v-if="suffixIcon && data && !isFocus"  slot="suffix" class="">{{ suffixIcon }}</div>
+            </el-input>
+
 </template>
 
 <script>
@@ -39,6 +45,8 @@ export default {
     negative_allowed: {
       type: Boolean,
       default: true
+    },
+    suffixIcon: {
     },
   },
   data() {
@@ -156,6 +164,15 @@ export default {
   &:not([is-focus]) {
     text-align: right !important;
     padding-right: 5px !important;
+  }
+
+
+}
+
+.hasSuffix {
+  ::v-deep .el-input__inner{
+    padding-right:45px !important;
+
   }
 }
 </style>

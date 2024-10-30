@@ -59,14 +59,13 @@
                   .getName(Number(row.To_Department_Id))
               )
             }}
-            
           </p>
         </div>
       </template>
       <template slot="column-content-Approved_User" slot-scope="{ row }">
         <div>
           <p>{{ Para.Para_Account.getName(row.Approved_User) }}</p>
-          <p  :style="{ color: getColor(row.State),fontWeight: 'bold' }">
+          <p :style="{ color: getColor(row.State), fontWeight: 'bold' }">
             {{ Para.TransferState.getName(row.State) }}
           </p>
           <p v-if="row.State == 3">
@@ -77,10 +76,9 @@
           </p>
         </div>
       </template>
-  
 
       <template slot="column-content-button" slot-scope="{ row }">
-        <div style="display: flex;">
+        <div style="display: flex">
           <el-button
             class="icon-btn"
             v-if="pagePermission.edit"
@@ -159,7 +157,7 @@ export default {
       form: new DefaultForm({
         obj: new transfer_fa(),
         // OKtext: "Tìm kiếm",
-        btns: [{Id: 1, text:'In phiếu',action: 'Print',type:'warning'},],
+        btns: [{ Id: 1, text: "In phiếu", action: "Print", type: "warning" }],
 
         visible: false,
         // type: "dialog",
@@ -171,8 +169,7 @@ export default {
           if (!isAdd) {
             obj.From_Department_id = Number(obj.From_Department_id);
             obj.To_Department_Id = Number(obj.To_Department_Id);
-           
-          }else{
+          } else {
             obj.DateCreate = new Date();
             obj.UserCreate = this.user.UserSerial;
           }
@@ -209,7 +206,6 @@ export default {
             sortable: false,
             min_width: 200,
             width: "auto",
-            
           }),
           new TablePagingCol({
             title: "Bên nhận",
@@ -263,7 +259,7 @@ export default {
             data: "Approved_User",
             min_width: 150,
             sortable: false,
-            formatter: value => Para.Para_Account.getName(value)
+            formatter: (value) => Para.Para_Account.getName(value),
           }),
           new TablePagingCol({
             title: "Ghi chú",
@@ -297,11 +293,11 @@ export default {
     //     },
     //   });
     // },
-    Print(){
+    Print() {
       localStorage.dataPrint = JSON.stringify(this.form.obj);
-      console.log(this.form.obj)
+      console.log(this.form.obj);
       window.open("/Print/PhieuLuanChuyen");
-        
+
       // console.log(this.form.obj)
     },
     getColor(state) {

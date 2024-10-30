@@ -305,7 +305,7 @@ export default class fixed_assets {
         labelWidth: 115,
       }),
       Serial: new FormElement({
-        label: "Serial",
+        label: "Số Serial",
         model: "Serial",
         type: FormElementType.text,
       }),
@@ -378,7 +378,7 @@ export default class fixed_assets {
         type: FormElementType.text,
       }),
       Project_Code: new FormElement({
-        label: "Mã dự án",
+        label: "Số hợp đồng",
         model: "Project_Code",
         type: FormElementType.text,
         labelWidth: 147,

@@ -103,7 +103,7 @@ export default {
 
         cols: [
           new TablePagingCol({
-            title: "Serial",
+            title: "Mã",
             data: "Serial",
             min_width: 100,
           }),

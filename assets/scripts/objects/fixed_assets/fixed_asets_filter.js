@@ -54,7 +54,7 @@ export default class fixed_asets_filter {
         options: Para.Para_Office.set((p) => (p.placeholder = "All")),
       }),
       Project_Code: new FormElement({
-        label:  "Mã dự án",
+        label:  "Số hợp đồng",
         model: "Project_Code",
         type: FormElementType.select,
         options: Para.Para_Project_Code.set((p) => (p.placeholder = "All")),

@@ -372,7 +372,7 @@ export default {
       params: {},
       datatp: [],
       defaultProps: {
-        label: "Tên",
+        label: "Name",
         children: "Childs",
       },
       Userlevel: StoreManager.GetUser().UserLevel,

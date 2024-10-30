@@ -148,7 +148,7 @@ export default class transfer_fa {
             t.getEntry(data._formElements.From_Department_id.id).selectedData ||
             {};
           //   if (slData) {
-          data.Info.Trasnfer_user = slData.Manager_id;
+          // data.Info.Trasnfer_user = slData.Manager_id;
         },
 
         options(data) {
@@ -192,7 +192,7 @@ export default class transfer_fa {
           //   Para.Para_Account.getName(slData.Manager_id)
           // );
 
-          data.Info.Receive_user = slData.Manager_id;
+          // data.Info.Receive_user = slData.Manager_id;
           //  ;
         },
       }),
@@ -213,11 +213,18 @@ export default class transfer_fa {
         label: "Người giao",
         model: "Info.Trasnfer_user",
         type: FormElementType.select,
-        options: Para.Para_Account,
+        options(data) {
+          return Para.Para_Account.set(
+            (p) =>
+              (p.data = p.data.filter(
+                (x) => x.Office_id == data.Info.From_Office_id
+              ))
+          );
+        },
 
         labelWidth: 145,
         // options: Para.Para_Account,
-        disabled: true,
+        // disabled: true,
         // watch(data){
         //     console.log('data.Info.Trasnfer_user',data.Info.Trasnfer_user)
         // }
@@ -226,9 +233,16 @@ export default class transfer_fa {
         label: "Người nhận",
         model: "Info.Receive_user",
         type: FormElementType.select,
-        options: Para.Para_Account,
+        options(data) {
+          return Para.Para_Account.set(
+            (p) =>
+              (p.data = p.data.filter(
+                (x) => x.Office_id == data.Info.To_Office_id
+              ))
+          );
+        },
         labelWidth: 140,
-        disabled: true,
+        // disabled: true,
       }),
     };
   }
@@ -309,7 +323,7 @@ export default class transfer_fa {
           //       p.Id === model.Id ? { ...p, ...model } : p
           //     );
           //   }
-            
+
           // },
         }),
       ],

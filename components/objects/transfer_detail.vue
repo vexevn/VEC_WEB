@@ -165,12 +165,13 @@ export default {
             sortable: false,
           }),
 
-          // new TablePagingCol({
-          //   title: "Mã dự án",
-          //   data: "Project_Code",
-          //   min_width: 130,
-          //   sortable: false,
-          // }),
+          new TablePagingCol({
+            data: "QRCode",
+            title: "Mã QR",
+            min_width: 180,
+            // width: "auto",
+            sortable: false,
+          }),
           new TablePagingCol({
             title: "Loại",
             data: this.data.isAdd ? "Type_id" : "Type",
@@ -224,7 +225,7 @@ export default {
           }),
 
           new TablePagingCol({
-            title: "Mô tả",
+            title: "Lý do luân chuyển",
             data: this.data.isAdd ? "Note" : "Description",
             min_width: 250,
             sortable: false,
@@ -267,11 +268,11 @@ export default {
     },
   },
   methods: {
-    changeSl(row){
+    changeSl(row) {
       // console.log(row)
       // this.$emit('change',row)
       // console.log(this)
-    },  
+    },
     Edit(row) {
       this.form.ShowForm("Sửa tài sản luân chuyển", false, row);
     },

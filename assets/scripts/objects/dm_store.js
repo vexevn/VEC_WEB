@@ -26,7 +26,7 @@ export default class dm_store {
       type: FormElementType.text,
     }),
     Serial: new FormElement({
-      label: "Serial",
+      label: "Số Serial",
       model: "Serial",
       type: FormElementType.text,
     }),

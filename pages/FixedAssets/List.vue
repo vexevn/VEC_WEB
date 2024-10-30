@@ -349,14 +349,14 @@ export default {
                 min_width: 130,
                 sortable: false,
                 // formatter: "number",
-                formatter: (value, row) => {
-                  return row.Purchase_Date
-                    ? ConvertStr.ToDateStr(addMonth(row.Purchase_Date, value))
-                    : value;
-                },
+                // formatter: (value, row) => {
+                //   return row.Purchase_Date
+                //     ? ConvertStr.ToDateStr(addMonth(row.Purchase_Date, value))
+                //     : value;
+                // },
               }),
               new TablePagingCol({
-                title: "Mã dự án",
+                title: "Số hợp đồng",
                 data: "Project_Code",
                 min_width: 130,
                 sortable: false,
@@ -413,7 +413,7 @@ export default {
               }),
 
               new TablePagingCol({
-                title: "Serial",
+                title: "Số Serial",
                 data: "Serial",
                 min_width: 130,
                 sortable: false,
@@ -484,7 +484,7 @@ export default {
               //   sortable: false,
               // }),
               new TablePagingCol({
-                title: "Mã dự án",
+                title: "Số hợp đồng",
                 data: "Project_Code",
                 min_width: 150,
                 sortable: false,
@@ -498,6 +498,8 @@ export default {
                   return row.Purchase_Date
                     ? ConvertStr.ToDateStr(addMonth(row.Purchase_Date, value))
                     : value;
+
+                  // return value > 0 ? value + ' tháng' : ''
                 },
               }),
               new TablePagingCol({
@@ -511,7 +513,13 @@ export default {
                 data: "Estimated_Life_Min",
                 min_width: 150,
                 sortable: false,
-                formatter: "number",
+                formatter: (value, row) => {
+                  // return row.Purchase_Date
+                  //   ? ConvertStr.ToDateStr(addMonth(row.Purchase_Date, value))
+                  //   : value;
+
+                  return value > 0 ? value + ' tháng' : ''
+                },
               }),
               // new TablePagingCol({
               //   title: "Date of Disposal",
