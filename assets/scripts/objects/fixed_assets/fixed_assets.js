@@ -155,13 +155,16 @@ export default class fixed_assets {
         type: FormElementType.select,
         options: Para.eNguonvon,
         watch(data, n, o, t, iF) {
-          if (!data.Nguonvon_id) data.Nguonvon_ten = "";
-          const sl = t.getEntry("Nguonvon_id");
-          if (sl.selectedData) {
-            // console.log(sl.selectedData)
-            if (data.Nguonvon_id !== 3)
-              data.Nguonvon_ten = sl.selectedData.Name;
-            else data.Nguonvon_ten = "";
+          if (!iF) {
+            if (!data.Nguonvon_id) data.Nguonvon_ten = "";
+            const sl = t.getEntry("Nguonvon_id");
+
+            if (sl.selectedData) {
+              // console.log(sl.selectedData)
+              if (data.Nguonvon_id !== 3)
+                data.Nguonvon_ten = sl.selectedData.Name;
+              else data.Nguonvon_ten = "";
+            }
           }
         },
       }),
@@ -173,9 +176,9 @@ export default class fixed_assets {
         attr: {
           placeholder: "Vui lòng nhập...",
         },
-        isVisible(data){
+        isVisible(data) {
           return data.Nguonvon_id == 3;
-        }
+        },
       }),
       Quantity: new FormElement({
         label: "Số lượng",
@@ -195,13 +198,18 @@ export default class fixed_assets {
           // let arr = Para.fixed_asset_state_Get_List
           return new SelectOption({
             data: Para.fixed_asset_state_Get_List.data,
-            IsItemDisabled: (item)=> {
-              if(!data.isAdd){
-                if(item.Id == 6 ||item.Id == 2 ||item.Id == 5 ||item.Id ==1 )
+            IsItemDisabled: (item) => {
+              if (!data.isAdd) {
+                if (
+                  item.Id == 6 ||
+                  item.Id == 2 ||
+                  item.Id == 5 ||
+                  item.Id == 1
+                )
                   return true;
-              }else return false;
-            }
-          })
+              } else return false;
+            },
+          });
         },
       }),
       QRCode: new FormElement({
@@ -401,7 +409,7 @@ export default class fixed_assets {
         // disabled: true,
         options(data) {
           // console.log($t);
-          data.Person_id = "";
+          // data.Person_id = "";
           let dataPara = Para.Para_Account.set((p) => {
             p.data = p.data.filter((p1) => p1.Office_id == data.Office_id);
           });
