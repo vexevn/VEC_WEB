@@ -105,7 +105,7 @@ export default {
                 }),
 
                 new TablePagingCol({
-                  title: "Mã dự án",
+                  title: "Số hợp đồng",
                   data: "Project_Code",
                   min_width: 120,
                 }),

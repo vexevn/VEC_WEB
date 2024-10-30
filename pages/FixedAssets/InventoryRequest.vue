@@ -54,7 +54,7 @@
 
           <el-button
             class="icon-btn icon-btn"
-            v-if="pagePermission.edit"
+            v-if="new Date(obj.row.ToDate) > new Date() && pagePermission.edit"
             type="primary"
             @click="form.ShowForm('Sửa yêu cầu', false, obj.row)"
           >
@@ -78,7 +78,11 @@
       </div>
     </DefaultForm>
 
-    <DefaultForm :model="form" @Reject="Print()" @actionOK="form.Save.call(this)">
+    <DefaultForm
+      :model="form"
+      @Reject="Print()"
+      @actionOK="form.Save.call(this)"
+    >
       <div style="height: 100%" slot="content">
         <InventoryRequestForm :obj="form.obj" ref="formIVT" />
       </div>
@@ -117,7 +121,7 @@ export default {
           }),
           new TablePagingCol({
             data: "Description",
-            title: "Mô tả",
+            title: "Nội dung",
             min_width: 180,
             width: "auto",
             sortable: false,
@@ -234,7 +238,7 @@ export default {
       // return;
       localStorage.dataPrint = JSON.stringify(this.form.obj);
 
-      if(row){
+      if (row) {
         localStorage.dataPrint = JSON.stringify(row);
       }
       window.open("/Print/BienBanKiemKe");

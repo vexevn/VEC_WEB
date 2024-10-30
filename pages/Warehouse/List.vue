@@ -204,7 +204,7 @@ export default {
             sortable: false,
           }),
           new TablePagingCol({
-            title:  "Mã dự án",
+            title:  "Số hợp đồng",
             data: "Project_code",
             min_width: 130,
             sortable: false,
@@ -264,7 +264,7 @@ export default {
             sortable: false,
           }),
           new TablePagingCol({
-            title: "Serial",
+            title: "Số Serial",
             data: "Serial",
             min_width: 150,
             sortable: false,
@@ -277,7 +277,7 @@ export default {
             sortable: false,
           }),
           new TablePagingCol({
-            title:  "Mã dự án",
+            title:  "Số hợp đồng",
             data: "Project_Code",
             min_width: 130,
             sortable: false,

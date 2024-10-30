@@ -4,7 +4,7 @@
     <div class="phieu-header">
       <h3>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</h3>
       <h5 style="font-size: 16px; text-decoration: underline">
-        Độc lập tự do hạnh phúc
+        Độc lập - Tự do - Hạnh phúc
       </h5>
       <br />
       <br />

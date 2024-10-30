@@ -91,6 +91,7 @@
             v-model.lazy="elementValue"
             :disabled="disabled"
             :placeholder="model.attr.placeholder || ''"
+            :suffixIcon="model.attr.placeholder || ''"
           />
 
           <el-date-picker

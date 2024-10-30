@@ -263,7 +263,7 @@ export default {
           }),
           new TablePagingCol({
             sortable: false,
-            title: "Serial",
+            title: "Số Serial",
             data: "Fixed_Serial",
             min_width: 200,
           }),

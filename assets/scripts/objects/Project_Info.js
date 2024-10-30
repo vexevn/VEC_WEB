@@ -27,7 +27,7 @@ export default class Project_Info {
   _formElements = {
 
     // Project_Code: new FormElement({
-    //   label:  "Mã dự án",
+    //   label:  "Số hợp đồng",
     //   model: "Project_Code",
     //   type: FormElementType.select,
     //   options: new SelectOption({
@@ -36,7 +36,7 @@ export default class Project_Info {
     //   })
     // }),
     Project_Code: new FormElement({
-      label:  "Mã dự án",
+      label:  "Số hợp đồng",
       model: "Project_Code",
       type: FormElementType.text,
 

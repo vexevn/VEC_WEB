@@ -192,7 +192,7 @@ export default {
             }),
             new TablePagingCol({
               data: "Project_Code",
-              title:  "Mã dự án",
+              title:  "Số hợp đồng",
               min_width: 85,
               sortable: false,
               formatter: (value) =>
@@ -322,7 +322,7 @@ export default {
           }),
           new TablePagingCol({
             data: "Project_Code",
-            title:  "Mã dự án",
+            title:  "Số hợp đồng",
             min_width: 85,
             sortable: false,
             formatter: (value) =>

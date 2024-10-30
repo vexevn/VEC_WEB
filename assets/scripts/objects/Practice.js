@@ -20,7 +20,7 @@ export default class Practice {
 
   _formElements = {
     Serial: new FormElement({
-      label: "Serial",
+      label: "Số Serial",
       model: "Serial",
       type: FormElementType.text,
     }),

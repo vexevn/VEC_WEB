@@ -174,7 +174,7 @@ export default class Tickets {
         disabled: true
       }),
       Fixed_Serial: new FormElement({
-        label: "Serial",
+        label: "Số Serial",
         model: "Fixed_Serial",
         type: FormElementType.text,
         disabled: true

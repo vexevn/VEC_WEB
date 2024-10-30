@@ -207,7 +207,7 @@ export default class Fixed_Asset_Inventory {
         disabled: true
       }),
       Fixed_Serial: new FormElement({
-        label: "Serial",
+        label: "Số Serial",
         model: "Fixed_Serial",
         type: FormElementType.text,
         disabled: true

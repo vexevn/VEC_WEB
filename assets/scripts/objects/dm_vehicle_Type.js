@@ -31,7 +31,7 @@ export default class dm_vehicle_Type {
       type: FormElementType.text,
     }),
     Serial: new FormElement({
-      label: "Serial",
+      label: "Số Serial",
       model: "Serial",
       type: FormElementType.text,
     }),
