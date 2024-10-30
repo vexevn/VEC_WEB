@@ -13,6 +13,7 @@ if (typeof location != "undefined") {
   else linkAPI = location.protocol + "//" + location.hostname + ":8114/";
 }
 
+// linkAPI = "https://tsvp.tctvec.vn/asset_api/";
 // linkAPI = "http://demo.quanlynoibo.com:8114/";
 // linkAPI = "http://localhost:63008/";
 export var linkPurchase = "http://purchase.quanlynoibo.com:8060";

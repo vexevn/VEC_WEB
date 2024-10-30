@@ -108,6 +108,7 @@ function pieAnimationComplete() {
   });
 }
 function wc_hex_is_light(color) {
+  if (!color) return true;
   const hex = color.replace("#", "");
   const c_r = parseInt(hex.substring(0, 0 + 2), 16);
   const c_g = parseInt(hex.substring(2, 2 + 2), 16);
@@ -143,45 +144,48 @@ export default {
         // events: ['mousemove'],
 
         plugins: {
-          datalabels: this.type == 'pie' ? {
-            align: "end",
-            font: {
-              weight: "bold",
-              size: "14px",
-            },
-            offset: -3,
-            rotation: function (context) {
-              return isLowValue(context) > 15 ? 0 : -91;
-            },
-            color: (context) => {
-              let is_light = wc_hex_is_light(
-                context.dataset.backgroundColor[context.dataIndex]
-              );
-              let angle = isLowValue(context) > 15 ? true : false;
-              if (!angle) return "#444";
-              else return is_light ? "#444" : "white";
-            },
-            formatter: (value) => {
-              if (this.type == "pie") {
-                let total = this.chartData.datasets[0].data.reduce(
-                  (a, b) => a + b
-                );
-                return Math.round((value / total) * 100) + "%";
-              }
-            },
-            anchor: (context) => {
-              return isLowValue(context) > 15 ? "center" : "end";
-            },
-          } : null,
+          datalabels:
+            this.type == "pie"
+              ? {
+                  align: "end",
+                  font: {
+                    weight: "bold",
+                    size: "14px",
+                  },
+                  offset: -3,
+                  rotation: function (context) {
+                    return isLowValue(context) > 15 ? 0 : -91;
+                  },
+                  color: (context) => {
+                    let is_light = wc_hex_is_light(
+                      context.dataset.backgroundColor[context.dataIndex]
+                    );
+                    let angle = isLowValue(context) > 15 ? true : false;
+                    if (!angle) return "#444";
+                    else return is_light ? "#444" : "white";
+                  },
+                  formatter: (value) => {
+                    if (this.type == "pie") {
+                      let total = this.chartData.datasets[0].data.reduce(
+                        (a, b) => a + b
+                      );
+                      return Math.round((value / total) * 100) + "%";
+                    }
+                  },
+                  anchor: (context) => {
+                    return isLowValue(context) > 15 ? "center" : "end";
+                  },
+                }
+              : null,
           title: {
             display: true,
             text: this.chartTitle,
             padding: {
-              top: 5, 
-              bottom: 25, 
+              top: 5,
+              bottom: 25,
             },
             font: {
-              size: 18, 
+              size: 18,
             },
           },
           tooltip: {
