@@ -81,11 +81,14 @@
       <table style="width: 100%">
         <tr>
           <th style="width: 40px">STT</th>
-          <th>Mã tài sản</th>
-          <th>Tên tài sản</th>
+          <th style="width: 150px">Mã tài sản</th>
+          <th style="width: 220px">Tên tài sản</th>
+          <th>Vị trí</th>
           <th style="width: 100px">Trạng thái</th>
           <th style="width: 60px">Số lượng</th>
+          <th>Người dùng</th>
           <!-- <th style="width: 100px">Ghi chú</th> -->
+          <th style="width: 90px">Ký nhận</th>
         </tr>
         <tr
           v-for="(item, index) in dataPrint.Details"
@@ -94,10 +97,14 @@
           <th style="font-weight: normal">{{ index + 1 }}</th>
           <th style="font-weight: normal">{{ item.Fixed_Code }}</th>
           <th style="font-weight: normal">{{ item.Name }}</th>
+          <th style="font-weight: normal">{{ Para.store_Get_List.getName(item.New_Store_id)}}</th>
           <th style="font-weight: normal">
             {{ Para.fixed_asset_state_Get_List.getName(item.Fixed_State) }}
           </th>
           <th style="font-weight: normal">01</th>
+          <th style="font-weight: normal">{{ Para.Para_Account.getName(item.New_Person) }}</th>
+          <th style="font-weight: normal"></th>
+
         </tr>
       </table>
     </div>
@@ -131,8 +138,9 @@
 <script>
 import API from "~/assets/scripts/API";
 import PrintCfg from "~/assets/scripts/base/PrintCfg";
+import { SelectOption } from "~/assets/scripts/base/SelectOption";
 import GetDataAPI from "~/assets/scripts/GetDataAPI";
-// import { Para } from "~/assets/scripts/Para";
+import { Para } from "~/assets/scripts/Para";
 
 export default {
   layout: "PrinLayout",
@@ -141,6 +149,7 @@ export default {
     return {
       dataPrint: JSON.parse(localStorage.dataPrint),
       printConfig: "",
+      store: new SelectOption()
     };
   },
   mounted() {
@@ -151,9 +160,17 @@ export default {
         console.log(this);
         this.$nextTick(() => {
           this.printConfig = new PrintCfg({
-            layout: "portrait",
+            layout: "landscape",
           });
         });
+      },
+    });
+
+    GetDataAPI({
+      url: API.dm_store_Get_List,
+      action: (re) => {
+        Para.store_Get_List.data = re;
+        // rs();
       },
     });
 
@@ -167,19 +184,31 @@ export default {
     display: none;
   }
 }
+@page {
+  margin: 0;
+  padding: 0;
+}
+
 table,
 th,
 td {
   border: 1px solid rgb(130, 130, 130);
   border-collapse: collapse;
+}th{
+  padding: 2.5px;
 }
+
+td{
+  padding-left: 2.5px;
+}
+
 ol li {
   padding-bottom: 10px;
 }
 .phieu {
   // display: none;;
   font-family: "Times New Roman", Times, serif;
-  margin: 0 10%;
+  margin: 0 5%;
   .phieu-header {
     text-align: center;
     margin-top: 10px;

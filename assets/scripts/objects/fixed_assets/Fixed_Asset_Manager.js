@@ -32,8 +32,7 @@ export default class Fixed_Asset_Manager {
   Receive_date;
   /** @type {string} - description */
   Receive_user;
-  /** @type {string} - description */
-  Trasnfer_user;
+
 
 
   FromMangerId;

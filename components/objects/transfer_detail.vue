@@ -9,6 +9,14 @@
         />
       </template>
 
+      <!-- <template slot="column-content-New_Store_id" slot-scope="{ row }">
+        <InputSelect
+        @input="changeSl(row)"
+          :model="Para.store_Get_List"
+          v-model="row.New_Store_id"
+        />
+      </template> -->
+
       <template slot="column-header-btn">
         <el-button
           v-if="!data.disBtn"
@@ -64,7 +72,7 @@ export default {
         obj: new Fixed_Asset_Manager_Detail(),
         title: "",
         visible: false,
-        width: "500px",
+        width: "700px",
         appendtobody: true,
 
         ShowForm: (title, isAdd, obj) => {
@@ -85,6 +93,7 @@ export default {
             Fixed_Asset_Manager_Id: _app.data.iFixed_Asset_Manager_id,
             From_Department_id: _app.data.Info.From_Department_id,
             From_Office_id: _app.data.Info.From_Office_id,
+            To_Office_id: _app.data.Info.To_Office_id,
             table: _app.tp_detail.data,
           });
           _app.form.visible = true;
@@ -142,14 +151,13 @@ export default {
             sortable: false,
           }),
 
-         new TablePagingCol({
-                title: "Mã tài sản",
-                data:  this.data.isAdd ? "Code" : 'Fixed_Code',
-                min_width: 150,
-                // width: "auto",
-                sortable: false,
-              })
-            ,
+          new TablePagingCol({
+            title: "Mã tài sản",
+            data: this.data.isAdd ? "Code" : "Fixed_Code",
+            min_width: 150,
+            // width: "auto",
+            sortable: false,
+          }),
           new TablePagingCol({
             title: "Tên",
             data: "Name",
@@ -184,18 +192,50 @@ export default {
             formatter: (value) =>
               Para.fixed_asset_state_Get_List.getName(value),
           }),
+
+          new TablePagingCol({
+            title: "Kho/phòng hiện tại",
+            data: "Curent_Store_id",
+            min_width: 180,
+            sortable: false,
+            formatter: (value) => Para.store_Get_List.getName(value),
+          }),
+          new TablePagingCol({
+            title: "Người đang sử dụng",
+            data: "Curent_Person",
+            min_width: 180,
+            formatter: (value) => Para.Para_Account.getName(value),
+            sortable: false,
+          }),
+
+          new TablePagingCol({
+            title: "Kho/phòng mới",
+            data: "New_Store_id",
+            min_width: 180,
+            sortable: false,
+            formatter: (value) => Para.store_Get_List.getName(value),
+          }),
+          new TablePagingCol({
+            title: "Người sử dụng mới",
+            data: "New_Person",
+            min_width: 180,
+            formatter: (value) => Para.Para_Account.getName(value),
+            sortable: false,
+          }),
+
           new TablePagingCol({
             title: "Mô tả",
             data: this.data.isAdd ? "Note" : "Description",
-            min_width: 150,
+            min_width: 250,
             sortable: false,
             width: "auto",
           }),
+
           !this.data.isAdd
             ? new TablePagingCol({
                 // title: "Tình trạng",
                 data: "btn",
-                min_width: 100,
+                min_width: 70,
                 sortable: false,
                 // align: "center",
                 fix: "right",
@@ -227,6 +267,11 @@ export default {
     },
   },
   methods: {
+    changeSl(row){
+      // console.log(row)
+      // this.$emit('change',row)
+      // console.log(this)
+    },  
     Edit(row) {
       this.form.ShowForm("Sửa tài sản luân chuyển", false, row);
     },

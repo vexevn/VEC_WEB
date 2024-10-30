@@ -125,6 +125,12 @@ export default class fixed_assets {
   /** @type {number} - description */
 
   Quantity;
+  /** @type {number} - description */
+
+  Nguonvon_id;
+  /** @type {string} - description */
+
+  Nguonvon_ten = "";
 
   /**
    *
@@ -141,6 +147,36 @@ export default class fixed_assets {
   update(obj) {
     Object.assign(this, obj);
     this._formElements = {
+      Nguonvon_id: new FormElement({
+        id: "Nguonvon_id",
+        label: "Nguồn vốn",
+        model: "Nguonvon_id",
+        labelWidth: 147,
+        type: FormElementType.select,
+        options: Para.eNguonvon,
+        watch(data, n, o, t, iF) {
+          if (!data.Nguonvon_id) data.Nguonvon_ten = "";
+          const sl = t.getEntry("Nguonvon_id");
+          if (sl.selectedData) {
+            // console.log(sl.selectedData)
+            if (data.Nguonvon_id !== 3)
+              data.Nguonvon_ten = sl.selectedData.Name;
+            else data.Nguonvon_ten = "";
+          }
+        },
+      }),
+      Nguonvon_ten: new FormElement({
+        // label: "Nguồn vốn",
+        model: "Nguonvon_ten",
+        required: true,
+        type: FormElementType.text,
+        attr: {
+          placeholder: "Vui lòng nhập...",
+        },
+        isVisible(data){
+          return data.Nguonvon_id == 3;
+        }
+      }),
       Quantity: new FormElement({
         label: "Số lượng",
         model: "Estimated_Life_Max",
@@ -152,11 +188,20 @@ export default class fixed_assets {
         label: "Tình trạng",
         model: "Status",
         required: true,
-        disabled: !this.isAdd,
+        // disabled: !this.isAdd,
         labelWidth: 95,
         type: FormElementType.select,
-        options() {
-          return Para.fixed_asset_state_Get_List;
+        options(data) {
+          // let arr = Para.fixed_asset_state_Get_List
+          return new SelectOption({
+            data: Para.fixed_asset_state_Get_List.data,
+            IsItemDisabled: (item)=> {
+              if(!data.isAdd){
+                if(item.Id == 6 ||item.Id == 2 ||item.Id == 5 ||item.Id ==1 )
+                  return true;
+              }else return false;
+            }
+          })
         },
       }),
       QRCode: new FormElement({
@@ -356,7 +401,7 @@ export default class fixed_assets {
         // disabled: true,
         options(data) {
           // console.log($t);
-          data.Person_id = '';
+          data.Person_id = "";
           let dataPara = Para.Para_Account.set((p) => {
             p.data = p.data.filter((p1) => p1.Office_id == data.Office_id);
           });
@@ -470,8 +515,8 @@ export default class fixed_assets {
         label: "Khấu hao",
         model: "Estimated_Life_Min",
         type: FormElementType.number,
-        attr:{
-          placeholder: 'tháng',
+        attr: {
+          placeholder: "tháng",
         },
         labelWidth: 85,
       }),
@@ -788,12 +833,8 @@ export default class fixed_assets {
                     this._formElements.Use_Type_id.set((p) => (p.col = 6)),
                     this._formElements.Curent_Holder_Id.set((p) => (p.col = 6)),
 
-                    this._formElements.Person_id.set(
-                      (p) => (p.col = 6)
-                    ),
+                    this._formElements.Person_id.set((p) => (p.col = 6)),
                     this._formElements.Status.set((p) => (p.col = 6)),
-
-
                   ],
                 }),
 
@@ -820,7 +861,6 @@ export default class fixed_assets {
                     ),
                     ,
                     this._formElements.Purchase_Date.set((p) => (p.col = 6)),
-
                   ],
                 }),
                 new FormElement({
@@ -830,7 +870,9 @@ export default class fixed_assets {
                     this._formElements.RF_Id.set((p) => (p.col = 4)),
                     this._formElements.Maintenance.set((p) => (p.col = 2)),
                     this._formElements.Quantity.set((p) => (p.col = 3)),
-                    this._formElements.Estimated_Life_Min.set((p) => (p.col = 3)),
+                    this._formElements.Estimated_Life_Min.set(
+                      (p) => (p.col = 3)
+                    ),
                     // new FormElement({
                     //   col: 3,
                     //   class: "Estimated",
@@ -853,7 +895,12 @@ export default class fixed_assets {
                     // this._formElements.QRCode.set((p) => (p.col = 6)),
                   ],
                 }),
-
+                new FormElement({
+                  child: [
+                    this._formElements.Nguonvon_id.set((p) => (p.col = 6)),
+                    this._formElements.Nguonvon_ten.set((p) => (p.col = 6)),
+                  ],
+                }),
                 new FormElement({
                   label: "Thông tin phương tiện",
                   type: FormElementType.label,
@@ -928,10 +975,18 @@ export default class fixed_assets {
       formData: this,
       labelWidth: 135,
       elements: [
-        this._formElements.Code.set((p) => (p.disabled = true)).set(p=>p.labelWidth = 135),
-        this._formElements.Serial.set((p) => (p.disabled = true)).set(p=>p.labelWidth = 135),
-        this._formElements.Producer_id.set((p) => (p.disabled = true)).set(p=>p.labelWidth = 135),
-        this._formElements.Model.set((p) => (p.disabled = true)).set(p=>p.labelWidth = 135),
+        this._formElements.Code.set((p) => (p.disabled = true)).set(
+          (p) => (p.labelWidth = 135)
+        ),
+        this._formElements.Serial.set((p) => (p.disabled = true)).set(
+          (p) => (p.labelWidth = 135)
+        ),
+        this._formElements.Producer_id.set((p) => (p.disabled = true)).set(
+          (p) => (p.labelWidth = 135)
+        ),
+        this._formElements.Model.set((p) => (p.disabled = true)).set(
+          (p) => (p.labelWidth = 135)
+        ),
       ],
     });
   }

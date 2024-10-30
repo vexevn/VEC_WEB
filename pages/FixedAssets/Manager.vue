@@ -423,6 +423,7 @@ export default {
       },
       action: (re) => {
         this.store.data = re;
+        Para.dm_department.data = re;
       },
     });
   },
