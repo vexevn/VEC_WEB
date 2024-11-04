@@ -294,7 +294,7 @@
                       text-align: center;
                       font-weight: bold;
                     "
-                    >Download</span
+                    >Tải xuống</span
                   >
                 </a>
                 <a
@@ -317,7 +317,7 @@
                       text-align: center;
                       font-weight: bold;
                     "
-                    >View</span
+                    >Xem</span
                   >
                 </a>
               </div>
@@ -409,7 +409,7 @@ export default {
           this.isAdd = isAdd;
           var _app = this;
           if (!obj.Id) {
-            ShowMessage("You need choose 1 selection!");
+            ShowMessage("Bạn nên chọn 1 thư mục!");
             return;
           }
           if (isAdd) {
@@ -617,7 +617,7 @@ export default {
     },
     Delete(data) {
       ShowConfirm({
-        message: "Delete Folder [" + data.Name + "]",
+        message: "Xóa thư mục [" + data.Name + "]",
         title: "Cảnh báo!",
         type: MessageType.warning,
       }).then(() => {
@@ -633,7 +633,7 @@ export default {
     },
     DeleteFile(data) {
       ShowConfirm({
-        message: "Delete File [" + ConvertStr.ToDateStr(data.DateCreate) + "]",
+        message: "Xóa tệp [" + ConvertStr.ToDateStr(data.DateCreate) + "]",
         title: "Cảnh báo!",
         type: MessageType.warning,
       }).then(() => {
