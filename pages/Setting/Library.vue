@@ -297,7 +297,7 @@
                     >Download</span
                   >
                 </a>
-                <a
+                <!-- <a
                   :href="GetGoogleEmbeddedLink(item)"
                   target="_blank"
                   style="
@@ -319,7 +319,7 @@
                     "
                     >View</span
                   >
-                </a>
+                </a> -->
               </div>
             </div>
           </div>
@@ -847,7 +847,7 @@ export default {
     }
   }
 }
-::v-deep 
+::v-deep
   .el-tree--highlight-current
   .el-tree-node.is-current
   > .el-tree-node__content {
