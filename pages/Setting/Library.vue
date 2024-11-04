@@ -12,7 +12,7 @@
           border-bottom: 1px solid rgb(221, 221, 221);
         "
       >
-        <b> Folder </b>
+        <b> Thư mục </b>
         <el-button v-if="Userlevel == 1" class="" type="primary" @click="Add()"
           ><i class="el-icon-folder-add"></i
         ></el-button>
@@ -546,16 +546,16 @@ export default {
       }, 0);
     },
     Add(row) {
-      this.form.ShowForm("Add Document Folder", true, row);
+      this.form.ShowForm("Thêm thư mục tài liệu", true, row);
     },
     AddFile() {
       this.formFiles.ShowForm("Thêm mới", true, this.datafile);
     },
     Edit(row) {
-      this.form.ShowForm("Edit Document Folder", false, row);
+      this.form.ShowForm("Sửa thư mục tài liệu", false, row);
     },
     EditFile(row) {
-      this.formFiles.ShowForm("Edit Folder", false, row);
+      this.formFiles.ShowForm("Sửa thư mục", false, row);
     },
     Save() {
       var _app = this;
