@@ -1012,6 +1012,23 @@ export default {
   }
 }
 
+
+::v-deep .is-scrolling-left .el-table__empty-block {
+    
+     justify-content: flex-start ; 
+   
+}
+// ::v-deep .is-scrolling-middle .el-table__empty-block {
+    
+//     //  justify-content:  ; 
+   
+// }
+::v-deep .is-scrolling-right .el-table__empty-block {
+    
+     justify-content: flex-end; 
+   
+}
+
 .table-controls-c {
   width: 100%;
   > div {

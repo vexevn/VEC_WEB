@@ -225,7 +225,7 @@ export default {
           }),
 
           new TablePagingCol({
-            title: "Lý do luân chuyển",
+            title: "Ghi chú",
             data: this.data.isAdd ? "Note" : "Description",
             min_width: 250,
             sortable: false,

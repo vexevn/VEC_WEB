@@ -149,8 +149,9 @@ export default class fixed_assets {
     this._formElements = {
       Nguonvon_id: new FormElement({
         id: "Nguonvon_id",
-        label: "Nguồn vốn",
+        label: "Nguồn tài sản",
         model: "Nguonvon_id",
+        required: true,
         labelWidth: 147,
         type: FormElementType.select,
         options: Para.eNguonvon,
@@ -169,7 +170,7 @@ export default class fixed_assets {
         },
       }),
       Nguonvon_ten: new FormElement({
-        // label: "Nguồn vốn",
+        // label: "Nguồn tài sản",
         model: "Nguonvon_ten",
         required: true,
         type: FormElementType.text,
@@ -394,6 +395,7 @@ export default class fixed_assets {
         type: FormElementType.select,
         options: Para.TransferType,
         labelWidth: 147,
+        required: true,
         watch(data, nv, ov, _this, isFirst) {
           if (!isFirst) {
             data.Curent_Holder_Id = undefined;

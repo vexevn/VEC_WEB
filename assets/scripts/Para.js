@@ -28,7 +28,7 @@ export var Para = {
 
   eNguonvon: new SelectOption({
     data: [
-      { Id: 1, Name: "VEC" },
+      { Id: 1, Name: "Nguồn vốn VEC" },
       { Id: 2, Name: "Dự án" },
       { Id: 3, Name: "Khác" },
     ],
