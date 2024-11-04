@@ -549,7 +549,7 @@ export default {
       this.form.ShowForm("Add Document Folder", true, row);
     },
     AddFile() {
-      this.formFiles.ShowForm("Add File", true, this.datafile);
+      this.formFiles.ShowForm("Thêm mới", true, this.datafile);
     },
     Edit(row) {
       this.form.ShowForm("Edit Document Folder", false, row);

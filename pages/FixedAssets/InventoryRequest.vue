@@ -60,6 +60,14 @@
           >
             <i class="el-icon-edit"></i
           ></el-button>
+          <el-button
+            class="icon-btn icon-btn"
+            v-else
+            type="primary"
+            @click="form.ShowForm('Xem yêu cầu', false, obj.row,true)"
+          >
+            <i class="el-icon-view"></i
+          ></el-button>
 
           <el-button
             class="icon-btn icon-btn"
@@ -271,7 +279,7 @@ export default {
     },
     Add() {
       //   console.log("add");
-      this.form.ShowForm("Thêm yêu cầu", true, {});
+      this.form.ShowForm("Lập lịch kiểm kê", true, {});
     },
     LoadTable() {
       GetDataAPI({

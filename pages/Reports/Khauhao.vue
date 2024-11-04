@@ -154,7 +154,7 @@ export default {
           //   sortable: false,
           // }),
           new TablePagingCol({
-            title: "Ví trí vật lý",
+            title: "Vị trí vật lý",
             data: "Office_Name",
             min_width: 150,
             sortable: false,

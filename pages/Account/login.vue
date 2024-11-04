@@ -93,6 +93,8 @@ export default {
   },
   methods: {
     ForgotPassword() {
+      ShowMessage("Đề nghị bạn đổi mật khẩu trên hệ thống quản lý tài khoản tập trung của VEC hoặc thông báo qua email VEC.IT@expresssway.com.vn để được hỗ trợ")
+      return;
       if (!this.obj.Email) {
         ShowMessage("Vui lòng nhập Email để thực hiện", "error");
 

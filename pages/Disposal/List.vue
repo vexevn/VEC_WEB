@@ -57,7 +57,7 @@
               <i class="fa fa-save"></i> &nbsp; Lưu
             </el-button>
             <el-button type="danger" @click="Exit">
-              <i class="fa fa-times"></i> &nbsp; Sửa
+              <i class="fa fa-times"></i> &nbsp; Thoát
             </el-button>
           </div>
         </div>
