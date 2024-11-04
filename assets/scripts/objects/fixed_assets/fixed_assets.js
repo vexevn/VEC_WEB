@@ -172,7 +172,7 @@ export default class fixed_assets {
       Nguonvon_ten: new FormElement({
         // label: "Nguồn tài sản",
         model: "Nguonvon_ten",
-        required: true,
+        // required: true,
         type: FormElementType.text,
         attr: {
           placeholder: "Vui lòng nhập...",
