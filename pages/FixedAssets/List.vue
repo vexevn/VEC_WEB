@@ -300,6 +300,7 @@ export default {
       tp: new TablePaging({
         title: "Danh sách tài sản",
         data: [],
+        isSearchEqual: true,
         disableSelectRow: true,
         params: {
           From: "",
@@ -389,7 +390,7 @@ export default {
               new TablePagingCol({
                 title: "Mã tài sản",
                 data: "Code",
-                min_width: 150,
+                min_width: 170,
                 sortable: false,
               }),
               new TablePagingCol({
@@ -459,9 +460,10 @@ export default {
               // }),
               new TablePagingCol({
                 title: "Vị trí",
-                data: "Curent_Holder_Name",
+                data: "Curent_Holder_Id",
                 min_width: 150,
                 sortable: false,
+                formatter: (value) => Para.store_Get_List.getName(value),
               }),
               new TablePagingCol({
                 title: "Tình trạng tài sản",
@@ -518,7 +520,7 @@ export default {
                   //   ? ConvertStr.ToDateStr(addMonth(row.Purchase_Date, value))
                   //   : value;
 
-                  return value > 0 ? value + ' tháng' : ''
+                  return value > 0 ? value + " tháng" : "";
                 },
               }),
               // new TablePagingCol({

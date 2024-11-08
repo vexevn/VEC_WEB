@@ -81,7 +81,7 @@ export default class InventoryRequest {
         labelWidth: 90,
       }),
       Description: new FormElement({
-        label: "Mô tả",
+        label: "Nội dung",
         model: "Description",
         type: FormElementType.text,
         attr: {

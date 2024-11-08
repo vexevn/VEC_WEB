@@ -157,9 +157,9 @@ export default {
                     size: "14px",
                   },
                   offset: -3,
-                  rotation: function (context) {
-                    return isLowValue(context) > 15 ? 0 : -91;
-                  },
+                  // rotation: function (context) {
+                  //   return isLowValue(context) > 15 ? 0 : -91;
+                  // },
                   color: (context) => {
                     let is_light = wc_hex_is_light(
                       context.dataset.backgroundColor[context.dataIndex]
@@ -169,7 +169,7 @@ export default {
                     else return is_light ? "#444" : "white";
                   },
                   display: function (context) {
-                    return isLowValue(context) > 20; // display labels with an odd index
+                    return isLowValue(context) > 10; 
                   },
                   formatter: (value) => {
                     if (this.type == "pie") {

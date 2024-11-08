@@ -13,6 +13,7 @@ var defaultParams = function () {
     noFilter: false,
     showHeader: true,
     disableFixedHead: false,
+    isSearchEqual: true,
     disablePaging: false,
     disableSelectRow: false,
     handleSumary: null,

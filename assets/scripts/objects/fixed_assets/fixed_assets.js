@@ -179,7 +179,7 @@ export default class fixed_assets {
         },
         isVisible(data) {
           return data.Nguonvon_id == 3;
-        },
+        },  
       }),
       Quantity: new FormElement({
         label: "Số lượng",

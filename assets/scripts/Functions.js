@@ -6,17 +6,15 @@ export var Global = {
   counter: 0,
 };
 
-
 export function GetGlobalId() {
   Global.counter++;
   return Global.counter;
 }
 
-if (location.host ==
-  'procurement.wwf.org.vn') {
-  console.log = () => { };
-  console.error = () => { };
-  console.warn = () => { };
+if (location.host == "procurement.wwf.org.vn") {
+  console.log = () => {};
+  console.error = () => {};
+  console.warn = () => {};
 }
 
 export function SearchTree(obj, query, tag) {
@@ -37,9 +35,8 @@ export function SearchTree(obj, query, tag) {
 }
 export function SearchAllTree(array, query, child) {
   let result = [];
-  array.forEach(p => {
-    if (query(p))
-      result.push(p);
+  array.forEach((p) => {
+    if (query(p)) result.push(p);
     else if (p[child] && p[child].length) {
       let find = SearchAllTree(p[child], query, child);
       if (find.length) {
@@ -79,12 +76,12 @@ Number.prototype.formatMoney = function (c, d, t) {
     s +
     (j ? i.substr(0, j) + t : "") +
     i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) +
-    (c ?
-      d +
-      Math.abs(n - i)
-        .toFixed(c)
-        .slice(2) :
-      "");
+    (c
+      ? d +
+        Math.abs(n - i)
+          .toFixed(c)
+          .slice(2)
+      : "");
   return rs == 0 ? "" : rs;
 };
 Array.prototype.sortBy = function () {
@@ -121,21 +118,18 @@ export function DateFormated(format, date) {
   return moment(date).format(format);
 }
 
-
-
-
 export function ShowAlert({
   message = "Content",
   title = "Alert",
   type = MessageType.info,
   opt = {
     dangerouslyUseHTMLString,
-    confirmButtonText
-  }
+    confirmButtonText,
+  },
 }) {
   return ElementUI.MessageBox.alert(message, title, {
     ...opt,
-    type
+    type,
   });
 }
 
@@ -143,7 +137,7 @@ export const MessageType = {
   info: "info",
   error: "error",
   success: "success",
-  warning: "warning"
+  warning: "warning",
 };
 let dangerouslyUseHTMLString = true;
 let confirmButtonText = "OK";
@@ -152,15 +146,15 @@ let cancelButtonText = "Cancel";
 /**
  * @param {string} message - description
  * @param {info|error|success|warning} type - description
-*/
+ */
 export function ShowMessage(
   message = "alert",
   type = MessageType.success,
   opt = {
-    dangerouslyUseHTMLString
+    dangerouslyUseHTMLString,
   }
 ) {
-  console.error(message)
+  console.error(message);
 
   ElementUI.Message({
     showClose: true,
@@ -169,7 +163,7 @@ export function ShowMessage(
     message,
     type: type,
     dangerouslyUseHTMLString: true,
-    ...opt
+    ...opt,
   });
 }
 /**
@@ -182,7 +176,7 @@ export function ShowMessage(
  * @param {string}  param.opt.cancelButtonText - description
  * @param {boolean}  param.opt.dangerouslyUseHTMLString - description
  * @return {Promise} description
-*/
+ */
 export function ShowConfirm({
   message = "Are your sure?",
   title = "Confirm",
@@ -190,21 +184,16 @@ export function ShowConfirm({
   opt = {
     confirmButtonText,
     cancelButtonText,
-    dangerouslyUseHTMLString
-  }
+    dangerouslyUseHTMLString,
+  },
 }) {
   return ElementUI.MessageBox.confirm(message, title, {
     ...opt,
-    type
+    type,
   });
 }
 
-
-
-
-
 //#region ExportExcel
-
 
 //Export excel
 export function Workbook() {
@@ -216,20 +205,28 @@ export function Workbook() {
 export function s2ab(s) {
   var buf = new ArrayBuffer(s.length);
   var view = new Uint8Array(buf);
-  for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+  for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xff;
   return buf;
 }
 
-
 export function getAvailableCell(cell, listChecker) {
-  if (!cell)
-    return { r: 0, c: 0 };
+  if (!cell) return { r: 0, c: 0 };
   listChecker = listChecker || [];
   var checker = listChecker;
 
-  var maxC = (checker.filter(function (p) { return p.s.r == 0 }).sort(function (a, b) { return b.e.c - a.e.c })[0] || { e: { r: 0, c: 0 } }).e.c;
+  var maxC = (
+    checker
+      .filter(function (p) {
+        return p.s.r == 0;
+      })
+      .sort(function (a, b) {
+        return b.e.c - a.e.c;
+      })[0] || { e: { r: 0, c: 0 } }
+  ).e.c;
   var findR = checker.filter(function (p) {
-    return (p.s.r <= cell.r && cell.r <= p.e.r) && (p.s.c <= cell.c && cell.c <= p.e.c);
+    return (
+      p.s.r <= cell.r && cell.r <= p.e.r && p.s.c <= cell.c && cell.c <= p.e.c
+    );
   }).length;
   if (findR) {
     cell.c += 1;
@@ -246,12 +243,14 @@ export function getAvailableCell(cell, listChecker) {
 }
 
 export function concatDeep(arr, d = 1) {
-  return d > 0 ? arr.reduce((acc, val) => acc.concat(Array.isArray(val) ? concatDeep(val, d - 1) : val), [])
+  return d > 0
+    ? arr.reduce(
+        (acc, val) =>
+          acc.concat(Array.isArray(val) ? concatDeep(val, d - 1) : val),
+        []
+      )
     : arr.slice();
-
 }
-
-
 
 export function datenum(v, date1904) {
   if (date1904) v += 1462;
@@ -259,19 +258,26 @@ export function datenum(v, date1904) {
   return (epoch - new Date(Date.UTC(1899, 11, 30))) / (24 * 60 * 60 * 1000);
 }
 
-
-
 export function getHexColor(colorStr) {
-  var a = document.createElement('div');
+  var a = document.createElement("div");
   a.style.color = colorStr;
-  var colors = window.getComputedStyle(document.body.appendChild(a)).color.match(/\d+/g).map(function (a) { return parseInt(a, 10); });
+  var colors = window
+    .getComputedStyle(document.body.appendChild(a))
+    .color.match(/\d+/g)
+    .map(function (a) {
+      return parseInt(a, 10);
+    });
   document.body.removeChild(a);
-  return (colors.length >= 3) ? '#' + (((1 << 24) + (colors[0] << 16) + (colors[1] << 8) + colors[2]).toString(16).substr(1)) : false;
+  return colors.length >= 3
+    ? "#" +
+        ((1 << 24) + (colors[0] << 16) + (colors[1] << 8) + colors[2])
+          .toString(16)
+          .substr(1)
+    : false;
 }
 
-
 export function Uni2None(str = "") {
-  str = (str || '') + ''
+  str = (str || "") + "";
   str = str.replace(/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/g, "a");
   str = str.replace(/(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)/g, "e");
   str = str.replace(/(ì|í|ị|ỉ|ĩ)/g, "i");
@@ -305,30 +311,30 @@ export function sheet_from_array_of_arrays(data, cols, title) {
   var ws = {};
   let tmpStyle = {
     alignment: {
-      wrapText: true
+      wrapText: true,
     },
     border: {
       top: { style: "thin", color: { auto: 1 } },
       bottom: { style: "thin", color: { auto: 1 } },
       left: { style: "thin", color: { auto: 1 } },
-      right: { style: "thin", color: { auto: 1 } }
+      right: { style: "thin", color: { auto: 1 } },
     },
     fill: {
-      fgColor: { rgb: "ffdddddd" }
+      fgColor: { rgb: "ffdddddd" },
     },
     font: {
-      bold: true
-    }
+      bold: true,
+    },
   };
   let rowStyle = {
     alignment: {
-      wrapText: true
+      wrapText: true,
     },
     border: {
       top: { style: "thin", color: { auto: 1 } },
       bottom: { style: "thin", color: { auto: 1 } },
       left: { style: "thin", color: { auto: 1 } },
-      right: { style: "thin", color: { auto: 1 } }
+      right: { style: "thin", color: { auto: 1 } },
     },
   };
   let wBorder = {
@@ -336,8 +342,8 @@ export function sheet_from_array_of_arrays(data, cols, title) {
       top: { style: "thin", color: { auto: 1 } },
       bottom: { style: "thin", color: { auto: 1 } },
       left: { style: "thin", color: { auto: 1 } },
-      right: { style: "thin", color: { auto: 1 } }
-    }
+      right: { style: "thin", color: { auto: 1 } },
+    },
   };
   ws["!merges"] = [];
   let header = concatDeep(cols, Infinity)
@@ -356,34 +362,49 @@ export function sheet_from_array_of_arrays(data, cols, title) {
 
   ws["!merges"].push(getRange(0, 0, maxC - 1, 0));
   writeCell(ws, 0, 0, {
-    v: `${title || ''}`, t: "s", s: {
+    v: `${title || ""}`,
+    t: "s",
+    s: {
       alignment: { horizontal: "center" },
       border: {
         top: { style: "thin", color: { auto: 1 } },
         bottom: { style: "thin", color: { auto: 1 } },
         left: { style: "thin", color: { auto: 1 } },
-        right: { style: "thin", color: { auto: 1 } }
+        right: { style: "thin", color: { auto: 1 } },
       },
       fill: {
-        fgColor: { rgb: "ffdddddd" }
+        fgColor: { rgb: "ffdddddd" },
       },
       font: {
         bold: true,
-        color: 'ff3c6f9c'
-      }
-    }
+        color: "ff3c6f9c",
+      },
+    },
   });
 
   cols.forEach(function (pR, C) {
     startC = 0;
     pR.forEach(function (p, index) {
-      let curentCell = getAvailableCell({ c: startC, r: startR }, ws["!merges"]);
+      let curentCell = getAvailableCell(
+        { c: startC, r: startR },
+        ws["!merges"]
+      );
       if (p.title || p.data || p.col_span > 1) {
-
         if (p.row_span > 1 || p.col_span > 1) {
-          ws["!merges"].push(getRange(curentCell.c, curentCell.r, curentCell.c + (p.col_span || 1) - 1, curentCell.r + (p.row_span || 1) - 1));
+          ws["!merges"].push(
+            getRange(
+              curentCell.c,
+              curentCell.r,
+              curentCell.c + (p.col_span || 1) - 1,
+              curentCell.r + (p.row_span || 1) - 1
+            )
+          );
         }
-        writeCell(ws, curentCell.c, curentCell.r, { v: `${p.title || ''}`, t: "s", s: tmpStyle });
+        writeCell(ws, curentCell.c, curentCell.r, {
+          v: `${p.title || ""}`,
+          t: "s",
+          s: tmpStyle,
+        });
         startC = curentCell.c + 1;
       }
     });
@@ -391,37 +412,34 @@ export function sheet_from_array_of_arrays(data, cols, title) {
     maxR = startR;
   });
 
-
   data.forEach(function (pData, index) {
     startC = 0;
     header.forEach(function (p, C) {
       resolve(pData, p.data);
       let value = resolve(pData, p.data);
       if (!Array.isArray(value) && value !== null)
-        value = value === 0 ? '0' : (value || '') + '';
-
-
+        value = value === 0 ? "0" : (value || "") + "";
 
       if (p.exporter) {
         value = p.exporter(value, pData);
-      } else if (p.formatter && typeof p.formatter == 'function') {
+      } else if (p.formatter && typeof p.formatter == "function") {
         value = p.formatter(value, pData);
       }
 
-      let type = 's';
-      if (p.formatter && typeof p.formatter == 'string') {
+      let type = "s";
+      if (p.formatter && typeof p.formatter == "string") {
         switch (p.formatter) {
-          case 'number':
-            type = 'n';
+          case "number":
+            type = "n";
             break;
-          case 'date':
+          case "date":
             value = ConvertStr.ToDateStr(value);
             break;
-          case 'datetime':
-            value = ConvertStr.ToDateStr(value, 'DD/MM/YYYY HH:mm');
+          case "datetime":
+            value = ConvertStr.ToDateStr(value, "DD/MM/YYYY HH:mm");
             break;
-          case 'datetimes':
-            value = ConvertStr.ToDateStr(value, 'DD/MM/YYYY HH:mm:ss');
+          case "datetimes":
+            value = ConvertStr.ToDateStr(value, "DD/MM/YYYY HH:mm:ss");
             break;
           default:
             break;
@@ -429,18 +447,19 @@ export function sheet_from_array_of_arrays(data, cols, title) {
       }
 
       writeCell(ws, startC, startR, {
-        v: `${value || ''}`, t: type, s: {
+        v: `${value || ""}`,
+        t: type,
+        s: {
           ...rowStyle,
           fill: {
-            fgColor: { rgb: index % 2 ? "ffe2ecf8" : 'ffffffff' }
+            fgColor: { rgb: index % 2 ? "ffe2ecf8" : "ffffffff" },
           },
-        }
+        },
       });
       startC += 1;
     });
     startR += 1;
   });
-
 
   maxR = startR;
   ws["!merges"].forEach(function (p) {
@@ -450,20 +469,21 @@ export function sheet_from_array_of_arrays(data, cols, title) {
           writeCell(ws, i, j, {
             v: "",
             t: "s",
-            s: wBorder
+            s: wBorder,
           });
       }
     }
   });
-  ws["!ref"] = XLSX.utils.encode_range({ s: { c: 0, r: 0 }, e: { c: maxC, r: maxR } });
+  ws["!ref"] = XLSX.utils.encode_range({
+    s: { c: 0, r: 0 },
+    e: { c: maxC, r: maxR },
+  });
   // console.log(ws);
   return ws;
 }
 
 //export Excel
 //#endregion
-
-
 
 /**
  * path: string cách nhau dấu "."
@@ -474,11 +494,11 @@ export function sheet_from_array_of_arrays(data, cols, title) {
  *      resolve(obj,"a.b") return  1
  *
  */
-export function resolve(obj, path = '') {
-  let value = path.split('.').reduce(function (prev, curr) {
-    return prev ? prev[curr] : null
-  }, obj || self)
-  return value
+export function resolve(obj, path = "") {
+  let value = path.split(".").reduce(function (prev, curr) {
+    return prev ? prev[curr] : null;
+  }, obj || self);
+  return value;
 }
 /**
  * obj: đối tượng cần set
@@ -486,12 +506,12 @@ export function resolve(obj, path = '') {
  * value: giá trị cần set
  */
 export function resolveSet(obj, path, value) {
-  path = path.split('.');
+  path = path.split(".");
   if (path.length === 1) {
-    obj[path] = value
-    return
+    obj[path] = value;
+    return;
   }
-  return resolveSet(obj[path[0]], path.slice(1).join('.'), value)
+  return resolveSet(obj[path[0]], path.slice(1).join("."), value);
 }
 
 export function Compare(valueA = "", valueB = "") {
@@ -499,12 +519,15 @@ export function Compare(valueA = "", valueB = "") {
   //   if(!valueA || !valueB){
   //       //console.log(valueA,valueB);
   //   }
-  if (!isNaN(+valueA) && typeof (+valueA) == 'number' && !isNaN(+valueB) && typeof (+valueB) == 'number') {
+  if (
+    !isNaN(+valueA) &&
+    typeof +valueA == "number" &&
+    !isNaN(+valueB) &&
+    typeof +valueB == "number"
+  ) {
     //number
     result = +valueA - +valueB;
-  } else if (
-    IsValidDate(valueA) && IsValidDate(valueB)
-  ) {
+  } else if (IsValidDate(valueA) && IsValidDate(valueB)) {
     //date
     result = moment(valueA).isAfter(moment(valueB));
   }
@@ -526,7 +549,6 @@ export function Compare(valueA = "", valueB = "") {
   return result;
 }
 
-
 export function GenrerateArray(length = 0, sampleData = 0) {
   var a = [];
   for (let i = 0; i < length; i++) {
@@ -534,13 +556,10 @@ export function GenrerateArray(length = 0, sampleData = 0) {
       var obj = JSON.parse(JSON.stringify(sampleData));
       obj.id = i;
       a.push(obj);
-    }
-    else
-      a.push(i);
+    } else a.push(i);
   }
   return a;
 }
-
 
 export function GetTimeNow() {
   return moment()._d.toJSON();
@@ -553,7 +572,11 @@ export function GetStartMonth(date) {
 export function GetEndMonth(date) {
   date = date || new Date();
   let startMonth = new Date(GetStartMonth(date));
-  var nextMonth = new Date(startMonth.getFullYear(), startMonth.getMonth() + 1, 1);
+  var nextMonth = new Date(
+    startMonth.getFullYear(),
+    startMonth.getMonth() + 1,
+    1
+  );
   nextMonth.setSeconds(-1);
   return nextMonth.toJSON();
 }
@@ -562,16 +585,8 @@ export function GetTime(iday, isEndDay) {
   isEndDay = isEndDay || false;
   iday = iday || 0;
   var d = moment().subtract(-iday, "days");
-  if (isEndDay)
-    d = d
-      .hours(23)
-      .minute(59)
-      .second(59);
-  else
-    d = d
-      .hours(0)
-      .minute(0)
-      .second(0);
+  if (isEndDay) d = d.hours(23).minute(59).second(59);
+  else d = d.hours(0).minute(0).second(0);
   var dd = d._d;
   return dd.toJSON();
 }
@@ -588,95 +603,89 @@ export function GetBoolean(str) {
   return null;
 }
 
-export function addMonth(day,m){
-  const days = moment(day||new Date());
-  let dayAddMonth = days.add(m || 0, 'months');
-  return dayAddMonth.format('YYYY-MM-DDTHH:mm:ssZ')
+export function addMonth(day, m) {
+  const days = moment(day || new Date());
+  let dayAddMonth = days.add(m || 0, "months");
+  return dayAddMonth.format("YYYY-MM-DDTHH:mm:ssZ");
 }
 
 /**
  * @return {'after'|'equal'|'before'} description
  */
 export function CompareDate(source, target) {
-  if (source == null && target == null)
-    return 'equal';
-  if (source == null)
-    return 'before';
-  if (target == null)
-    return 'after';
+  if (source == null && target == null) return "equal";
+  if (source == null) return "before";
+  if (target == null) return "after";
 
-  var source_n = +ConvertStr.ToDateStr(source, 'YYYYMMDD');
-  var target_n = +ConvertStr.ToDateStr(target, 'YYYYMMDD');
-  if (source_n == target_n)
-    return 'equal';
-  if (source_n > target_n)
-    return 'after'
-  return 'before';
+  var source_n = +ConvertStr.ToDateStr(source, "YYYYMMDD");
+  var target_n = +ConvertStr.ToDateStr(target, "YYYYMMDD");
+  if (source_n == target_n) return "equal";
+  if (source_n > target_n) return "after";
+  return "before";
 }
 export function IsAfterDate(source, target) {
-  return CompareDate(source, target) == 'after';
+  return CompareDate(source, target) == "after";
 }
 export function IsEqualDate(source, target) {
-  return CompareDate(source, target) == 'equal';
+  return CompareDate(source, target) == "equal";
 }
 export function IsBeforeDate(source, target) {
-  return CompareDate(source, target) == 'before';
+  return CompareDate(source, target) == "before";
 }
 export function IsNullDate(source) {
   return !IsAfterDate(source, new Date(1900, 1, 1));
 }
 export function IsValidDate(source) {
-
-  source = source || '';
-  let check = (source + '').substring(0, 10);
-  return moment(check, 'YYYY-MM-DD', true).isValid();
+  source = source || "";
+  let check = (source + "").substring(0, 10);
+  return moment(check, "YYYY-MM-DD", true).isValid();
 }
-
-
 
 const axios = require("axios");
 
-export function uploadFile(formData, opts = { folder: '' }) {
-  return new Promise(rs => {
-    axios.post('/API/SaveFileToServer', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        folder: opts.folder
-      }
-    }).then(re => {
-      try {
-        rs(re.data.Data);
-      } catch (error) {
-        ShowMessage('Đã có lỗi sảy ra khi upload');
-      }
-    })
+export function uploadFile(formData, opts = { folder: "" }) {
+  return new Promise((rs) => {
+    axios
+      .post("/API/SaveFileToServer", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          folder: opts.folder,
+        },
+      })
+      .then((re) => {
+        try {
+          rs(re.data.Data);
+        } catch (error) {
+          ShowMessage("Đã có lỗi sảy ra khi upload");
+        }
+      });
   });
 }
 
-
-
-
 export function objContainStr(str, text, isEqual) {
-  text = text.toLowerCase().split(' ');
+  text = text.toLowerCase().split(" ");
   // console.log(str, text)
   // console.log(isEqual)
-  return text.every(el => {
+  return text.every((el) => {
     let check = false;
     if (isEqual)
-      check = str.replaceAll('n',' ').toLowerCase().split(' ').some(p => p == el);
-    else
-      check = str.toLowerCase().includes(el);
+      check = str
+        .toLowerCase()
+        .split(" ")
+        .some((p) => p == el);
+    else check = str.toLowerCase().includes(el);
+
     return check;
   });
 }
 
 export function getFileName(str) {
-  str = (str || '') + '';
+  str = (str || "") + "";
   let splt = str.split("|");
   return splt[0].replace(/\?/g, ",");
 }
 export function getNameDownload(str) {
-  str = (str || '') + '';
+  str = (str || "") + "";
   let splt = str.split("|");
   return splt[1].replace(/\?/g, ",");
 }
@@ -687,7 +696,7 @@ export function getNameDownload(str) {
  * }} description
  */
 export function getFileObj(str) {
-  str = ((str || '') + '').replace(/\?/g, ",");
+  str = ((str || "") + "").replace(/\?/g, ",");
   let splt = str.split("|");
   function GetFileName(str) {
     var splt = str.split("/");
@@ -695,21 +704,19 @@ export function getFileObj(str) {
   }
   return {
     file: splt[0],
-    fileDownload: GetFileName(splt[1] || splt[0])
-  }
+    fileDownload: GetFileName(splt[1] || splt[0]),
+  };
 }
 
-
 export function readFileInput(file) {
-  return new Promise(rs => {
+  return new Promise((rs) => {
     const reader = new FileReader();
-    reader.addEventListener('load', (event) => {
-      rs(event.target.result)
+    reader.addEventListener("load", (event) => {
+      rs(event.target.result);
     });
     reader.readAsDataURL(file);
   });
 }
-
 
 export function dynamicColors() {
   var r = Math.floor(Math.random() * 255);

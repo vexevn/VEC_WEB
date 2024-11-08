@@ -66,7 +66,7 @@ export default {
           new TablePagingCol({
             title: "Mã tài sản",
             data: "Code",
-            min_width: 150,
+            min_width: 170,
             sortable: false,
           }),
           new TablePagingCol({
@@ -136,10 +136,10 @@ export default {
           // }),
           new TablePagingCol({
             title: "Vị trí vật lý",
-            data: "Curent_Holder_Name",
-
-            min_width: 150,
-            sortable: false,
+            data: "Curent_Holder_Id",
+                min_width: 150,
+                sortable: false,
+                formatter: (value) => Para.store_Get_List.getName(value),
           }),
           new TablePagingCol({
             title: "Tình trạng tài sản",
