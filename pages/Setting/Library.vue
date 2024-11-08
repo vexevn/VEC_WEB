@@ -297,7 +297,7 @@
                     >Tải xuống</span
                   >
                 </a>
-                <a
+                <!-- <a
                   :href="GetGoogleEmbeddedLink(item)"
                   target="_blank"
                   style="
@@ -319,7 +319,7 @@
                     "
                     >Xem</span
                   >
-                </a>
+                </a> -->
               </div>
             </div>
           </div>

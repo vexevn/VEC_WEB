@@ -155,7 +155,7 @@ export default {
           // }),
           new TablePagingCol({
             title: "Vị trí vật lý",
-            data: "Office_Name",
+            data: "Curent_Holder_Name",
             min_width: 150,
             sortable: false,
           }),

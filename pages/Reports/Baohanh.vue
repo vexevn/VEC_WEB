@@ -32,7 +32,7 @@
         <InputContainer
           style="margin-top: 5px"
           label="Văn phòng"
-          :labelWidth="90"
+          :labelWidth="110"
         >
           <InputSelect
             style="width: 100%"
@@ -156,7 +156,7 @@ export default {
           // }),
           new TablePagingCol({
             title: "Vị trí vật lý",
-            data: "Office_Name",
+            data: "Curent_Holder_Name",
             min_width: 150,
             sortable: false,
           }),

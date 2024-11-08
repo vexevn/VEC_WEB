@@ -151,7 +151,7 @@ export default class fixed_assets {
         id: "Nguonvon_id",
         label: "Nguồn tài sản",
         model: "Nguonvon_id",
-        required: true,
+        // required: true,
         labelWidth: 147,
         type: FormElementType.select,
         options: Para.eNguonvon,
