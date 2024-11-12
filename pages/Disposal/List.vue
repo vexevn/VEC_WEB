@@ -6,13 +6,17 @@
         <i class="fa fa-plus" @click="Add()"></i>
       </div>
       <div class="wh-left-filter">
-        <el-input v-model="iSearchInfo" placeholder="Tìm kiếm..." />
-        <el-button><i class="fa fa-search"></i></el-button>
+        <el-input
+          v-model="iSearchInfo"
+          @change="Searching"
+          placeholder="Tìm kiếm..."
+        />
+        <!-- <el-button><i class="fa fa-search"></i></el-button> -->
       </div>
       <el-scrollbar wrap-class="wh-left-list" style="flex: 1">
         <div
           class="wh-left-item"
-          v-for="item in data"
+          v-for="item in filteredData"
           :key="item.Id"
           @click="SelectReceipt(item)"
         >
@@ -49,7 +53,7 @@
       </el-scrollbar>
     </div>
     <div class="wh-right" v-if="form.visible">
-      <div style="height: 100%;overflow:auto">
+      <div style="height: 100%; overflow: auto">
         <div class="wh-right-title" style="padding-bottom: 0px">
           <span> {{ form.title }} </span>
           <div class="btns">
@@ -173,7 +177,13 @@ import DefaultForm from "~/assets/scripts/base/DefaultForm";
 import { SelectOption } from "~/assets/scripts/base/SelectOption";
 import TablePaging from "~/assets/scripts/base/TablePaging";
 import TablePagingCol from "~/assets/scripts/base/TablePagingCol";
-import { GetGlobalId, ShowMessage } from "~/assets/scripts/Functions";
+import ConvertStr from "~/assets/scripts/ConvertStr";
+import {
+  GetGlobalId,
+  objContainStr,
+  ShowMessage,
+  Uni2None,
+} from "~/assets/scripts/Functions";
 import GetDataAPI from "~/assets/scripts/GetDataAPI";
 import AddDisposal from "~/assets/scripts/objects/disposal/add_disposal";
 import DisposalVendors from "~/assets/scripts/objects/disposal/disposal_vendors";
@@ -370,7 +380,23 @@ export default {
       }
     },
   },
+
+  computed: {
+    filteredData() {
+      const search = this.iSearchInfo.toLowerCase();
+      return this.data.filter(
+        (item) =>
+          item.Serial.toLowerCase().includes(search) ||
+          ConvertStr.ToMoneyStr(item.TotalMoney).toLowerCase().includes(search) ||
+          ConvertStr.ToDateStr(item.DateActive, "DD/MM/yyyy hh:MM A").toLowerCase().includes(search)
+      );
+    },
+  },
   methods: {
+    // Searching() {
+    //   console.log(this.iSearchInfo);
+    // },
+
     RemoveFA(item) {
       let find = this.obj.FA_Id_Lists.findIndex((p) => p.Id == p);
       this.obj.FA_Id_Lists.splice(find, 1);
@@ -451,10 +477,10 @@ export default {
       });
       GetDataAPI({
         url: API.Get_Fixed_Denghi_thanhly,
-        action: re=>{
-          console.log(re)
-        }
-      })
+        action: (re) => {
+          console.log(re);
+        },
+      });
     },
     ReloadFA() {
       console.log(this.obj.FA_Id_Lists);
