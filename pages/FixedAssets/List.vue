@@ -160,9 +160,12 @@ S
       :model="form_transfer"
       @actionOK="form_transfer.Save.call(this)"
     >
-      <div slot="content">
+      <div style="display: flex;gap:10px;width: 100%;" slot="content">
+      <div>
         <FormInfo :model="form.obj.formView()" style="margin-bottom: 5px" />
         <FormInfo ref="form" :model="form_transfer.obj.form()" />
+      </div>
+      <TransferHistory :obj="form_transfer.obj"/>
       </div>
     </DefaultForm>
     <!-- <DefaultForm :model="formFilter" @actionOK="Search()">
@@ -550,7 +553,7 @@ export default {
         obj: new Fixed_Asset_Transfer(),
         title: "",
         visible: false,
-        width: "500px",
+        width: "700px",
         /**
          * @param {fixed_assets} obj - description
          */

@@ -1,5 +1,5 @@
 
-import { FormElement, FormElementType, FormInfo } from "~/assets/scripts/base/FormInfo";
+import { FormDirectionType, FormElement, FormElementType, FormInfo } from "~/assets/scripts/base/FormInfo";
 import { Para } from "../Para";
 import { SelectOption } from "../base/SelectOption";
 
@@ -212,6 +212,12 @@ export default class Fixed_Asset_Transfer {
         type: FormElementType.text,
       }),
 
+      TransferHistory: new FormElement({
+        type: "TransferHistory",
+        attr:{
+          obj: this,
+        }
+      })
     };
   }
 
@@ -227,6 +233,21 @@ export default class Fixed_Asset_Transfer {
         this._formElements.To_Holder_Id_2,
         this._formElements.To_Holder_Name,
         this._formElements.Start_Date,
+        // new FormElement({
+        //   direction: FormDirectionType.horizontal,
+        //   child:[
+        //     new FormElement({
+        //   direction: FormDirectionType.vertical,
+
+        //       child:[
+               
+        //       ]
+        //     }),
+        //     this._formElements.TransferHistory,
+
+        //   ]
+        // })
+       
       ]
     });
   }

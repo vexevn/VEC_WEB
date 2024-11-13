@@ -17,7 +17,7 @@
     <div class="dashboard">
       <div class="office">
         <!-- <p></p> -->
-        <VueChart type="pie" :chartTitle="'Thống kê tài sản theo văn phòng'" :chartData="LoadData(data.Offices || [])" />
+        <VueChart type="pie" :chartTitle="data.Offices_Chart_Tile" :chartData="LoadData(data.Offices || [])" />
       </div>
       <div class="type">
         <!-- <p></p> -->
@@ -80,7 +80,7 @@ export default {
       url: API.Reports_Dashboard,
       // params: this.params,
       action: (re) => {
-        console.log(this);
+        // console.log(this);
         this.data = re;
       },
     });
