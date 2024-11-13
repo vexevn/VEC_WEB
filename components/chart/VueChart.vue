@@ -222,11 +222,6 @@ export default {
             },
           },
           legend:
-            // this.legend !== false
-            //   ? {
-            //       position: this.type == "pie" ? "left" : "top",
-            //     }
-            //   : null,
             {
               position: "bottom",
             },
@@ -262,15 +257,16 @@ export default {
   watch: {
     chartData(newValue, oldValue) {
       this.loaded = false;
+      this.chartOptions.plugins.title.text = this.chartTitle;
+      
       this.$nextTick(() => {
-        this.chartOptions.plugins.title.text = this.chartTitle;
-
+        
         this.loaded = true;
       });
     },
   },
   mounted() {
-    // console.log(this);
+    console.log(this);
   },
 };
 </script>
