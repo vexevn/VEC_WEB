@@ -88,6 +88,11 @@ export default {
         cols: [
           new TablePagingCol({ title: "STT", data: "SttTP", min_width: 65 }),
           new TablePagingCol({
+            title: "Tài khoản",
+            data: "Id",
+            min_width: 150,
+          }),
+          new TablePagingCol({
             title: "Họ tên",
             data: "FullName",
             min_width: 200,
@@ -165,7 +170,10 @@ export default {
           //   }
           // }
           this.form.title = title;
-          this.form.obj = new User(obj);
+          this.form.obj = new User({
+            ...obj,
+            isEdit: !isAdd
+          });
           this.form.visible = true;
         },
         Save: () => {
