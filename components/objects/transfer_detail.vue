@@ -241,7 +241,14 @@ export default {
                 // align: "center",
                 fix: "right",
               })
-            : null,
+            : new TablePagingCol({
+                // title: "Tình trạng",
+                data: "",
+                min_width: 10,
+                sortable: false,
+                // align: "center",
+                // fix: "right",
+              }),
         ],
       }),
     };

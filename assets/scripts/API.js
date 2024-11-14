@@ -214,6 +214,7 @@ export default {
     linkAPI + "Fixed_Asset/Get_List_In_Warehouse",
   fixed_asset_Get_List_By_Ids: linkAPI + "Fixed_Asset/Get_List_By_Ids",
   Get_Asset_Mapping: linkAPI + "Fixed_Asset/Get_Asset_Mapping",
+  Get_Transfer: linkAPI + "Transfer/Get",
 
 
   Transfer_Get: linkAPI + "Transfer/Get",

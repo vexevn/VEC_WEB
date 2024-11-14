@@ -117,8 +117,8 @@ function wc_hex_is_light(color) {
   return brightness > 155;
 }
 
-function totalValue(data){
-  return data.reduce((sum, val) => sum + val, 0)
+function totalValue(data) {
+  return data.reduce((sum, val) => sum + val, 0);
 }
 
 function isLowValue(context) {
@@ -137,7 +137,7 @@ export default {
     chartData: {},
     scales: {},
     legend: {},
-    chartTitle: {},
+    chartTitle: String,
   },
   data() {
     return {
@@ -169,7 +169,7 @@ export default {
                     else return is_light ? "#444" : "white";
                   },
                   display: function (context) {
-                    return isLowValue(context) > 10; 
+                    return isLowValue(context) > 10;
                   },
                   formatter: (value) => {
                     if (this.type == "pie") {
@@ -200,13 +200,18 @@ export default {
             enabled: true,
             callbacks: {
               label: function (tooltipItem) {
-                console.log(tooltipItem)
-                let percentage = ((tooltipItem.raw / totalValue(tooltipItem.dataset.data)) * 100).toFixed(2); // Tính tỷ lệ %
-                if(percentage > 1){
-                  percentage = Math.round(percentage)
+                console.log(tooltipItem);
+                let percentage = (
+                  (tooltipItem.raw / totalValue(tooltipItem.dataset.data)) *
+                  100
+                ).toFixed(2); // Tính tỷ lệ %
+                if (percentage > 1) {
+                  percentage = Math.round(percentage);
                 }
 
-                let label = (tooltipItem.label || " ") + ` (${tooltipItem.raw}): ${percentage}%`   ;
+                let label =
+                  (tooltipItem.label || " ") +
+                  ` (${tooltipItem.raw}): ${percentage}%`;
                 // if (label) {
                 //   label += ": ";
                 // }
@@ -217,11 +222,6 @@ export default {
             },
           },
           legend:
-            // this.legend !== false
-            //   ? {
-            //       position: this.type == "pie" ? "left" : "top",
-            //     }
-            //   : null,
             {
               position: "bottom",
             },
@@ -257,10 +257,16 @@ export default {
   watch: {
     chartData(newValue, oldValue) {
       this.loaded = false;
+      this.chartOptions.plugins.title.text = this.chartTitle;
+      
       this.$nextTick(() => {
+        
         this.loaded = true;
       });
     },
+  },
+  mounted() {
+    console.log(this);
   },
 };
 </script>
