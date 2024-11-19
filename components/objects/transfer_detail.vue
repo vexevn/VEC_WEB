@@ -20,7 +20,7 @@
             v-model="CheckAll"
             @change="checkALl"
           /> -->
-          <CheckboxCustome ref="cbo" v-model="CheckAll" @change="checkALl"/>
+          <CheckboxCustome   v-if="data.isAdd" ref="cbo" v-model="CheckAll" @change="checkALl"/>
         </div>
       </template>
 
