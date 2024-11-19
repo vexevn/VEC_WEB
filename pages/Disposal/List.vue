@@ -386,7 +386,7 @@ export default {
       const search = this.iSearchInfo.toLowerCase();
       return this.data.filter(
         (item) =>
-          item.Serial.toLowerCase().includes(search) ||
+          (item.Serial||'').toLowerCase().includes(search) ||
           ConvertStr.ToMoneyStr(item.TotalMoney).toLowerCase().includes(search) ||
           ConvertStr.ToDateStr(item.DateActive, "DD/MM/yyyy hh:MM A").toLowerCase().includes(search)
       );
