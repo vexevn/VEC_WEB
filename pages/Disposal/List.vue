@@ -6,11 +6,7 @@
         <i class="fa fa-plus" @click="Add()"></i>
       </div>
       <div class="wh-left-filter">
-        <el-input
-          v-model="iSearchInfo"
-          @change="Searching"
-          placeholder="Tìm kiếm..."
-        />
+        <el-input v-model="iSearchInfo" placeholder="Tìm kiếm..." />
         <!-- <el-button><i class="fa fa-search"></i></el-button> -->
       </div>
       <el-scrollbar wrap-class="wh-left-list" style="flex: 1">
@@ -318,6 +314,21 @@ export default {
             sortable: false,
           }),
           new TablePagingCol({
+            title: "Vị trí",
+            data: "Curent_Holder_Id",
+            min_width: 150,
+            sortable: false,
+            formatter: (value) => Para.store_Get_List.getName(value),
+          }),
+          new TablePagingCol({
+            title: "Tình trạng tài sản",
+            data: "Status",
+            min_width: 150,
+            sortable: false,
+            formatter: (value) =>
+              Para.fixed_asset_state_Get_List.getName(value),
+          }),
+          new TablePagingCol({
             title: "",
             data: "btn",
             min_width: 50,
@@ -386,9 +397,13 @@ export default {
       const search = this.iSearchInfo.toLowerCase();
       return this.data.filter(
         (item) =>
-          (item.Serial||'').toLowerCase().includes(search) ||
-          ConvertStr.ToMoneyStr(item.TotalMoney).toLowerCase().includes(search) ||
-          ConvertStr.ToDateStr(item.DateActive, "DD/MM/yyyy hh:MM A").toLowerCase().includes(search)
+          (item.Serial || "").toLowerCase().includes(search) ||
+          ConvertStr.ToMoneyStr(item.TotalMoney)
+            .toLowerCase()
+            .includes(search) ||
+          ConvertStr.ToDateStr(item.DateActive, "DD/MM/yyyy hh:MM A")
+            .toLowerCase()
+            .includes(search)
       );
     },
   },

@@ -1,5 +1,7 @@
 <template lang="">
   <div style="height: 100%">
+    <!-- <el-checkbox :disable="!data.isAdd" v-model="CheckAll" @change="checkALl" /> -->
+
     <TablePaging :model="tp_detail" ref="tp_detail">
       <template slot="column-content-CheckBox" slot-scope="{ row }">
         <el-checkbox
@@ -7,6 +9,19 @@
           v-model="row.CheckBox"
           style="pointer-events: none"
         />
+      </template>
+
+      <template slot="column-header-CheckBox">
+        <!-- <el-checkbox v-model="CheckAll"  @change="checkALl"></el-checkbox> -->
+        <div>
+          <!-- <input v-model="CheckAll" @change="checkALl" type="checkbox" />
+          <el-checkbox
+            v-if="data.isAdd"
+            v-model="CheckAll"
+            @change="checkALl"
+          /> -->
+          <CheckboxCustome   v-if="data.isAdd" ref="cbo" v-model="CheckAll" @change="checkALl"/>
+        </div>
       </template>
 
       <!-- <template slot="column-content-New_Store_id" slot-scope="{ row }">
@@ -67,6 +82,7 @@ export default {
   data() {
     return {
       isAdd: null,
+      CheckAll: false,
       // colAdd: []
       form: new DefaultForm({
         obj: new Fixed_Asset_Manager_Detail(),
@@ -100,6 +116,7 @@ export default {
         },
         Save: () => {
           var _app = this;
+
           _app.$refs.form.getValidate().then((re) => {
             if (!re) {
               ShowMessage("Vui lòng nhập đầy đủ thông tin!", MessageType.error);
@@ -275,10 +292,27 @@ export default {
     },
   },
   methods: {
-    changeSl(row) {
-      // console.log(row)
-      // this.$emit('change',row)
-      // console.log(this)
+    checkALl(value) {
+      console.log(this);
+      const tempRows = this.$refs.tp_detail.tempRows;
+      // if(this.CheckAll){
+      this.data.Details = [];
+      tempRows.forEach((p) => {
+        p.CheckBox =value;
+        if (p.CheckBox) {
+          // Clone this.obj to avoid reference issues
+          const newObj = { ...this.obj };
+          newObj.Fixed_State = p.Status;
+          newObj.Fixed_Code = p.Code;
+          newObj.Fixed_Asset_id = p.Id;
+          newObj.Name = p.Name;
+
+          this.data.Details.push(newObj);
+        }
+      });
+      if (!value) {
+        this.data.Details = [];
+      }
     },
     Edit(row) {
       this.form.ShowForm("Sửa tài sản luân chuyển", false, row);
@@ -311,6 +345,16 @@ export default {
           }
         }
       }
+      this.$nextTick(() => {
+        if (this.$refs.tp_detail.tempRows.every((p) => p.CheckBox == true)) {
+          this.CheckAll = true;
+          this.$refs.cbo.CheckAll = true;
+          console.log(this);
+        } else {
+          this.CheckAll = false;
+          this.$refs.cbo.CheckAll = false;
+        }
+      });
 
       // console.log(this.data.Details);
     },

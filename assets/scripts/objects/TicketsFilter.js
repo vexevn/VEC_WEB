@@ -44,7 +44,7 @@ export default class TicketsFilter {
         label: "Tình trạng",
         model: "State",
         type: FormElementType.select,
-        options: Para.TicketsState.set(p => p.placeholder = "All")
+        options: Para.TicketsState.set(p => p.placeholder = "Tất cả")
       }),
 
 
@@ -56,7 +56,7 @@ export default class TicketsFilter {
       formData: this,
       elements: [
         new FormElement({
-          direction: FormDirectionType.horizontal,
+          direction: FormDirectionType.vertical,
           child: [
             this._formElements.From,
             this._formElements.To,

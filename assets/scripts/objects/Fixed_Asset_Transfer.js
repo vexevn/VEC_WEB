@@ -1,5 +1,9 @@
-
-import { FormDirectionType, FormElement, FormElementType, FormInfo } from "~/assets/scripts/base/FormInfo";
+import {
+  FormDirectionType,
+  FormElement,
+  FormElementType,
+  FormInfo,
+} from "~/assets/scripts/base/FormInfo";
 import { Para } from "../Para";
 import { SelectOption } from "../base/SelectOption";
 
@@ -13,7 +17,7 @@ export default class Fixed_Asset_Transfer {
   /** @type {number} - description */
   From_Type_id;
   /** @type {string} - description */
-  To_Holder_Id = '';
+  To_Holder_Id = "";
   /** @type {string} - description */
   To_Holder_Name;
   /** @type {number} - description */
@@ -36,9 +40,6 @@ export default class Fixed_Asset_Transfer {
   UserCreate;
   /** @type {string} - description */
   UserUpdate;
-
-
-
 
   /**
    *
@@ -90,16 +91,15 @@ export default class Fixed_Asset_Transfer {
             if (entry) {
               let sltd = entry.selectedData || {};
               data.To_Holder_Name = sltd.FullName;
-              console.log(data.To_Holder_Name)
+              console.log(data.To_Holder_Name);
             }
           }
         },
         isVisible(data) {
-          if (data.To_Type_id == 1)
-            return true;
+          if (data.To_Type_id == 1) return true;
 
-          return false
-        }
+          return false;
+        },
       }),
       To_Holder_Id_2: new FormElement({
         label: "Đến người sử dụng",
@@ -108,18 +108,16 @@ export default class Fixed_Asset_Transfer {
         // labelWidth: 140,
 
         options(data) {
-          return Para.store_Get_List.set(p => {
-            p.data = p.data.filter(p1 => {
-              if (data.To_Type_id == 2)
-                if (p1.isStore == 1)
-                  return true;
-              if (data.To_Type_id == 3)
-                if (p1.isStore == 2)
-                  return true;
+          console.log(data);
+          return Para.store_Get_List.set((p) => {
+            p.data = p.data.filter((p1) => {
+              if (data.Office_id == p1.Office_id) {
+                if (data.To_Type_id == 2) if (p1.isStore == 1) return true;
+                if (data.To_Type_id == 3) if (p1.isStore == 2) return true;
+              }
 
               return false;
             });
-
           });
         },
         watch(data, nv, ov, t, isFirst) {
@@ -128,16 +126,15 @@ export default class Fixed_Asset_Transfer {
             if (entry) {
               let sltd = entry.selectedData || {};
               data.To_Holder_Name = sltd.Name;
-              console.log(data.To_Holder_Name)
+              console.log(data.To_Holder_Name);
             }
           }
         },
         isVisible(data) {
-          if (data.To_Type_id == 2 || data.To_Type_id == 3)
-            return true;
+          if (data.To_Type_id == 2 || data.To_Type_id == 3) return true;
 
-          return false
-        }
+          return false;
+        },
       }),
       To_Holder_Name: new FormElement({
         label: "Đến người sử dụng",
@@ -147,11 +144,15 @@ export default class Fixed_Asset_Transfer {
         // labelWidth: 140,
 
         isVisible(data) {
-          if (data.To_Type_id != 2 && data.To_Type_id != 1 && data.To_Type_id != 3)
+          if (
+            data.To_Type_id != 2 &&
+            data.To_Type_id != 1 &&
+            data.To_Type_id != 3
+          )
             return true;
 
-          return false
-        }
+          return false;
+        },
       }),
       To_Type_id: new FormElement({
         label: "Đến đối tượng",
@@ -162,9 +163,9 @@ export default class Fixed_Asset_Transfer {
         watch(data, nv, ov, _this, isFirst) {
           if (!isFirst) {
             data.To_Holder_Id = undefined;
-            data.To_Holder_Name = ''
+            data.To_Holder_Name = "";
           }
-        }
+        },
       }),
       Fixed_State: new FormElement({
         label: "Fixed_State",
@@ -214,10 +215,10 @@ export default class Fixed_Asset_Transfer {
 
       TransferHistory: new FormElement({
         type: "TransferHistory",
-        attr:{
+        attr: {
           obj: this,
-        }
-      })
+        },
+      }),
     };
   }
 
@@ -240,22 +241,20 @@ export default class Fixed_Asset_Transfer {
         //   direction: FormDirectionType.vertical,
 
         //       child:[
-               
+
         //       ]
         //     }),
         //     this._formElements.TransferHistory,
 
         //   ]
         // })
-       
-      ]
+      ],
     });
   }
   toJSON() {
     return {
       ...this,
-      _formElements: undefined
-    }
+      _formElements: undefined,
+    };
   }
-
 }

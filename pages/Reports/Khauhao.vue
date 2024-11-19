@@ -19,7 +19,7 @@
     </TablePaging>
 
     <DefaultForm :model="formFilter" @actionOK="Search()">
-      <div slot="content">
+      <div style="overflow: hidden;" slot="content">
         <!-- <FormInfo :model="tp.params.form2()" /> -->
         <InputContainer label="Số tháng khấu hao còn lại" :labelWidth="200">
           <InputNumber style="width: 75%" v-model="tp.params.iMonth" />
@@ -115,7 +115,7 @@ export default {
             sortable: false,
           }),
           new TablePagingCol({
-            title: "Ngày mua",
+            title: "Ngày tính bảo hành",
             data: "Purchase_Date",
             min_width: 130,
             sortable: false,

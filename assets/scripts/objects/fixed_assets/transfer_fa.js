@@ -214,25 +214,24 @@ export default class transfer_fa {
         model: "Info.Trasnfer_user",
         type: FormElementType.select,
         options(data) {
-          return Para.Para_Account.set(
+         
+          let listParaAcc = Para.Para_Account.set(
             (p) =>
               (p.data = p.data.filter(
                 (x) => x.Office_id == data.Info.From_Office_id
               ))
           );
+          // console.log(data.Info.From_Office_id)
+          // console.log(listParaAcc.data)
+          return listParaAcc
         },
 
         labelWidth: 145,
-        // options: Para.Para_Account,
-        // disabled: true,
-        // watch(data){
-        //     console.log('data.Info.Trasnfer_user',data.Info.Trasnfer_user)
-        // }
       }),
       Receive_user: new FormElement({
         label: "Người nhận",
         model: "Info.Receive_user",
-        type: FormElementType.select,
+        type: FormElementType.select, 
         options(data) {
           return Para.Para_Account.set(
             (p) =>

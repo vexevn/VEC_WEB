@@ -19,7 +19,7 @@
     </TablePaging>
 
     <DefaultForm :model="formFilter" @actionOK="Search()">
-      <div slot="content">
+      <div  style="overflow: hidden;" slot="content">
         <FormInfo :model="tp.params.form2()" />
       </div>
     </DefaultForm>
@@ -96,7 +96,7 @@ export default {
             sortable: false,
           }),
           new TablePagingCol({
-            title: "Ngày mua",
+            title: "Ngày tính bảo hành",
             data: "Purchase_Date",
             min_width: 130,
             sortable: false,
