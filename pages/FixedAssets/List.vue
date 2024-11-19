@@ -562,6 +562,7 @@ export default {
           this.form.obj = new fixed_assets(obj);
           this.form_transfer.obj = new Fixed_Asset_Transfer({
             Fixed_Asset_id: obj.Id,
+            Office_id: obj.Office_id,
             From_Holder_id: obj.Curent_Holder_Id || obj.Initial_Holder_id,
             From_Holder_Name: obj.Curent_Holder_Name || obj.Initial_Holder_Name,
             From_Type_id: obj.Use_Type_id,

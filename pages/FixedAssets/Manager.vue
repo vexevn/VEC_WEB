@@ -317,6 +317,8 @@ export default {
       }
     },
     Save() {
+      console.log(this);
+      return;
       this.$refs.form.getValidate().then((re) => {
         if (!re) {
           ShowMessage("Vui lòng nhập đầy đủ thông tin!", MessageType.error);

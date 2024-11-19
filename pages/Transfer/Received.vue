@@ -116,9 +116,9 @@ export default {
       obj: new AprovedST(),
       tp: new TablePaging({
         title: "Tiêu đề",
-        data: API.Manager_GetList_Received,
+        data: [],
         params: {
-          iState: 2,
+          iState: 2 ,
         },
         disableSelectRow: true,
 
@@ -243,13 +243,25 @@ export default {
       deep: true,
       handler: function (n, o) {
         this.$nextTick(() => {
-          this.LoadData();
+          this.LoadTable();
           // console.log(n)
         });
       },
     },
   },
   methods: {
+    LoadTable(){
+      GetDataAPI({
+        url: API.Manager_GetList_Received,
+        params:{
+          iState: this.tp.params.iState || 0
+        },
+        action: re=>{
+          this.tp.data = re;
+          this.LoadData();
+        }
+      })
+    },
     Reject(row) {
       this.form.title = "Lý do từ chối";
       this.obj.Id = row.Id;
@@ -309,6 +321,7 @@ export default {
 
   mounted() {
     // console.log(this.pagePermission);
+    this.LoadTable();
     GetDataAPI({
       url: API.dm_department_Get_List,
       params: {

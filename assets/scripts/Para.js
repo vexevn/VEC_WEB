@@ -80,9 +80,9 @@ export var Para = {
   }),
   TicketsState: new SelectOption({
     data: [
-      { Id: 1, Name: "New Ticket" },
+      { Id: 1, Name: "Mới" },
       { Id: 2, Name: "Duyệt" },
-      { Id: 3, Name: "Processing" },
+      { Id: 3, Name: "Đang thực thi" },
       { Id: 4, Name: "Kết thúc" },
       { Id: 5, Name: "Hủy" },
       { Id: 6, Name: "Từ chối" },
