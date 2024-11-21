@@ -529,6 +529,11 @@ export default class fixed_assets {
           placeholder: "tháng",
         },
         labelWidth: 85,
+        validate(data){
+          if(data.Estimated_Life_Min > 100){
+            
+          }
+        }
       }),
       Disposal_Date: new FormElement({
         label: "Disposal_Date",
@@ -881,7 +886,7 @@ export default class fixed_assets {
                     this._formElements.Maintenance.set((p) => (p.col = 2)),
                     this._formElements.Quantity.set((p) => (p.col = 3)),
                     this._formElements.Estimated_Life_Min.set(
-                      (p) => (p.col = 3)
+                      (p) => (p.col = 4)
                     ),
                     // new FormElement({
                     //   col: 3,

@@ -30,12 +30,12 @@ export default class fixed_asets_filter {
     Object.assign(this, obj);
     this._formElements = {
       From: new FormElement({
-        label: "From Date",
+        label: "Từ ngày",
         model: "From",
         type: FormElementType.datePicker,
       }),
       To: new FormElement({
-        label: "To Date",
+        label: "Đến ngày",
         model: "To",
         type: FormElementType.datePicker,
       }),

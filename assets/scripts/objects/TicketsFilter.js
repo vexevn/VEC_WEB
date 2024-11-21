@@ -31,12 +31,12 @@ export default class TicketsFilter {
     Object.assign(this, obj);
     this._formElements = {
       From: new FormElement({
-        label: "From Date",
+        label: "Từ ngày",
         model: "From",
         type: FormElementType.datePicker,
       }),
       To: new FormElement({
-        label: "To Date",
+        label: "Đến ngày",
         model: "To",
         type: FormElementType.datePicker,
       }),
@@ -44,7 +44,7 @@ export default class TicketsFilter {
         label: "Tình trạng",
         model: "State",
         type: FormElementType.select,
-        options: Para.TicketsState.set(p => p.placeholder = "Tất cả")
+        options: Para.fixed_asset_state_Get_List.set(p => p.placeholder = "Tất cả"),
       }),
 
 

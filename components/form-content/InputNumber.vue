@@ -4,11 +4,11 @@
             :disabled="disabled"
             @blur="blur()"
             @focus="focus()"
-            :class="{'hasSuffix': suffixIcon && data? true : false}"
+            :class="{'hasSuffix': suffixIcon && data && !isFocus? true : false}"
          
             :is-focus="isFocus" >
             
-            <div v-if="suffixIcon && data && !isFocus"  slot="suffix" class="">{{ suffixIcon }}</div>
+            <div v-if="suffixIcon && data && !isFocus"  slot="suffix" @click="focusInput" class="">{{ suffixIcon }}</div>
             </el-input>
 
 </template>
@@ -83,6 +83,9 @@ export default {
     },
   },
   methods: {
+    focusInput(){
+      this.isFocus = true;
+    },
     getNumberFormat(val, decimal_alway) {
       // console.log(nv);
       // console.log(ConvertStr.ToMoneyStr(nv));
@@ -160,6 +163,11 @@ export default {
 
 
 <style lang="scss" scoped>
+
+@media only screen and (min-width: 768px){
+  
+}
+
 ::v-deep  input {
   &:not([is-focus]) {
     text-align: right !important;
