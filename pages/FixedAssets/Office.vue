@@ -101,9 +101,10 @@ import { SelectOption } from "~/assets/scripts/base/SelectOption";
 import { Para } from "~/assets/scripts/Para";
 
 export default {
+
   data() {
     return {
-      data: null,
+     
       activeItem: null,
       assetnumber: null,
       department_select: new SelectOption(),
@@ -113,6 +114,7 @@ export default {
   },
   props: {
     obj: {},
+    data: {},
   },
   computed: {
     disabledSelect() {
@@ -176,12 +178,7 @@ export default {
     },
 
     LoadData() {
-      GetDataAPI({
-        url: API.Get_List_Office_Asset,
-        action: (re) => {
-          this.data = re;
-        },
-      });
+    
     },
   },
 
