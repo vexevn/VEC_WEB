@@ -2,7 +2,12 @@ S
 <template>
   <div style="height: 100%; display: flex">
     <div v-if="!isIndividual" style="padding: 5px 0 0 5px; height: 100%">
-      <Office ref="of" @asChange="handleASChange" :obj="tp.params" />
+      <Office
+        ref="of"
+        @asChange="handleASChange"
+        :data="dataOF"
+        :obj="tp.params"
+      />
     </div>
     <div style="width: 100%; height: 100%; overflow: auto">
       <TablePaging ref="tp" :model="tp">
@@ -160,12 +165,12 @@ S
       :model="form_transfer"
       @actionOK="form_transfer.Save.call(this)"
     >
-      <div style="display: flex;gap:10px;width: 100%;" slot="content">
-      <div>
-        <FormInfo :model="form.obj.formView()" style="margin-bottom: 5px" />
-        <FormInfo ref="form" :model="form_transfer.obj.form()" />
-      </div>
-      <TransferHistory :obj="form_transfer.obj"/>
+      <div style="display: flex; gap: 10px; width: 100%" slot="content">
+        <div>
+          <FormInfo :model="form.obj.formView()" style="margin-bottom: 5px" />
+          <FormInfo ref="form" :model="form_transfer.obj.form()" />
+        </div>
+        <TransferHistory :obj="form_transfer.obj" />
       </div>
     </DefaultForm>
     <!-- <DefaultForm :model="formFilter" @actionOK="Search()">
@@ -299,7 +304,7 @@ export default {
       isAdd: null,
       // fileName: "Choose File",
       // sheet: null,
-
+      dataOF: [],
       tp: new TablePaging({
         title: "Danh sách tài sản",
         data: [],
@@ -696,7 +701,7 @@ export default {
           //   State: this.tp.params.State,
           //   Type: this.tp.params.Type,
           //   User_ID: this.tp.params.User_ID,
-          // },params
+          // },
           params: this.tp.params,
           action: (re) => {
             this.tp.data = re;
@@ -890,7 +895,17 @@ export default {
     EventBus.$off("Add", this.Add);
   },
   mounted() {
-    this.LoadTable();
+    GetDataAPI({
+      url: API.Get_List_Office_Asset,
+      action: (re) => {
+        this.dataOF = re;
+        this.tp.params.Office_id = (re[0] || {}).Id || 0;
+        // console.log(this.tp.params.Office_id )
+        this.$refs.of.activeItem = re[0];
+        this.LoadTable();
+      },
+    });
+
     console.log(this.pagePermission);
   },
 };
