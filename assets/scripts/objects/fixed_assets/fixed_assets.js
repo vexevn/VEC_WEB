@@ -179,7 +179,7 @@ export default class fixed_assets {
         },
         isVisible(data) {
           return data.Nguonvon_id == 3;
-        },  
+        },
       }),
       Quantity: new FormElement({
         label: "Số lượng",
@@ -448,11 +448,12 @@ export default class fixed_assets {
         options(data) {
           let dataPa = Para.store_Get_List.set((p) => {
             p.data = p.data.filter((p1) => {
-              if (data.Use_Type_id == 2)
-                if (p1.isStore == 1 && data.Office_id == p1.Office_id)
-                  return true;
-              if (data.Use_Type_id == 3 && data.Office_id == p1.Office_id)
-                if (p1.isStore == 2) return true;
+              if (data.Office_id == p1.Office_id) {
+                if (data.Use_Type_id == 2) if (p1.isStore == 1) return true;
+                if (data.Use_Type_id == 3) if (p1.isStore == 2) return true;
+                if (data.Use_Type_id == 4) if (p1.isStore == 3) return true;
+                if (data.Use_Type_id == 5) if (p1.isStore == 4) return true;
+              }
 
               return false;
             });
@@ -529,11 +530,10 @@ export default class fixed_assets {
           placeholder: "tháng",
         },
         labelWidth: 85,
-        validate(data){
-          if(data.Estimated_Life_Min > 100){
-            
+        validate(data) {
+          if (data.Estimated_Life_Min > 100) {
           }
-        }
+        },
       }),
       Disposal_Date: new FormElement({
         label: "Disposal_Date",
