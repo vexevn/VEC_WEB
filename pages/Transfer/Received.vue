@@ -57,8 +57,7 @@
           <div v-if="row.State == 2" style="display: flex">
             <el-tooltip content="Nhận tài sản" placement="top">
               <el-button  style="margin-left: 5px;" @click="Approve(row)" class="icon-btn" type="primary">
-                <i class="fa fa-check-square" aria-hidden="true"></i
-              ></el-button>
+                <i class="fa fa-hand-paper-o" aria-hidden="true"></i></el-button>
             </el-tooltip>
 
             <el-tooltip content="Từ chối" placement="top">
