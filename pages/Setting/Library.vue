@@ -55,7 +55,11 @@
           <b>{{ datafile.Name }}</b>
         </div>
         <div style="margin: 5px">
-          <el-input placeholder="Tìm kiếm..." :clearable="true"></el-input>
+          <el-input
+            v-model="searchString"
+            placeholder="Tìm kiếm..."
+            :clearable="true"
+          ></el-input>
         </div>
       </div>
 
@@ -87,7 +91,7 @@
             </tr>
           </tbody> -->
 
-          <tbody class="folder" v-for="item in datatp" :key="item.Id">
+          <tbody class="folder" v-for="item in filteredData" :key="item.Id">
             <tr style="height: 5px">
               <td colspan="5"></td>
             </tr>
@@ -349,6 +353,7 @@ import Document_File from "~/assets/scripts/objects/Document_File";
 import TablePaging from "~/assets/scripts/base/TablePaging";
 import TablePagingCol from "~/assets/scripts/base/TablePagingCol";
 import ConvertStr from "~/assets/scripts/ConvertStr";
+
 export default {
   data() {
     return {
@@ -375,6 +380,8 @@ export default {
         label: "Name",
         children: "Childs",
       },
+
+      searchString: '',
       Userlevel: StoreManager.GetUser().UserLevel,
       form: new DefaultForm({
         obj: new Document_Folder(),
@@ -431,7 +438,16 @@ export default {
       datafile: {},
     };
   },
-  computed: {},
+  computed: {
+    filteredData(){
+      const search = this.searchString.toLowerCase();
+      return this.datatp.filter(
+        (item) =>
+          (item.Description || "").toLowerCase().includes(search) 
+
+      )
+    }
+  },
   watch: {},
   methods: {
     handlerPreviewChange(index) {
@@ -767,15 +783,15 @@ export default {
   flex: 1;
   overflow: auto;
 }
-::v-deep  #div_formLichSuStatu {
+::v-deep #div_formLichSuStatu {
   max-height: calc(100vh - 300px);
   height: 450px;
 }
-::v-deep  .el-tree {
+::v-deep .el-tree {
   .el-tree-node__content {
     height: auto;
 
-    ::v-deep  .expanded {
+    ::v-deep .expanded {
       background-color: #8bc34a33;
     }
   }
@@ -799,15 +815,15 @@ export default {
 }
 
 .el-tree {
-  ::v-deep  button {
+  ::v-deep button {
     padding: 5px 10px;
   }
 
-  ::v-deep  .el-tree-node__content:hover {
+  ::v-deep .el-tree-node__content:hover {
     background: #f5f7fa;
   }
 
-  ::v-deep  .el-tree-node:focus > .el-tree-node__content {
+  ::v-deep .el-tree-node:focus > .el-tree-node__content {
     background: transparent;
   }
 
@@ -819,7 +835,7 @@ export default {
       margin-right: 5px;
     }
   }
-  ::v-deep  [btn-container] {
+  ::v-deep [btn-container] {
     display: flex;
     flex-wrap: wrap;
     margin-bottom: -5px;

@@ -801,18 +801,22 @@ export default {
   ::v-deep  .el-table--striped .el-table__body tr.el-table__row--striped td {
     background: #f4f5f6;
   }
-  ::v-deep  .el-table__body tr.hover-row.current-row > td,
+  // ::v-deep  {
+  //   background-color: $swatch_1;
+  //   color: white;
+  // }
   ::v-deep  .el-table__body tr.hover-row.el-table__row--striped.current-row > td,
   ::v-deep  .el-table__body tr.hover-row.el-table__row--striped > td,
   ::v-deep  .el-table__body tr.hover-row > td {
     background-color: #e2ecf8;
+    
   }
   ::v-deep 
     .el-table--striped
     .el-table__body
     tr.el-table__row--striped.current-row
     td,
-  ::v-deep  .el-table__body tr.current-row > td {
+  ::v-deep  .el-table__body tr.current-row > td,.el-table__body tr.hover-row.current-row > td {
     background-color: $swatch_1;
     color: white;
   }

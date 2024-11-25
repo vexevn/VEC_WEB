@@ -287,7 +287,7 @@ export default {
             sortable: false,
           }),
           new TablePagingCol({
-            title: "Mô tả chi tiết",
+            title: "Tên tài sản",
             data: "Name",
             min_width: 150,
             width: "auto",
