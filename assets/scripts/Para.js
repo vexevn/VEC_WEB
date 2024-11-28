@@ -96,6 +96,9 @@ export var Para = {
       { Id: 3, Name: "Phòng làm việc" },
       { Id: 4, Name: "Sảnh" },
       { Id: 5, Name: "Hành lang" },
+      { Id: 6, Name: "Phòng nghỉ" },
+      { Id: 7, Name: "WC" },
+      { Id: 8, Name: "Phòng khác" },
       // { Id: 4, Name: "Đối tác" },
     ],
   }),
@@ -126,6 +129,10 @@ export var Para = {
       { Id: 2, Name: "Phòng làm việc" },
       { Id: 3, Name: "Sảnh" },
       { Id: 4, Name: "Hành lang" },
+      { Id: 5, Name: "Phòng nghỉ" },
+      { Id: 6, Name: "WC" },
+      { Id: 7, Name: "Phòng khác" },
+      
     ],
   }),
   OfficeType: new SelectOption({

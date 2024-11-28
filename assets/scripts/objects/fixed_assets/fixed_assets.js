@@ -453,6 +453,9 @@ export default class fixed_assets {
                 if (data.Use_Type_id == 3) if (p1.isStore == 2) return true;
                 if (data.Use_Type_id == 4) if (p1.isStore == 3) return true;
                 if (data.Use_Type_id == 5) if (p1.isStore == 4) return true;
+                if (data.Use_Type_id == 6) if (p1.isStore == 5) return true;
+                if (data.Use_Type_id == 7) if (p1.isStore == 6) return true;
+                if (data.Use_Type_id == 8) if (p1.isStore == 7) return true;
               }
 
               return false;

@@ -33,6 +33,15 @@ export function SearchTree(obj, query, tag) {
   }
   return null;
 }
+export function dayDistance(FromDay, ToDay) {
+  if(!FromDay) return 0;
+  const fr = moment(FromDay)
+  const td = moment(ToDay|| new Date());
+  console.log(fr,td)
+
+  return td.diff(fr,'days');
+}
+
 export function SearchAllTree(array, query, child) {
   let result = [];
   array.forEach((p) => {

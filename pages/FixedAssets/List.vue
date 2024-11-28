@@ -117,14 +117,25 @@ S
                 ></el-button>
               </el-tooltip>
 
+
+              <el-tooltip
+                class="item"
+                effect="dark"
+                :content="dayDistance(row.DateUpdate) > 15 ? 'Lần cập nhật cuối cùng đã quá 15 ngày' : 'Xóa'"
+                placement="top"
+              >
               <el-button
                 v-if="pagePermission.delete"
                 class="icon-btn"
+                :disabled="dayDistance(row.DateUpdate) > 15"
                 type="danger"
                 @click="Delete(row)"
               >
+              <!-- {{ dayDistance(row.DateUpdate) }} -->
                 <i class="el-icon-delete"></i>
               </el-button>
+              </el-tooltip>
+              
             </template>
           </div>
         </template>
@@ -275,6 +286,7 @@ import { EventBus } from "~/assets/scripts/EventBus.js";
 import GetDataAPI from "~/assets/scripts/GetDataAPI";
 import {
   addMonth,
+  dayDistance,
   GetStartMonth,
   GetTimeNow,
   MessageType,
@@ -674,6 +686,9 @@ export default {
     },
   },
   methods: {
+    dayDistance(DateUpdate,FromDate){
+       return dayDistance(DateUpdate,FromDate)
+    },
     LoadTable() {
       if (this.isIndividual) {
         APIHelper.fixed_asset.GetListIndividual().then((re) => {
