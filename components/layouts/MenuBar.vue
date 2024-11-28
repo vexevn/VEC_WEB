@@ -37,7 +37,7 @@
         <!-- <ButtonPermission /> -->
       </div>
       <div class="menu-profiles">
-        <!-- <ButtonPermission /> -->
+        <ButtonPermission /> 
         <!-- <nuxt-link :to="switchLocalePath('en')">English</nuxt-link>
         <nuxt-link :to="switchLocalePath('vi')">Tiếng Việt</nuxt-link> -->
 

@@ -1,6 +1,7 @@
 
 import { FormElement, FormElementType, FormInfo } from "~/assets/scripts/base/FormInfo";
 import { Para } from "../Para";
+import StoreManager from "../StoreManager";
 
 export default class Tickets {
   /** @type {number} - description */
@@ -103,7 +104,11 @@ export default class Tickets {
         label: "Người sửa",
         model: "Act_User",
         type: FormElementType.select,
-        options: Para.Para_Account,
+        options(data){
+          // console.log(StoreManager.GetUser())
+          // console.log(Para.Para_Account.set(p=>p.data = p.data.filter(x=> x.Office_id === StoreManager.GetUser().Office_id)))
+          return Para.Para_Account.set(p=>p.data = p.data.filter(x=> x.Office_id === StoreManager.GetUser().Office_id))
+        },
         required: true,
         watch(data,n,o,t,iF){
           // console.log(data,t)
