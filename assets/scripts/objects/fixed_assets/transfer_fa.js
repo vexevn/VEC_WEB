@@ -9,6 +9,9 @@ import { Para } from "../../Para";
 import { SelectOption } from "../../base/SelectOption";
 import API from "../../API";
 import Fixed_Asset_Manager from "./Fixed_Asset_Manager";
+import StoreManager from "../../StoreManager";
+import InputFileModel from "~/components/form-content/InputFile/InputFIleModel";
+import GetDataAPI from "../../GetDataAPI";
 
 export default class transfer_fa {
   Info = new Fixed_Asset_Manager();
@@ -76,6 +79,10 @@ export default class transfer_fa {
           // console.log(obj)
           return new SelectOption({
             data: API.Get_User_QLTS,
+            params: {
+              // iOffice_id: 29
+              iOffice_id: StoreManager.GetUser().Office_id || 0,
+            },
             // data: [],
             label: "FullName",
             // IsItemDisabled: item=>{
@@ -214,7 +221,6 @@ export default class transfer_fa {
         model: "Info.Trasnfer_user",
         type: FormElementType.select,
         options(data) {
-         
           let listParaAcc = Para.Para_Account.set(
             (p) =>
               (p.data = p.data.filter(
@@ -223,7 +229,7 @@ export default class transfer_fa {
           );
           // console.log(data.Info.From_Office_id)
           // console.log(listParaAcc.data)
-          return listParaAcc
+          return listParaAcc;
         },
 
         labelWidth: 145,
@@ -231,7 +237,7 @@ export default class transfer_fa {
       Receive_user: new FormElement({
         label: "Người nhận",
         model: "Info.Receive_user",
-        type: FormElementType.select, 
+        type: FormElementType.select,
         options(data) {
           return Para.Para_Account.set(
             (p) =>
@@ -242,6 +248,58 @@ export default class transfer_fa {
         },
         labelWidth: 140,
         // disabled: true,
+      }),
+
+      Files: new FormElement({
+        // label: "Mã tài sản",
+        model: "Info.Files",
+        id: "files",
+        type: FormElementType.file,
+        options() {
+          return new InputFileModel({
+            baseUrl: "/Images/Transfer/",
+            limit: 1,
+          });
+        },
+        events: {
+          onChangeFile(data, t) {
+            console.log((data, t));
+            if (t) {
+              t.getEntry("files")
+                .submitUpload()
+                .then((re) => {
+                  data.Info.Files = re[0].split("|")[0];
+                  GetDataAPI({
+                    method: "post",
+                    url: API.Manager_Edit,
+                    params: data.Info,
+                    action: (re) => {
+                      console.log(re);
+                      t.$emit('change',re)
+                    },
+                  });
+                });
+            }
+          },
+        },
+        watch(data, n, o, t) {
+          // console.log(data)
+          // console.log(t)
+          // t.getEntry('files').submitUpload().then(re=> {
+          //   data.Info.Files = re[0].split('|')[0];
+          //   GetDataAPI({
+          //     url: API.Manager_Edit,
+          //     params: data.Info,
+          //     action: (re)=> {
+          //       console.log(re)
+          //     }
+          //   })
+          // })
+        },
+        isVisible(data) {
+          // if(data.disBtn)
+          return data.disBtn;
+        },
       }),
     };
   }
@@ -306,8 +364,9 @@ export default class transfer_fa {
             }),
           ],
         }),
-
+        this._formElements.Files,
         this._formElements.Description,
+
         new FormElement({
           type: "transfer_detail",
           id: "transfer_detail",

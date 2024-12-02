@@ -95,7 +95,7 @@
       @actionOK="formDetail.Save.call(this)"
     >
       <div class="form" style="height: 100%" slot="content">
-        <FormInfo ref="formDetail" :model="formDetail.obj.form()" />
+        <FormInfo @formChange="LoadData" ref="formDetail" :model="formDetail.obj.form()" />
       </div>
     </DefaultForm>
   </div>
@@ -261,6 +261,9 @@ export default {
     },
   },
   methods: {
+    formChange(){
+      console.log('fomr change')
+    },
     Reject(row) {
       this.form.title = "Lý do từ chối";
       this.obj.Id = row.Id;
@@ -271,8 +274,8 @@ export default {
     Approve(row) {
       ShowConfirm({
         message: "Duyệt luân chuyển tài sản",
-        title: "Cảnh báo!",
-        type: MessageType.warning,
+        title: "Xác nhận",
+        type: MessageType.info,
       })
         .then(() => {
           this.obj.Approved = true;

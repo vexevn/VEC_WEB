@@ -8,6 +8,7 @@ import { Para } from "../Para";
 import { RFC_2822 } from "moment";
 import { SelectOption } from "../base/SelectOption";
 import API from "../API";
+import InputFileModel from "~/components/form-content/InputFile/InputFIleModel";
 
 export default class Fixed_Asset_Fix {
   /** @type {number} - description */
@@ -32,6 +33,7 @@ export default class Fixed_Asset_Fix {
   Total_Comment;
   /** @type {number} - description */
   Fixed_State;
+  Files = [];
   /** @type {string} - description */
   Id;
   /** @type {string} - description */
@@ -143,6 +145,19 @@ export default class Fixed_Asset_Fix {
         // options: Para.fixed_asset_state_Get_List,
         disabled: true,
       }),
+      Files: new FormElement({
+        // label: "Mã tài sản",
+        model: "Files",
+        id: 'files',
+        type: FormElementType.file,
+        options(){
+          return  new InputFileModel({
+            baseUrl: "/Images/Ticket/",
+            limit:1,
+
+          })
+        }
+      }),
 
 
 
@@ -177,7 +192,7 @@ export default class Fixed_Asset_Fix {
   form() {
     return new FormInfo({
       formData: this,
-      labelWidth: 90,
+      labelWidth: 120,
       elements: [
         // new FormElement({
         //   col: 24,
@@ -190,6 +205,7 @@ export default class Fixed_Asset_Fix {
         this._formElements.FA_Name,
         this._formElements.Act_User,
         this._formElements.Fixed_State,
+        this._formElements.Files,
         this._formElements.Content,
       ],
     });

@@ -128,7 +128,7 @@ export default {
           }
           ShowConfirm({
             message: "Xóa cấp độ người dùng [" + this.selectedRow.Name + "]",
-            title: "Cảnh báo",
+            title: "Xác nhận",
             type: MessageType.warning,
           })
             .then(() => {

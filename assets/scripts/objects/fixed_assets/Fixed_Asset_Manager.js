@@ -33,7 +33,7 @@ export default class Fixed_Asset_Manager {
   /** @type {string} - description */
   Receive_user;
 
-
+  Files= '';
 
   FromMangerId;
   ToMangerId;

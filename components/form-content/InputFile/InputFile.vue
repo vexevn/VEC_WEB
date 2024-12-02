@@ -236,6 +236,7 @@
               v-else-if="isPDF(item.getNameDownload())"
               :src="item.href"
               :alt="item.getNameDownload()"
+              type="application/pdf"
               style="
                 position: absolute;
                 top: 50%;
@@ -874,7 +875,7 @@ export default {
           entry: this,
         });
       else this.formPreview.visible = true;
-      //   console.log(this.uploadFileList);
+        console.log(this.uploadFileList);
     },
     handleprogress(event, file, fileList) {
       // console.log(file.status, file.percentage);
@@ -898,7 +899,7 @@ export default {
 
       this.uploadFileList = fileList;
       this.totalsFile = fileList.length;
-      console.log(fileList);
+      // console.log(fileList);
       if (this.model.type == InputFileType.avatar) {
         if (fileList.length > 1) fileList.splice(0, 1);
       } else if (this.model.type == InputFileType.OneFile) {
@@ -907,6 +908,9 @@ export default {
           this.totalsFile = fileList.length;
         }
       }
+
+      // console.log("fileChange",fileList)
+      this.$emit("fileChange",fileList)
       // if (this.model.autoUpload) this.submitUpload();
     },
     handleExceed(files, fileList) {
@@ -926,7 +930,7 @@ export default {
     beforeRemove(file, fileList) {
       if (file == null) return true;
       if (file.status == "ready") return true;
-      return this.$confirm(`Confirm to delete file ${file.name} ?`);
+      return this.$confirm(`Xác nhận xóa tệp ${file.name} ?`);
     },
     loadData() {
       let defaultFile = [];
@@ -937,10 +941,10 @@ export default {
       }
 
       if (this.model.type == InputFileType.avatar) this.model.limit = 2;
-      this.fileList = defaultFile
+      this.fileList = (defaultFile||[])
         .filter((p) => p)
         .map((p) => {
-          let splt = p.split("|");
+          let splt = (p || '').split("|");
 
           return {
             name: splt[0],

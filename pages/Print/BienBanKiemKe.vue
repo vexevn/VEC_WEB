@@ -2,13 +2,25 @@
   <Printer :model="printConfig">
     <div class="phieu">
       <div class="phieu-header">
+<div style="display:flex;    justify-content: space-around;">
+  <div class="cty">
+      <h3><u>TỔNG CÔNG TY ĐTPT ĐƯỜNG CAO TỐC VIỆT NAM </u></h3>
+      <h3><u>KHỐI VĂN PHÒNG TỔNG CÔNG TY</u></h3>
+      </div>
+
+      <div class="quocky">
         <h3>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</h3>
         <h5 style="font-size: 16px; text-decoration: underline">
           Độc lập - Tự do - Hạnh phúc
         </h5>
+
+      </div>
+</div>
+     
+       
         <br />
         <br />
-        <h2>BIÊN BẢN KIỂM KÊ</h2>
+        <h2>BIÊN BẢN KIỂM KÊ TÀI SẢN, VẬT TƯ, CÔNG CỤ, SẢN PHẨM, HÀNG HOÁ</h2>
         <div>
         <span>Từ </span
         ><span>{{ ConvertStr.ToDateStr(data.Inventory.FromDate) }} </span>
@@ -18,8 +30,11 @@
         <p>{{ data.Inventory.Description }}</p>
 
       </div>
+<div>
 
-     
+     <span>Đã kiểm kê tài sản, công cụ tại </span> <span>........................................................................................</span>
+     <span> như sau: </span>
+</div>
 
       <div
         style="text-align: justify; margin-top: 15px"
@@ -33,12 +48,13 @@
             <th style="width:150px">Mã tài sản</th>
             <th>Tên tài sản</th>
             <th style="width: 150px">Phòng quản lý</th>
+            <th style="width: 150px">Nguồn vốn</th>
             <th style="width: 100px">Trạng thái</th>
             <th style="width:200px">Ghi chú</th>
           </tr>
           <tr v-for="(item, index) in data.Details" :key="index">
             <td
-              :colspan="item.hasOwnProperty('Stt') ? '6' : '1'"
+              :colspan="item.hasOwnProperty('Stt') ? '7' : '1'"
               :style="{
                 padding: '5px 0',
                 backgroundColor: item.hasOwnProperty('Stt')
@@ -65,6 +81,9 @@
               {{ item.Department }}
             </td>
             <td v-if="!item.hasOwnProperty('Stt')" style="font-weight: normal">
+              {{ Para.eNguonvon.getName(item.Nguonvon) }}
+            </td>
+            <td v-if="!item.hasOwnProperty('Stt')" style="font-weight: normal">
               {{ Para.fixed_asset_state_Get_List.getName(item.State) }}
             </td>
             <td v-if="!item.hasOwnProperty('Stt')" style="font-weight: normal">
@@ -76,17 +95,26 @@
 
       <div class="phieu-footer">
         <div class="qltt">
-          <!-- <b>Bên giao</b> -->
-          <!-- <p>{{ dataPrint.Info.Trasnfer_user }}</p> -->
-
-          <p style="font-weight: bold; margin-top: 50px">
-            <!-- {{ Para.Para_Account.getName(dataPrint.Info.Trasnfer_user) }} -->
+          <b>Trưởng đơn vị kiểm kê</b>
+          <p><i>(Ký, họ tên)</i></p>
+        </div>
+        <div class="ungvien">
+          <b>Cán bộ kiểm kể</b>
+          <p >
+            <p><i>(Ký, họ tên)</i></p>
           </p>
         </div>
         <div class="ungvien">
-          <!-- <b>Bên nhận</b> -->
-          <p style="font-weight: bold; margin-top: 50px">
-            <!-- {{ Para.Para_Account.getName(dataPrint.Info.Receive_user) }} -->
+          <b>Đại diện đơn vị kiểm kê</b>
+         
+            <p><i>(Ký, họ tên)</i></p>
+      
+        </div>
+        <div class="date" style="margin-top: -20px;">
+         <p>..........., <span>Ngày {{today.getDate().toString().length == 1 ? '0' + today.getDate() : today.getDate()}}, tháng {{today.getMonth().toString().length == 1 ? '0' + today.getMonth() : today.getMonth()}}, năm {{today.getFullYear()}}</span></p>
+         <b>Trưởng ban kiểm kê</b>
+          <p >
+            <p><i>(Ký, họ tên)</i></p>
           </p>
         </div>
       </div>
@@ -97,11 +125,16 @@
 import API from "~/assets/scripts/API";
 import PrintCfg from "~/assets/scripts/base/PrintCfg";
 import GetDataAPI from "~/assets/scripts/GetDataAPI";
-// import { Para } from "~/assets/scripts/Para";
+import { Para } from "~/assets/scripts/Para";
 
 export default {
   layout: "PrinLayout",
   computed: {},
+  computed:{
+    today(){
+      return new Date();
+    }
+  },
   data() {
     return {
       dataPrint: JSON.parse(localStorage.dataPrint),
@@ -203,7 +236,7 @@ export default {
 
 @media screen {
   .phieu {
-    display: none;
+    // display: none;
   }
 }
 table,
@@ -247,12 +280,15 @@ ol li {
     }
   }
   .phieu-footer {
-    margin-top: 15px;
+    margin-top: 30px;
     display: flex;
     align-items: center;
     > div {
       width: 50%;
       text-align: center;
+    }
+    b{
+      font-size: 18px;
     }
     .qltt {
     }

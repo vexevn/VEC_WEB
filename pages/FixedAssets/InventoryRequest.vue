@@ -255,7 +255,7 @@ export default {
       // var app = this;
       ShowConfirm({
         message: "Bạn có chắc chắn xóa?",
-        title: "Cảnh báo!",
+        title: "Xác nhận!",
         type: MessageType.warning,
       })
         .then(() => {

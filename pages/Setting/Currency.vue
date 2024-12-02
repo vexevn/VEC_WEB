@@ -185,7 +185,7 @@ export default {
     Delete(row) {
       ShowConfirm({
         message: "Xóa [" + row.Currency_Code + "]",
-        title: "Cảnh báo!",
+        title: "Xác nhận!",
         type: MessageType.warning,
       })
         .then(() => {

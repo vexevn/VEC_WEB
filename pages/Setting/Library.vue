@@ -634,7 +634,7 @@ export default {
     Delete(data) {
       ShowConfirm({
         message: "Xóa thư mục [" + data.Name + "]",
-        title: "Cảnh báo!",
+        title: "Xác nhận!",
         type: MessageType.warning,
       }).then(() => {
         GetDataAPI({
@@ -650,7 +650,7 @@ export default {
     DeleteFile(data) {
       ShowConfirm({
         message: "Xóa tệp [" + ConvertStr.ToDateStr(data.DateCreate) + "]",
-        title: "Cảnh báo!",
+        title: "Xác nhận!",
         type: MessageType.warning,
       }).then(() => {
         GetDataAPI({

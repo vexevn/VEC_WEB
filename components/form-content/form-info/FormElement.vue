@@ -29,6 +29,7 @@
           v-model.lazy="elementValue"
           :disabled="disabled"
           v-on="model.events"
+          @fileChange="onFileChange"
         />
         <div v-else-if="isLabel()" class="form-title" :style="model.style">
           {{ model.label }}
@@ -147,7 +148,7 @@
             <div style="display: none">
               <qrcode-vue
                 :value="elementValue || ''"
-                :size="200"
+                :size="400"
                 ref="qrcodeRef"
               />
             </div>
@@ -326,7 +327,7 @@ export default {
   },
   methods: {
     printQRCode() {
-      console.log("print", this);
+      // console.log("print", this);
 
       // this.qrValue = this.elementValue;
       // if (!this.elementValue && this.elementValue != "") {
@@ -338,7 +339,7 @@ export default {
       if (!this.elementValue) {
         qrcode.value = resolve(this.formInfo.formData, "Code") || "";
       }
-      console.log(qrcode.value);
+      // console.log();
 
       this.$nextTick(() => {
         const qrcodeElement = qrcode.$el.querySelector("canvas");
@@ -352,10 +353,26 @@ export default {
 
         newWindow.document.body.appendChild(image);
 
+        const p = newWindow.document.createElement("p");
+        p.textContent = qrcode.value;
+        // console.log(p.textContent)
+        newWindow.document.body.appendChild(p);
+
         // Thêm CSS để hiển thị mã QR khi in
         const style = newWindow.document.createElement("style");
         style.textContent = `
- 
+ body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  p {
+    margin-top: 10px;
+    font-size: 18px;
+  }
   @media screen {
     img {
       display: none ;
@@ -375,6 +392,12 @@ export default {
       // return;
     },
 
+    onFileChange(fileList) {
+      // console.log("onFileChange", fileList);
+      if (this.model.events.onChangeFile) {
+        this.model.events.onChangeFile(this.formInfo.formData, this);
+      }
+    },
     componentsValueChange(model, newValue, oldValue) {
       console.log(model, newValue, oldValue);
       if (this.model.watch) {

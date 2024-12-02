@@ -35,11 +35,22 @@ export default {
   methods: {
     printQRCode() {
       const qrcodeElement = this.$refs.qrcode.$el.querySelector("canvas");
-      
+
       const imageURL = qrcodeElement.toDataURL("image/png");
       const newWindow = window.open("", "_blank");
       const style = newWindow.document.createElement("style");
-      style.textContent = `
+      style.textContent = ` body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  p {
+    margin-top: 10px;
+    font-size: 18px;
+  }
       img{
         width: 300px;
       }
@@ -52,9 +63,12 @@ export default {
       newWindow.document.head.appendChild(style);
       const image = new Image();
       image.src = imageURL;
+      newWindow.document.body.appendChild(image);
 
+      const p = newWindow.document.createElement("p");
+      p.textContent = this.data;
+      newWindow.document.body.appendChild(p);
       image.onload = () => {
-        newWindow.document.body.appendChild(image);
         newWindow.document.close();
         newWindow.focus();
         newWindow.print();

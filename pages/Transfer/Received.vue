@@ -270,9 +270,9 @@ export default {
     },
     Approve(row) {
       ShowConfirm({
-        message: "Nhận tài sản",
-        title: "Cảnh báo!",
-        type: MessageType.warning,
+        message: "Bạn có chắc nhận tài sản này ?",
+        title: "Xác nhận",
+        type: MessageType.info,
       })
         .then(() => {
           this.obj.Id = row.Id;

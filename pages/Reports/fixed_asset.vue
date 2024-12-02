@@ -1,7 +1,12 @@
 <template>
   <div style="height: 100%; display: flex">
     <div v-if="!isIndividual" style="padding: 5px 0 0 5px; height: 100%">
-      <Office ref="of" @asChange="handleASChange" :obj="tp.params" />
+      <Office
+        ref="of"
+        @asChange="handleASChange"
+        :data="dataOF"
+        :obj="tp.params"
+      />
     </div>
     <div style="width: 100%; height: 100%; overflow: auto">
       <TablePaging ref="tp" :model="tp">
@@ -71,7 +76,7 @@ export default {
   data() {
     return {
       isAdd: null,
-
+      dataOF: [],
       //   filter: ,
       formFilter: new DefaultForm({
         OKtext: "Tìm kiếm",
@@ -284,7 +289,16 @@ export default {
   },
 
   mounted() {
-    this.LoadTable();
+    GetDataAPI({
+      url: API.Get_List_Office_Asset,
+      action: (re) => {
+        this.dataOF = re;
+        this.tp.params.Office_id = (re[0] || {}).Id || 0;
+        // console.log(this.tp.params.Office_id )
+        this.$refs.of.activeItem = re[0];
+        this.LoadTable();
+      },
+    });
   },
 };
 </script>

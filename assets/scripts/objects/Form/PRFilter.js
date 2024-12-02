@@ -169,7 +169,7 @@ export default class PRFilter {
   }
   Delete() {
     return ShowConfirm({
-      title: 'Cảnh báo',
+      title: 'Xác nhận',
       message: `Bạn chắc chắn muốn xóa PRFilter [${this.Name}]`,
       type: MessageType.warning,
     }).then(() => {

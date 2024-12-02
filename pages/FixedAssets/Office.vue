@@ -101,10 +101,8 @@ import { SelectOption } from "~/assets/scripts/base/SelectOption";
 import { Para } from "~/assets/scripts/Para";
 
 export default {
-
   data() {
     return {
-     
       activeItem: null,
       assetnumber: null,
       department_select: new SelectOption(),
@@ -121,8 +119,6 @@ export default {
       return this.obj.Office_id == 0;
     },
     typeUser() {
-     
-
       let filterOption = (data) => {
         return data.filter((p1) => {
           if (this.obj.Office_id !== p1.Office_id) return false;
@@ -141,7 +137,6 @@ export default {
       };
 
       return Para.store_Get_List.set((p) => (p.data = filterOption(p.data)));
-      
     },
   },
   methods: {
@@ -177,15 +172,37 @@ export default {
       this.$emit("asChange", this.assetnumber);
     },
 
-    LoadData() {
-    
+    LoadData() {},
+  },
+  watch: {
+    data() {
+      console.log(this.data);
+      if (this.data) {
+        GetDataAPI({
+          url: API.dm_department_Get_List,
+          params: {
+            iOffice_id: this.data[0].Id || 0,
+          },
+          action: (re) => {
+            this.department_select.data = re;
+          },
+        });
+      }
     },
   },
 
   mounted() {
-    this.$nextTick(() => {
-      this.LoadData();
-    });
+    // this.$nextTick(() => {
+    //   GetDataAPI({
+    //     url: API.dm_department_Get_List,
+    //     params: {
+    //       iOffice_id: this.data[0].Id || 0,
+    //     },
+    //     action: (re) => {
+    //       this.department_select.data = re;
+    //     },
+    //   });
+    // });
   },
 };
 </script>

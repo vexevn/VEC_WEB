@@ -18,6 +18,7 @@
           :model="item"
           v-if="item"
           :formInfo="data"
+          @change="change"
           :disabledformInfo="disabledformInfo"
         >
           <!-- <slot :slot="item.id" :name="item.id"> </slot> -->
@@ -104,6 +105,10 @@ export default {
     };
   },
   methods: {
+    change(){
+      // console.log('change')
+      this.$emit("formChange")
+    },
     getElement(id) {
       return getRef(this, id);
     },
