@@ -50,7 +50,12 @@ export default class Disposal {
         model: "FileAttach",
         labelWidth: 120,
         type: FormElementType.file,
-        options: Para.Disposal_Attachment
+        options(){
+          return new InputFileModel({
+            baseUrl: "/Images/Disposal/Attachment/",
+            // limit: 2,
+          })
+        },
       }),
       TotalMoney: new FormElement({
         label: "Tổng tiền",

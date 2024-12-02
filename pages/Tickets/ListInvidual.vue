@@ -207,7 +207,6 @@
     <DefaultForm :model="formEdit" @actionOK="SaveEdit">
       <div slot="content">
         <FormInfo ref="form" :model="obj.formEdit()" />
-
       </div>
     </DefaultForm>
   </div>
@@ -277,7 +276,14 @@ export default {
             title: "Nhà sản xuất",
             data: "Fixed_Producer",
             min_width: 200,
+          }),
+          new TablePagingCol({
+            title: "Trạng thái",
+            data: "Fixed_State",
+            min_width: 200,
             sortable: false,
+            formatter: (value) =>
+              Para.fixed_asset_state_Get_List.getName(value),
           }),
           new TablePagingCol({
             // title: "Ticket content",
@@ -289,11 +295,11 @@ export default {
           }),
           new TablePagingCol({
             // title: "Ticket content",
-            title: "Ngày cập nhật",
-            data: "DateUpdate",
+            title: "Ngày sửa chữa",
+            data: "DateCreate",
             min_width: 120,
             // width: "auto",
-            formatter: 'date',
+            formatter: "date",
             sortable: false,
           }),
           // new TablePagingCol({
@@ -308,7 +314,7 @@ export default {
             title: "",
             data: "button",
             min_width: 80,
-            
+
             sortable: false,
           }),
         ],
@@ -390,7 +396,6 @@ export default {
       }),
       filter: new TicketsFilter(),
       formEdit: new DefaultForm({
-        
         width: "400px",
         title: "Sửa",
       }),
@@ -414,20 +419,20 @@ export default {
     },
   },
   methods: {
-    SaveEdit(){
-      console.log(this.obj)
+    SaveEdit() {
+      console.log(this.obj);
       GetDataAPI({
         url: API.Ticket_Edit,
-        params:this.obj.toJSON(),
-        method:'post',
-        action: re=>{
-          ShowMessage("Sửa thành công",'success');
+        params: this.obj.toJSON(),
+        method: "post",
+        action: (re) => {
+          ShowMessage("Sửa thành công", "success");
           this.formEdit.visible = false;
           this.LoadData();
-        }
-      })
+        },
+      });
     },
-    Edit(row){
+    Edit(row) {
       this.obj = new Tickets(row);
 
       this.formEdit.visible = true;
@@ -665,14 +670,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-::v-deep  {
+::v-deep {
   .form-ticket {
     textarea {
       height: calc(100vh - 493px);
     }
   }
 }
-::v-deep  {
+::v-deep {
   .input-comment {
     textarea {
       font-family: "Open Sans", "Segoe UI";
@@ -721,7 +726,7 @@ export default {
       padding-bottom: 10px;
     }
     .comment-file {
-      ::v-deep  .uploader {
+      ::v-deep .uploader {
         padding: 5px 10px;
         .el-upload-list__item:first-child {
           margin-top: 0;

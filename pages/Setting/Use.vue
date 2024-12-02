@@ -195,7 +195,7 @@ export default {
     Delete(row) {
       ShowConfirm({
         message: "Xóa [" + row.FullName + "]",
-        title: "Cảnh báo!",
+        title: "Xác nhận!",
         type: MessageType.warning,
       })
         .then(() => {

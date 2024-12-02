@@ -239,7 +239,7 @@ export default {
     Delete(row) {
       ShowConfirm({
         message: "Xóa [" + row.Project_Name + "]",
-        title: "Cảnh báo!",
+        title: "Xác nhận!",
         type: MessageType.warning,
       })
         .then(() => {

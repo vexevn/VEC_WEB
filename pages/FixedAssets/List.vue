@@ -191,7 +191,7 @@ S
     </DefaultForm> -->
     <DefaultForm :model="formInventory" @actionOK="AddInventory()">
       <div slot="content">
-        <FormInfo ref="form" :model="formInventory.obj.form()" />
+        <FormInfo ref="formInventory" :model="formInventory.obj.form()" />
       </div>
     </DefaultForm>
     <DefaultForm :model="formConfirmTransfer">
@@ -369,12 +369,13 @@ export default {
                 data: "Warranty_Period",
                 min_width: 130,
                 sortable: false,
-                // formatter: "number",
-                // formatter: (value, row) => {
-                //   return row.Purchase_Date
-                //     ? ConvertStr.ToDateStr(addMonth(row.Purchase_Date, value))
-                //     : value;
-                // },
+                formatter: (value, row) => {
+                  // return row.Purchase_Date
+                  //   ? ConvertStr.ToDateStr(addMonth(row.Purchase_Date, value))
+                  //   : value;
+
+                  return value > 0 ? value + ' tháng' : ''
+                },
               }),
               new TablePagingCol({
                 title: "Số hợp đồng",
@@ -425,6 +426,20 @@ export default {
                 data: "Producer_Name",
                 min_width: 150,
                 sortable: false,
+              }),
+              new TablePagingCol({
+                title: "Người sử dụng",
+                data: "Person_id",
+                min_width: 150,
+                sortable: false,
+                formatter: value => Para.Para_Account.getName(value)
+              }),
+              new TablePagingCol({
+                title: "Vị trí",
+                data: "Curent_Holder_Id",
+                min_width: 150,
+                sortable: false,
+                formatter: (value) => Para.store_Get_List.getName(value),
               }),
               new TablePagingCol({
                 title: "Chủng loại",
@@ -478,13 +493,7 @@ export default {
               //   min_width: 150,
               //   sortable: false,
               // }),
-              new TablePagingCol({
-                title: "Vị trí",
-                data: "Curent_Holder_Id",
-                min_width: 150,
-                sortable: false,
-                formatter: (value) => Para.store_Get_List.getName(value),
-              }),
+              
               new TablePagingCol({
                 title: "Tình trạng tài sản",
                 data: "Status",
@@ -650,6 +659,10 @@ export default {
         width: "500px",
         ShowForm: (title, obj) => {
           this.formInventory.title = title;
+          // GetDataAPI({
+          //   url: API.Ticket_Get_Info,
+          //   params: 
+          // })
           this.formInventory.obj = new Fixed_Asset_Fix({
             Fixed_Asset_id: obj.Id,
             FA_Code: obj.Code,
@@ -668,6 +681,7 @@ export default {
       //   width: "800px",
       //   title: "Lọc dữ liệu",
       // }),
+      isFirstLoad: true,
     };
   },
   watch: {
@@ -675,11 +689,10 @@ export default {
       deep: true,
       handler() {
         this.$nextTick(() => {
-          // if (this.tp.params.Type || this.tp.params.User_ID) {
-          //   this.tp.params.From = "";
-          //   this.tp.params.To = "";
-          // }
-          console.log("aklc");
+          if (this.isFirstLoad) {
+          this.isFirstLoad = false; // Set the flag to false after the first load
+          return; // Skip the first invocation
+        }
           this.LoadTable();
         });
       },
@@ -744,12 +757,15 @@ export default {
     AddInventory() {
       // console.log(this);
       // return;
-      this.$refs.form.getValidate().then((re) => {
+      this.$refs.formInventory.getValidate().then((re) => {
         if (!re) {
           ShowMessage("Vui lòng nhập đầy đủ thông tin!", MessageType.error);
           return;
         } else {
-          GetDataAPI({
+          
+          this.$refs.formInventory.getEntry("files").submitUpload().then(re=>{
+            this.formInventory.obj.Files = re[0].split('|')[0];
+            GetDataAPI({
             url: API.Ticket_Add,
             params: this.formInventory.obj.toJSON(),
             method: "post",
@@ -759,6 +775,9 @@ export default {
               ShowMessage("Sửa chữa tài sản thành công");
             },
           });
+          })
+          // return
+        
         }
       });
     },
@@ -849,7 +868,7 @@ export default {
     Delete(row) {
       ShowConfirm({
         message: "Xóa [" + row.Name + "]",
-        title: "Cảnh báo!",
+        title: "Xác nhận!",
         type: MessageType.warning,
       })
         .then(() => {

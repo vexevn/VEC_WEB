@@ -8,6 +8,7 @@ export default class TicketsFilter {
   From = GetStartMonth();
   /** @type {string} - description */
   To = GetTimeNow();
+  CreateDate = GetTimeNow();
   /** @type {string} - description */
   State;
   /** @type {string} - description */
@@ -35,6 +36,11 @@ export default class TicketsFilter {
         model: "From",
         type: FormElementType.datePicker,
       }),
+      CreateDate: new FormElement({
+        label: "Ngày sửa chữa",
+        model: "CreateDate",
+        type: FormElementType.datePicker,
+      }),
       To: new FormElement({
         label: "Đến ngày",
         model: "To",
@@ -58,6 +64,7 @@ export default class TicketsFilter {
         new FormElement({
           direction: FormDirectionType.vertical,
           child: [
+            this._formElements.CreateDate,
             this._formElements.From,
             this._formElements.To,
             this._formElements.State,]

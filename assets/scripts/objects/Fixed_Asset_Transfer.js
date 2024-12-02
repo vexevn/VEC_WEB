@@ -67,7 +67,7 @@ export default class Fixed_Asset_Transfer {
         disabled: true,
       }),
       From_Holder_Name: new FormElement({
-        label: "Từ người sử dụng",
+        label: "Từ vị trí",
         model: "From_Holder_Name",
         type: FormElementType.text,
         disabled: true,
@@ -80,7 +80,7 @@ export default class Fixed_Asset_Transfer {
         disabled: true,
       }),
       To_Holder_Id: new FormElement({
-        label: "Đến người sử dụng",
+        label: "Đến vị trí",
         model: "To_Holder_Id",
         type: FormElementType.select,
         // labelWidth: 140,
@@ -102,7 +102,7 @@ export default class Fixed_Asset_Transfer {
         },
       }),
       To_Holder_Id_2: new FormElement({
-        label: "Đến người sử dụng",
+        label: "Đến vị trí",
         model: "To_Holder_Id",
         type: FormElementType.select,
         // labelWidth: 140,
@@ -137,7 +137,7 @@ export default class Fixed_Asset_Transfer {
         },
       }),
       To_Holder_Name: new FormElement({
-        label: "Đến người sử dụng",
+        label: "Đến vị trí",
         model: "To_Holder_Name",
         type: FormElementType.text,
         disabled: true,

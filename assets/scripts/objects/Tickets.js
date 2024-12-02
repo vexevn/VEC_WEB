@@ -2,6 +2,7 @@
 import { FormElement, FormElementType, FormInfo } from "~/assets/scripts/base/FormInfo";
 import { Para } from "../Para";
 import StoreManager from "../StoreManager";
+import InputFileModel from "~/components/form-content/InputFile/InputFIleModel";
 
 export default class Tickets {
   /** @type {number} - description */
@@ -24,6 +25,7 @@ export default class Tickets {
   Finish_Date;
   /** @type {number} - description */
   Total_Comment;
+  Files;
   /** @type {string} - description */
   Id;
   /** @type {string} - description */
@@ -117,7 +119,19 @@ export default class Tickets {
           data.Act_Name = slData.FullName
         }
       }),
-
+      Files: new FormElement({
+        // label: "Mã tài sản",
+        model: "Files",
+        id: 'files',
+        disabled: true,
+        type: FormElementType.file,
+        options(){
+          return  new InputFileModel({
+            baseUrl: "/Images/Ticket/",
+            limit:1,
+          })
+        }
+      }),
 
       Order_id: new FormElement({
         label: "Order_id",
@@ -223,6 +237,7 @@ export default class Tickets {
         this._formElements.Fixed_Name,
         this._formElements.Act_User,
         this._formElements.Fixed_State.set(p=>p.disabled = false),
+        this._formElements.Files,
         this._formElements.Content,
       ]
     });

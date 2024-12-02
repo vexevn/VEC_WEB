@@ -350,7 +350,7 @@ export default {
     Delete(row) {
       ShowConfirm({
         message: "Xóa luân chuyển",
-        title: "Cảnh báo!",
+        title: "Xác nhận!",
         type: MessageType.warning,
       })
         .then(() => {

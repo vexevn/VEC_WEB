@@ -401,6 +401,12 @@ export default class fixed_assets {
             data.Curent_Holder_Id = undefined;
             data.Curent_Holder_Name = "";
           }
+
+          if (data.Use_Type_id != 8) {
+            data._formElements.Curent_Holder_Id.required = true;
+          } else {
+            data._formElements.Curent_Holder_Id.required = false;
+          }
         },
       }),
       Person_id: new FormElement({
@@ -422,16 +428,18 @@ export default class fixed_assets {
         //   if (data.Use_Type_id == 1 || !data.Use_Type_id) return true;
         //   return false;
         // },
-        // watch(data, nv, ov, t, isFirst) {
-        //   if (!isFirst && data.Use_Type_id == 1) {
-        //     let entry = t.getEntry(data._formElements.Curent_Holder_person.id);
-        //     if (entry) {
-        //       let sltd = entry.selectedData || {};
-        //       data.Curent_Holder_Name = sltd.FullName;
-        //       // console.log(data.Curent_Holder_Name);
-        //     }
-        //   }
-        // },
+        watch(data, nv, ov, t, isFirst) {
+          // if (!isFirst && data.Use_Type_id == 1) {
+          //   let entry = t.getEntry(data._formElements.Curent_Holder_person.id);
+          //   if (entry) {
+          //     let sltd = entry.selectedData || {};
+          //     data.Curent_Holder_Name = sltd.FullName;
+          //     // console.log(data.Curent_Holder_Name);
+          //   }
+          // }
+          if (!isFirst) {
+          }
+        },
       }),
       Curent_Holder_Id: new FormElement({
         labelWidth: 115,
@@ -440,7 +448,7 @@ export default class fixed_assets {
         model: "Curent_Holder_Id",
         type: FormElementType.select,
         disabled(data) {
-          // return data.Use_Type_id == 4
+          // return data.Use_Type_id == 8
         },
         required: true,
 

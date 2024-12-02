@@ -172,6 +172,7 @@ export var Para = {
   }),
   Disposal_Attachment: new InputFileModel({
     baseUrl: "/Images/Disposal/Attachment/",
+    // limit: 2,
   }),
   PR_Attachment: new InputFileModel({
     baseUrl: "/Images/Purchase/Attachment/",

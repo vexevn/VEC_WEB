@@ -234,12 +234,13 @@ export default {
             sortable: false,
           }),
 
-          // new TablePagingCol({
-          //   title: "Số hợp đồng",
-          //   data: "Project_Code",
-          //   min_width: 130,
-          //   sortable: false,
-          // }),
+          new TablePagingCol({
+            title: "Văn phòng",
+            data: "Office_id",
+            min_width: 200,
+            formatter: (value) => Para.Para_Office.getName(value),
+            sortable: false,
+          }),
           new TablePagingCol({
             title: "Loại",
             data: "Type_id",
@@ -250,7 +251,7 @@ export default {
           new TablePagingCol({
             title: "Nhà sản xuất",
             data: "Producer_id",
-            min_width: 150,
+            min_width: 120,
             sortable: false,
             formatter: (value) => Para.producer_Get_List.getName(value),
           }),
@@ -611,7 +612,8 @@ export default {
           iDisposal_id: this.obj.Info.Id || 0,
         })
         .then((re) => {
-          this.tp_detail.data = re;
+          // console.log(this.user)
+          this.tp_detail.data = re.filter(p=>p.Office_id == this.user.Office_id);
           this.form_detail.visible = true;
         });
     },
