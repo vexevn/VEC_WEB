@@ -345,11 +345,18 @@ export default {
                 sortable: false,
               }),
               new TablePagingCol({
-                title: "Mô tả",
+                title: "Tên tài sản",
                 data: "Name",
                 min_width: 200,
                 width: "auto",
                 sortable: false,
+              }),
+              new TablePagingCol({
+                title: "Vị trí",
+                data: "Curent_Holder_Id",
+                min_width: 150,
+                sortable: false,
+                formatter: (value) => Para.store_Get_List.getName(value),
               }),
               new TablePagingCol({
                 title: "Ngày tính bảo hành",
