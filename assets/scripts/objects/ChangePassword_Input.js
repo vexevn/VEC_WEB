@@ -16,21 +16,21 @@ export default class ChangePassword_Input {
     Password_Old: new FormElement({
       label: "Mật khẩu hiện tại",
       model: "Password_Old",
-      labelWidth: 130,
+      labelWidth: 150,
       required:true,
       type: FormElementType.text,
     }),
     Password_new: new FormElement({
       label: "Mật khẩu mới",
       model: "Password_new",
-      labelWidth: 130,
+      labelWidth: 150,
       required:true,
       type: FormElementType.text,
     }),
     Password_confirm: new FormElement({
       label: "Xác nhận mật khẩu",
       model: "Password_confirm",
-      labelWidth: 130,
+      labelWidth: 150,
       type: FormElementType.text,
       required:true,
       validate(data){
