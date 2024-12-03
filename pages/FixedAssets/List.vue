@@ -117,25 +117,27 @@ S
                 ></el-button>
               </el-tooltip>
 
-
               <el-tooltip
                 class="item"
                 effect="dark"
-                :content="dayDistance(row.DateUpdate) > 15 ? 'Lần cập nhật cuối cùng đã quá 15 ngày' : 'Xóa'"
+                :content="
+                  dayDistance(row.DateUpdate) > 15
+                    ? 'Lần cập nhật cuối cùng đã quá 15 ngày'
+                    : 'Xóa'
+                "
                 placement="top"
               >
-              <el-button
-                v-if="pagePermission.delete"
-                class="icon-btn"
-                :disabled="dayDistance(row.DateUpdate) > 15"
-                type="danger"
-                @click="Delete(row)"
-              >
-              <!-- {{ dayDistance(row.DateUpdate) }} -->
-                <i class="el-icon-delete"></i>
-              </el-button>
+                <el-button
+                  v-if="pagePermission.delete"
+                  class="icon-btn"
+                  :disabled="dayDistance(row.DateUpdate) > 15"
+                  type="danger"
+                  @click="Delete(row)"
+                >
+                  <!-- {{ dayDistance(row.DateUpdate) }} -->
+                  <i class="el-icon-delete"></i>
+                </el-button>
               </el-tooltip>
-              
             </template>
           </div>
         </template>
@@ -374,7 +376,7 @@ export default {
                   //   ? ConvertStr.ToDateStr(addMonth(row.Purchase_Date, value))
                   //   : value;
 
-                  return value > 0 ? value + ' tháng' : ''
+                  return value > 0 ? value + " tháng" : "";
                 },
               }),
               new TablePagingCol({
@@ -398,14 +400,14 @@ export default {
                 formatter: (value) => Para.FixedAssetsState.getName(value),
                 fix: "right",
               }),
-              new TablePagingCol({
-                title: "Xác nhận/Hỗ trợ",
-                data: "button",
-                min_width: 150,
-                sortable: false,
-                align: "right",
-                fix: "right",
-              }),
+              // new TablePagingCol({
+              //   title: "Xác nhận/Hỗ trợ",
+              //   data: "button",
+              //   min_width: 150,
+              //   sortable: false,
+              //   align: "right",
+              //   fix: "right",
+              // }),
             ]
           : [
               new TablePagingCol({
@@ -432,7 +434,7 @@ export default {
                 data: "Person_id",
                 min_width: 150,
                 sortable: false,
-                formatter: value => Para.Para_Account.getName(value)
+                formatter: (value) => Para.Para_Account.getName(value),
               }),
               new TablePagingCol({
                 title: "Vị trí",
@@ -493,7 +495,7 @@ export default {
               //   min_width: 150,
               //   sortable: false,
               // }),
-              
+
               new TablePagingCol({
                 title: "Tình trạng tài sản",
                 data: "Status",
@@ -661,7 +663,7 @@ export default {
           this.formInventory.title = title;
           // GetDataAPI({
           //   url: API.Ticket_Get_Info,
-          //   params: 
+          //   params:
           // })
           this.formInventory.obj = new Fixed_Asset_Fix({
             Fixed_Asset_id: obj.Id,
@@ -690,17 +692,17 @@ export default {
       handler() {
         this.$nextTick(() => {
           if (this.isFirstLoad) {
-          this.isFirstLoad = false; // Set the flag to false after the first load
-          return; // Skip the first invocation
-        }
+            this.isFirstLoad = false; // Set the flag to false after the first load
+            return; // Skip the first invocation
+          }
           this.LoadTable();
         });
       },
     },
   },
   methods: {
-    dayDistance(DateUpdate,FromDate){
-       return dayDistance(DateUpdate,FromDate)
+    dayDistance(DateUpdate, FromDate) {
+      return dayDistance(DateUpdate, FromDate);
     },
     LoadTable() {
       if (this.isIndividual) {
@@ -762,22 +764,23 @@ export default {
           ShowMessage("Vui lòng nhập đầy đủ thông tin!", MessageType.error);
           return;
         } else {
-          
-          this.$refs.formInventory.getEntry("files").submitUpload().then(re=>{
-            this.formInventory.obj.Files = re[0].split('|')[0];
-            GetDataAPI({
-            url: API.Ticket_Add,
-            params: this.formInventory.obj.toJSON(),
-            method: "post",
-            action: (re) => {
-              this.LoadTable();
-              this.formInventory.visible = false;
-              ShowMessage("Sửa chữa tài sản thành công");
-            },
-          });
-          })
+          this.$refs.formInventory
+            .getEntry("files")
+            .submitUpload()
+            .then((re) => {
+              this.formInventory.obj.Files = re[0].split("|")[0];
+              GetDataAPI({
+                url: API.Ticket_Add,
+                params: this.formInventory.obj.toJSON(),
+                method: "post",
+                action: (re) => {
+                  this.LoadTable();
+                  this.formInventory.visible = false;
+                  ShowMessage("Sửa chữa tài sản thành công");
+                },
+              });
+            });
           // return
-        
         }
       });
     },
@@ -875,7 +878,12 @@ export default {
           APIHelper.fixed_asset.Delete(row).then((re) => {
             this.LoadTable();
             ShowMessage("Xóa thành công");
-            this.$refs.of.LoadData();
+            GetDataAPI({
+              url: API.Get_List_Office_Asset,
+              action: (re) => {
+                this.dataOF = re;
+              },
+            });
           });
         })
         .catch((err) => {
@@ -908,7 +916,12 @@ export default {
               this.LoadTable();
               this.form.visible = false;
               ShowMessage("Lưu thành công");
-              this.$refs.of.LoadData();
+              GetDataAPI({
+                url: API.Get_List_Office_Asset,
+                action: (re) => {
+                  this.dataOF = re;
+                },
+              });
             });
           } else {
             APIHelper.fixed_asset.Edit(this.form.obj.toJSON()).then((re) => {
@@ -929,16 +942,20 @@ export default {
     EventBus.$off("Add", this.Add);
   },
   mounted() {
-    GetDataAPI({
-      url: API.Get_List_Office_Asset,
-      action: (re) => {
-        this.dataOF = re;
-        this.tp.params.Office_id = (re[0] || {}).Id || 0;
-        // console.log(this.tp.params.Office_id )
-        this.$refs.of.activeItem = re[0];
-        this.LoadTable();
-      },
-    });
+    if (this.isIndividual) {
+      this.LoadTable();
+    } else {
+      GetDataAPI({
+        url: API.Get_List_Office_Asset,
+        action: (re) => {
+          this.dataOF = re;
+          this.tp.params.Office_id = (re[0] || {}).Id || 0;
+          // console.log(this.tp.params.Office_id )
+          this.$refs.of.activeItem = re[0];
+          this.LoadTable();
+        },
+      });
+    }
 
     console.log(this.pagePermission);
   },
