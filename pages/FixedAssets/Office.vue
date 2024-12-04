@@ -65,8 +65,8 @@
           Para.TransferType.set((p) => (p.placeholder = 'Đối tượng sử dụng'))
         "
       />
-      <InputSelect
-        v-if="obj.Use_Type_id == 1"
+      <!-- <InputSelect
+      
         key="para_account"
         :disabled="disabledSelect"
         v-model="obj.User_ID"
@@ -77,9 +77,9 @@
             (p) => (p.data = p.data.filter((x) => x.Office_id == obj.Office_id))
           )
         "
-      />
+      /> -->
       <InputSelect
-        v-else
+
         key="para_other"
         :disabled="disabledSelect"
         v-model="obj.User_ID"
@@ -130,6 +130,14 @@ export default {
               return p1.isStore === 2;
             case 4:
               return p1.isStore === 3;
+            case 5:
+              return p1.isStore === 4;
+            case 6:
+              return p1.isStore === 5;
+            case 7:
+              return p1.isStore === 6;
+            case 8:
+              return p1.isStore === 7;
             default:
               return false;
           }
@@ -176,7 +184,7 @@ export default {
   },
   watch: {
     data() {
-      console.log(this.data);
+      // console.log(this.data);
       if (this.data) {
         GetDataAPI({
           url: API.dm_department_Get_List,

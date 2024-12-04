@@ -236,7 +236,7 @@ export default {
 
 @media screen {
   .phieu {
-    // display: none;
+    display: none;
   }
 }
 table,

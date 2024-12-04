@@ -1,6 +1,6 @@
 <template lang="">
   <div style="display: flex; height: 100%">
-    <FormInfo style="width: 25%" ref="form" :model="obj.form()" />
+    <FormInfo @activeChange="formChange" style="width: 25%" ref="form" :model="obj.form()" />
     <div style="width:70%;flex:1" class="asset-info">
         <TablePaging :model="tp" ref="tp">
      
@@ -118,15 +118,9 @@ export default {
             }
         })
     },
-    // LoadTable(){
-    //     GetDataAPI({
-    //         url: API.GetFixed_Asset_Inventory,
-    //         params:{
-    //             Inventory_id: obj.Id,
-    //             Store_id: 
-    //         }
-    //     })
-    // }
+    formChange(v){
+      this.$emit('LoadAgian')
+    }
   },
   mounted(){
     console.log(this.obj)

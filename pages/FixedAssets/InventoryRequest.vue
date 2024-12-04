@@ -82,7 +82,7 @@
     </TablePaging>
     <DefaultForm :model="formFilter" @actionOK="Search()">
       <div slot="content">
-        <FormInfo :model="filter.form4()" />
+        <FormInfo  :model="filter.form4()" />
       </div>
     </DefaultForm>
 
@@ -92,7 +92,7 @@
       @actionOK="form.Save.call(this)"
     >
       <div style="height: 100%" slot="content">
-        <InventoryRequestForm :obj="form.obj" ref="formIVT" />
+        <InventoryRequestForm @LoadAgian="LoadTable()" :obj="form.obj" ref="formIVT" />
       </div>
     </DefaultForm>
   </div>
@@ -208,6 +208,7 @@ export default {
             ...JSON.parse(JSON.stringify(obj)),
             Offices: !isAdd ? Object.keys(obj.Office_Info).map(Number) : [],
             Store: !isAdd ? Object.keys(obj.Store_Info).map(Number) : [],
+            viewOnly: viewOnly,
           });
           this.form.visible = true;
           // console.log(this.form.obj)
@@ -241,6 +242,9 @@ export default {
     };
   },
   methods: {
+    formChange(){
+      this.LoadTable()
+    },
     Print(row) {
       // console.log(row)
       // return;
