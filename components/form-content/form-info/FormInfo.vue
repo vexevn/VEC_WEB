@@ -106,7 +106,7 @@ export default {
   },
   methods: {
     change(){
-      // console.log('change')
+      // console.log('formChange')
       this.$emit("formChange")
     },
     getElement(id) {

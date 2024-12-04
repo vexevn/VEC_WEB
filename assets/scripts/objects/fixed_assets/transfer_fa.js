@@ -274,7 +274,8 @@ export default class transfer_fa {
                     url: API.Manager_Edit,
                     params: data.Info,
                     action: (re) => {
-                      console.log(re);
+                      // console.log(re);
+                      // if()
                       t.$emit('change',re)
                     },
                   });

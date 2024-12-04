@@ -8,6 +8,7 @@ import { Para } from "../Para";
 import { GetStartMonth, GetTimeNow,IsAfterDate } from "../Functions";
 import { SelectOption } from "../base/SelectOption";
 import API from "../API";
+import GetDataAPI from "../GetDataAPI";
 
 export default class InventoryRequest {
 
@@ -79,6 +80,27 @@ export default class InventoryRequest {
         // options: Para.InventoryState.set((p) => (p.placeholder = "All")),
         col: 9,
         labelWidth: 90,
+        watch(data,n,o,t,iF){
+          if(!iF){
+            // console.log(data)
+            const obj = data.toJSON();
+            obj.Offices = obj.Offices.join(",");
+            obj.Store = obj.Store.join(",");
+            if(data.viewOnly){
+              GetDataAPI({
+                method: "post",
+                url:  API.EditRequest,
+                params: obj,
+                action: (re) => {
+                  console.log(t)
+                  t.formInfo.vm.$emit('activeChange',data.Active)
+                  // t.$emit('change',re)
+                },
+              });
+            }
+          }
+          
+        }
       }),
       Description: new FormElement({
         label: "Nội dung",
@@ -152,6 +174,7 @@ export default class InventoryRequest {
       _formElements: undefined,
       Office_Info: undefined,
       Store_Info: undefined,
+      viewOnly: undefined,
     };
   }
 }

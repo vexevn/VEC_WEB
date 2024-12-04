@@ -216,7 +216,7 @@ export default {
       })
         .then(() => {
           APIHelper.dm_store.Delete(row).then((re) => {
-            this.LoadData();
+            this.LoadTable();
             ShowMessage("Xóa thành công");
           });
         })
@@ -236,7 +236,7 @@ export default {
         } else {
           if (!this.form.obj.Id) {
             APIHelper.dm_store.Add(this.form.obj.toJSON()).then((re) => {
-              this.LoadData();
+              this.LoadTable();
               this.form.visible = false;
               ShowMessage("Lưu thành công");
             });

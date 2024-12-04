@@ -448,7 +448,32 @@ export default {
                 data: "Curent_Holder_Id",
                 min_width: 150,
                 sortable: false,
-                formatter: (value) => Para.store_Get_List.getName(value),
+                formatter: (value, row) => {
+                  return Para.store_Get_List
+                    .set(
+                      (p) =>
+                        (p.data = p.data.filter((p1) => {
+                          if (row.Office_id == p1.Office_id) {
+                            if (row.Use_Type_id == 2)
+                              if (p1.isStore == 1) return true;
+                            if (row.Use_Type_id == 3)
+                              if (p1.isStore == 2) return true;
+                            if (row.Use_Type_id == 4)
+                              if (p1.isStore == 3) return true;
+                            if (row.Use_Type_id == 5)
+                              if (p1.isStore == 4) return true;
+                            if (row.Use_Type_id == 6)
+                              if (p1.isStore == 5) return true;
+                            if (row.Use_Type_id == 7)
+                              if (p1.isStore == 6) return true;
+                            if (row.Use_Type_id == 8)
+                              if (p1.isStore == 7) return true;
+                          }
+                          return false;
+                        }))
+                    )
+                    .getName(value);
+                },
               }),
               new TablePagingCol({
                 title: "Chủng loại",
@@ -655,6 +680,7 @@ export default {
               this.form.obj.Curent_Holder_Id
             );
           }
+          // console.log(this.form.obj)
           this.form.visible = true;
         },
         Save: () => {
