@@ -432,9 +432,10 @@ export default {
               }),
               new TablePagingCol({
                 title: "Nhà sản xuất",
-                data: "Producer_Name",
+                data: "Producer_id",
                 min_width: 150,
                 sortable: false,
+                formatter:value => Para.producer_Get_List.getName(value)
               }),
               new TablePagingCol({
                 title: "Người sử dụng",

@@ -110,7 +110,7 @@ export default class fixed_assets {
   UserCreate;
   /** @type {string} - description */
   UserUpdate;
-
+  
   /** @type {string} - description */
   QRCode;
   /** @type {string} - description */
@@ -673,9 +673,9 @@ export default class fixed_assets {
         type: FormElementType.text,
         // options: Para.Para_VehicleType
       }),
-      Date_disposal: new FormElement({
+      Disposal_Date: new FormElement({
         label: "Ngày thanh lý",
-        model: "Date_disposal",
+        model: "Disposal_Date",
         type: FormElementType.date,
         disabled: true,
         labelWidth: 115,
@@ -892,7 +892,7 @@ export default class fixed_assets {
                 new FormElement({
                   child: [
                     this._formElements.Warranty_Period.set((p) => (p.col = 6)),
-                    this._formElements.Date_disposal.set((p) => (p.col = 6)),
+                    this._formElements.Disposal_Date.set((p) => (p.col = 6)),
                     this._formElements.RF_Id.set((p) => (p.col = 4)),
                     this._formElements.Maintenance.set((p) => (p.col = 2)),
                     this._formElements.Quantity.set((p) => (p.col = 3)),

@@ -613,7 +613,8 @@ export default {
         })
         .then((re) => {
           // console.log(this.user)
-          this.tp_detail.data = re.filter(p=>p.Office_id == this.user.Office_id);
+          this.tp_detail.data = re;
+          // this.tp_detail.data = re.filter(p=>p.Office_id == this.user.Office_id);
           this.form_detail.visible = true;
         });
     },
