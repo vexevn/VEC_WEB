@@ -48,6 +48,7 @@ export default class Disposal {
       FileAttach: new FormElement({
         // label: "FileAttach",
         model: "FileAttach",
+        
         labelWidth: 120,
         type: FormElementType.file,
         options(){

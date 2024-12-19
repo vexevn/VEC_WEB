@@ -227,6 +227,13 @@ export default {
             sortable: false,
           }),
           new TablePagingCol({
+            title: "Mã tài sản",
+            data: "Code",
+            min_width: 200,
+            width: "auto",
+            sortable: false,
+          }),
+          new TablePagingCol({
             title: "Tên",
             data: "Name",
             min_width: 200,
@@ -234,6 +241,53 @@ export default {
             sortable: false,
           }),
 
+          new TablePagingCol({
+            title: "Văn phòng",
+            data: "Office_id",
+            min_width: 200,
+            formatter: (value) => Para.Para_Office.getName(value),
+            sortable: false,
+          }),
+          new TablePagingCol({
+                title: "Vị trí",
+                data: "Curent_Holder_Id",
+                min_width: 150,
+                sortable: false,
+                formatter: (value, row) => {
+                  return Para.store_Get_List
+                    .set(
+                      (p) =>
+                        (p.data = p.data.filter((p1) => {
+                          if (row.Office_id == p1.Office_id) {
+                            if (row.Use_Type_id == 2)
+                              if (p1.isStore == 1) return true;
+                            if (row.Use_Type_id == 3)
+                              if (p1.isStore == 2) return true;
+                            if (row.Use_Type_id == 4)
+                              if (p1.isStore == 3) return true;
+                            if (row.Use_Type_id == 5)
+                              if (p1.isStore == 4) return true;
+                            if (row.Use_Type_id == 6)
+                              if (p1.isStore == 5) return true;
+                            if (row.Use_Type_id == 7)
+                              if (p1.isStore == 6) return true;
+                            if (row.Use_Type_id == 8)
+                              if (p1.isStore == 7) return true;
+                          }
+                          return false;
+                        }))
+                    )
+                    .getName(value);
+                },
+              }),
+              new TablePagingCol({
+                title: "Tình trạng tài sản",
+                data: "Status",
+                min_width: 150,
+                sortable: false,
+                formatter: (value) =>
+                  Para.fixed_asset_state_Get_List.getName(value),
+              }),
           new TablePagingCol({
             title: "Văn phòng",
             data: "Office_id",
@@ -613,14 +667,14 @@ export default {
         })
         .then((re) => {
           // console.log(this.user)
-          this.tp_detail.data = re;
-          // this.tp_detail.data = re.filter(p=>p.Office_id == this.user.Office_id);
+          // this.tp_detail.data = re;
+          this.tp_detail.data = re.filter(p=>p.Office_id == this.user.Office_id);
           this.form_detail.visible = true;
         });
     },
   },
   mounted() {
-    console.log(this);
+    // console.log(this);
     this.LoadData();
     this.GetdataVendors();
 
