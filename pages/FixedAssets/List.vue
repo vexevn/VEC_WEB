@@ -435,7 +435,7 @@ export default {
                 data: "Producer_id",
                 min_width: 150,
                 sortable: false,
-                formatter:value => Para.producer_Get_List.getName(value)
+                formatter: (value) => Para.producer_Get_List.getName(value),
               }),
               new TablePagingCol({
                 title: "Người sử dụng",
@@ -703,6 +703,7 @@ export default {
             Fixed_Asset_id: obj.Id,
             FA_Code: obj.Code,
             FA_Name: obj.Name,
+            Office_id: obj.Office_id,
             // User_Use: obj.Curent_Holder_Id,
             // User_Name: obj.Curent_Holder_Name,
           });
@@ -802,7 +803,9 @@ export default {
             .getEntry("files")
             .submitUpload()
             .then((re) => {
-              this.formInventory.obj.Files = re[0].split("|")[0];
+              this.formInventory.obj.Files =
+                typeof re[0] === "string" ? re[0].split("|")[0] : '';
+
               GetDataAPI({
                 url: API.Ticket_Add,
                 params: this.formInventory.obj.toJSON(),

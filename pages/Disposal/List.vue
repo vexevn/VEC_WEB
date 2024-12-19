@@ -157,6 +157,14 @@
     <DefaultForm :model="form_detail" @actionOK="ReloadFA">
       <div slot="content" style="height: 400px">
         <TablePaging :model="tp_detail" ref="tp_detail">
+          <template slot="btn2">
+            <InputSelect
+              :model="Para.Para_Office"
+              v-model="choseAssetFilter"
+              style="width: 270px; margin-left: 5px"
+              ref=""
+            />
+          </template>
           <template slot="column-content-CheckBox" slot-scope="{ row }">
             <el-checkbox v-model="row.CheckBox" style="pointer-events: none" />
           </template>
@@ -188,6 +196,8 @@ export default {
   data() {
     return {
       itv: null,
+      choseAssetFilter: 0,
+
       detail_scroll_left: 0,
       iSearchInfo: "",
       obj: new AddDisposal({}),
@@ -227,6 +237,13 @@ export default {
             sortable: false,
           }),
           new TablePagingCol({
+            title: "Mã tài sản",
+            data: "Code",
+            min_width: 200,
+            width: "auto",
+            sortable: false,
+          }),
+          new TablePagingCol({
             title: "Tên",
             data: "Name",
             min_width: 200,
@@ -241,6 +258,47 @@ export default {
             formatter: (value) => Para.Para_Office.getName(value),
             sortable: false,
           }),
+          new TablePagingCol({
+            title: "Vị trí",
+            data: "Curent_Holder_Id",
+            min_width: 150,
+            sortable: false,
+            formatter: (value, row) => {
+              return Para.store_Get_List
+                .set(
+                  (p) =>
+                    (p.data = p.data.filter((p1) => {
+                      if (row.Office_id == p1.Office_id) {
+                        if (row.Use_Type_id == 2)
+                          if (p1.isStore == 1) return true;
+                        if (row.Use_Type_id == 3)
+                          if (p1.isStore == 2) return true;
+                        if (row.Use_Type_id == 4)
+                          if (p1.isStore == 3) return true;
+                        if (row.Use_Type_id == 5)
+                          if (p1.isStore == 4) return true;
+                        if (row.Use_Type_id == 6)
+                          if (p1.isStore == 5) return true;
+                        if (row.Use_Type_id == 7)
+                          if (p1.isStore == 6) return true;
+                        if (row.Use_Type_id == 8)
+                          if (p1.isStore == 7) return true;
+                      }
+                      return false;
+                    }))
+                )
+                .getName(value);
+            },
+          }),
+          new TablePagingCol({
+            title: "Tình trạng tài sản",
+            data: "Status",
+            min_width: 150,
+            sortable: false,
+            formatter: (value) =>
+              Para.fixed_asset_state_Get_List.getName(value),
+          }),
+        
           new TablePagingCol({
             title: "Loại",
             data: "Type_id",
@@ -341,7 +399,7 @@ export default {
       }),
       data: [],
       isFirst: false,
-
+      dataChoseAsset: [],
       vendor_tmp_selected: "",
       vendor_tmp_picked: [],
       isvendor: false,
@@ -370,6 +428,12 @@ export default {
     };
   },
   watch: {
+    choseAssetFilter(n, o) {
+      console.log(n, o);
+      this.tp_detail.data = this.dataChoseAsset.filter((p) => p.Office_id == n);
+      if (this.$refs.tp_detail) this.$refs.tp_detail.LoadData(true);
+    },
+
     "obj.Ware_house.Order_id"(newValue, oldValue) {
       console.log(newValue, oldValue);
       if (this.obj.Ware_house.Order_id) {
@@ -409,10 +473,6 @@ export default {
     },
   },
   methods: {
-    // Searching() {
-    //   console.log(this.iSearchInfo);
-    // },
-
     RemoveFA(item) {
       let find = this.obj.FA_Id_Lists.findIndex((p) => p.Id == p);
       this.obj.FA_Id_Lists.splice(find, 1);
@@ -613,14 +673,19 @@ export default {
         })
         .then((re) => {
           // console.log(this.user)
-          this.tp_detail.data = re;
-          // this.tp_detail.data = re.filter(p=>p.Office_id == this.user.Office_id);
+          // this.tp_detail.data = re;
+          this.dataChoseAsset = re;
+          this.tp_detail.data = re.filter(
+            (p) => p.Office_id == this.user.Office_id
+          );
+          this.choseAssetFilter = this.user.Office_id;
+
           this.form_detail.visible = true;
         });
     },
   },
   mounted() {
-    console.log(this);
+    // console.log(this);
     this.LoadData();
     this.GetdataVendors();
 

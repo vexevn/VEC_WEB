@@ -98,7 +98,10 @@ export default class Fixed_Asset_Fix {
         label: "Người sửa",
         model: "Act_User",
         type: FormElementType.select,
-        options: Para.Para_Account,
+        options(data){
+          // console.log(data)
+          return  Para.Para_Account.set(p=>p.data = p.data.filter(x=> x.Office_id === data.Office_id))
+        },
         required: true,
         watch(data,n,o,t,iF){
           // console.log(data,t)

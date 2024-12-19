@@ -233,7 +233,7 @@
               srcset=""
             />
             <iframe
-              v-else-if="isPDF(item.getNameDownload())"
+              v-else-if="isPDF(item.getNameDownload()) && item.status == 'success'"
               :src="item.href"
               :alt="item.getNameDownload()"
               type="application/pdf"
@@ -324,10 +324,10 @@
                       text-align: center;
                       font-weight: bold;
                     "
-                    >Download</span
+                    >Tải xuống</span
                   >
                 </a>
-                <a
+                <!-- <a
                   :href="GetGoogleEmbeddedLink(item)"
                   target="_blank"
                   style="
@@ -349,7 +349,7 @@
                     "
                     >View</span
                   >
-                </a>
+                </a> -->
               </div>
             </div>
           </div>
@@ -863,6 +863,7 @@ export default {
           name: file.name,
           name_download: file.name_download || file.name,
           href: href.replace(/\?/g, ","),
+          status: file.status,
           getNameDownload() {
             return this.name_download.replace(/\?/g, ",");
           },
