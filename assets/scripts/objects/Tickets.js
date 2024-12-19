@@ -107,8 +107,8 @@ export default class Tickets {
         model: "Act_User",
         type: FormElementType.select,
         options(data){
-          // console.log(StoreManager.GetUser())
-          // console.log(Para.Para_Account.set(p=>p.data = p.data.filter(x=> x.Office_id === StoreManager.GetUser().Office_id)))
+          // console.log(Para.Para_Account.set(p=>p.data = p.data.filter(x=> x.Office_id === 10)))
+          // return Para.Para_Account.set(p=>p.data = p.data.filter(x=> x.Office_id === 10))
           return Para.Para_Account.set(p=>p.data = p.data.filter(x=> x.Office_id === StoreManager.GetUser().Office_id))
         },
         required: true,
