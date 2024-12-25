@@ -81,7 +81,7 @@
               {{ item.Department }}
             </td>
             <td v-if="!item.hasOwnProperty('Stt')" style="font-weight: normal">
-              {{ Para.eNguonvon.getName(item.Nguonvon) }}
+              {{ item.Nguonvon }}
             </td>
             <td v-if="!item.hasOwnProperty('Stt')" style="font-weight: normal">
               {{ Para.fixed_asset_state_Get_List.getName(item.State) }}
