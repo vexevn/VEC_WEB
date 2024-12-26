@@ -23,14 +23,16 @@
         <span v-else></span>
       </template>
       <template slot="column-header-buttons">
-        <el-button
-          class="icon-btn icon-btn"
-          v-if="pagePermission.add"
-          type="primary"
-          @click="Add()"
-        >
-          <i class="el-icon-plus"></i
-        ></el-button>
+        <el-tooltip content="Lập lịch kiểm kê" >
+          <el-button
+            class="icon-btn icon-btn"
+            v-if="pagePermission.add"
+            type="primary"
+            @click="Add()"
+          >
+            <i class="el-icon-plus"></i
+          ></el-button>
+        </el-tooltip>
       </template>
       <template slot="column-content-Office_Info" slot-scope="obj">
         <!-- Object.values(obj.row.Office_Info) -->
@@ -44,32 +46,41 @@
 
       <template slot="column-content-buttons" slot-scope="obj">
         <div style="display: flex">
-          <el-button
-            class="icon-btn icon-btn"
-            type="primary"
-            @click="Print(obj.row)"
-          >
-            <i class="fa fa-print" aria-hidden="true"></i
-          ></el-button>
+          <el-tooltip content="In phiếu kiểm kê" >
+            <el-button
+              class="icon-btn icon-btn"
+              type="primary"
+              @click="Print(obj.row)"
+            >
+              <i class="fa fa-print" aria-hidden="true"></i
+            ></el-button>
+          </el-tooltip>
 
-          <el-button
-            class="icon-btn icon-btn"
-            v-if="new Date(obj.row.ToDate) > new Date() && pagePermission.edit"
-            type="primary"
-            @click="form.ShowForm('Sửa yêu cầu', false, obj.row)"
-          >
-            <i class="el-icon-edit"></i
-          ></el-button>
-          <el-button
-            class="icon-btn icon-btn"
-            v-else
-            type="primary"
-            @click="form.ShowForm('Xem yêu cầu', false, obj.row,true)"
-          >
-            <i class="el-icon-view"></i
-          ></el-button>
+          <el-tooltip  v-if="
+                new Date(obj.row.ToDate) > new Date() && pagePermission.edit
+              " content="Sửa lịch kiểm kê" >
+            <el-button
+              class="icon-btn icon-btn"
+             
+              type="primary"
+              @click="form.ShowForm('Sửa yêu cầu', false, obj.row)"
+            >
+              <i class="el-icon-edit"></i
+            ></el-button>
+          </el-tooltip>
+          <el-tooltip  v-else content="Xem kiểm kê" >
+            <el-button
+              class="icon-btn icon-btn"
+             
+              type="primary"
+              @click="form.ShowForm('Xem yêu cầu', false, obj.row, true)"
+            >
+              <i class="el-icon-view"></i
+            ></el-button>
+          </el-tooltip>
 
-          <el-button
+          <el-tooltip content="Xóa lịch kiểm kê" >
+            <el-button
             class="icon-btn icon-btn"
             v-if="pagePermission.delete"
             type="danger"
@@ -77,12 +88,14 @@
           >
             <i class="el-icon-delete"></i
           ></el-button>
+          </el-tooltip>
+       
         </div>
       </template>
     </TablePaging>
     <DefaultForm :model="formFilter" @actionOK="Search()">
       <div slot="content">
-        <FormInfo  :model="filter.form4()" />
+        <FormInfo :model="filter.form4()" />
       </div>
     </DefaultForm>
 
@@ -92,7 +105,11 @@
       @actionOK="form.Save.call(this)"
     >
       <div style="height: 100%" slot="content">
-        <InventoryRequestForm @LoadAgian="LoadTable()" :obj="form.obj" ref="formIVT" />
+        <InventoryRequestForm
+          @LoadAgian="LoadTable()"
+          :obj="form.obj"
+          ref="formIVT"
+        />
       </div>
     </DefaultForm>
   </div>
@@ -242,8 +259,8 @@ export default {
     };
   },
   methods: {
-    formChange(){
-      this.LoadTable()
+    formChange() {
+      this.LoadTable();
     },
     Print(row) {
       // console.log(row)
