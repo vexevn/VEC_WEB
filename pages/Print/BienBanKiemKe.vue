@@ -61,7 +61,7 @@
                   ? 'rgb(182 218 255)'
                   : '',
                 textAlign: item.hasOwnProperty('Stt') ? 'left' : 'center',
-                paddingLeft: item.hasOwnProperty('Stt') ? '5px' : '0px',
+                paddingLeft: item.hasOwnProperty('Stt') ? '5px' : '0px',  
                 fontWeight: item.hasOwnProperty('Stt') ? 'bold' : '',
               }"
             >
