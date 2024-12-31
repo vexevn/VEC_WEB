@@ -188,6 +188,16 @@ export default {
                         },
                     });
                 });
+                let dm_department = new Promise((rs) => {
+                    GetDataAPI({
+                        url: API.dm_department_Get_List,
+                        params: { iOffice_id: 0 },
+                        action: (re) => {
+                            Para.dm_department.data = re;
+                            rs();
+                        },
+                    });
+                });
                 let account = new Promise((rs) => {
                     GetDataAPI({
                         url: API.Account,
@@ -213,6 +223,7 @@ export default {
                     Para_store_Get_List,
                     Para_VehicleType,
                     fixed_asset_state_Get_List,
+                    dm_department,
                     account,
                 ]).then((result) => {
                     rs();

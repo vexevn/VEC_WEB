@@ -1,28 +1,57 @@
 <template lang="">
-  <div style="height: 100%; overflow: auto; padding: 10px">
-    <div class="db-total" style="display: flex">
-      <div style="background-color: rgb(3 167 3);">
-        <span>Tổng tài sản </span>
-        <span>{{ data.Total_Asset }}</span>
+  <div
+    style="
+      height: 100%;
+      overflow: auto;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+    "
+  >
+    <div>
+      <div class="db-total" style="display: flex">
+        <div style="background-color: rgb(3 167 3)">
+          <span>Tổng tài sản </span>
+          <span style="font-size: 24px;">{{ data.Total_Asset }}</span>
+        </div>
+        <div style="background-color: #1e90ff">
+          <span>Văn phòng </span>
+          <span style="font-size: 24px;">{{ data.Total_Office }}</span>
+        </div>
+        <div style="background-color: #daa520">
+          <span>Nhóm tài sản </span>
+          <span style="font-size: 24px;"> {{ data.Total_Type }}</span>
+        </div>
       </div>
-      <div  style="background-color: #1E90FF;">
-        <span>Văn phòng </span>
-        <span>{{ data.Total_Office }}</span>
-      </div>
-      <div  style="background-color: #DAA520;">
-        <span>Nhóm tài sản </span>
-        <span>{{ data.Total_Type }}</span>
+      <div class="dashboard">
+        <div class="office" style="min-width: 587px; max-width: 800px">
+          <!-- <p></p> -->
+          <VueChart
+            type="pie"
+            :chartTitle="data.Offices_Chart_Tile"
+            :chartData="LoadData(data.Offices || [])"
+          />
+        </div>
+        <div class="type"  style="min-width: 587px; max-width: 800px">
+          <!-- <p></p> -->
+
+          <VueChart
+            type="pie"
+            :chartTitle="'Thống kê tài sản theo nhóm tài sản'"
+            :chartData="LoadData(data.Types || [])"
+          />
+        </div>
       </div>
     </div>
-    <div class="dashboard">
-      <div class="office">
-        <!-- <p></p> -->
-        <VueChart type="pie" :chartTitle="data.Offices_Chart_Tile" :chartData="LoadData(data.Offices || [])" />
-      </div>
-      <div class="type">
-        <!-- <p></p> -->
 
-        <VueChart type="pie" :chartTitle="'Thống kê tài sản theo nhóm tài sản'" :chartData="LoadData(data.Types || [])" />
+    <div style="height: 500px" class="reportStatus">
+      <TablePaging ref="tp" style="" :model="tp"> </TablePaging>
+      <div class="note" style="flex: 1; padding-left: 10px">
+        <!-- <p>Chú thích:</p> -->
+
+        <p style="font-size: 14px;padding: 4px 0" v-for="item in (data.Status[0] || {}).Offices" :key="item.Id">
+          <b>{{ item.Code }} :</b> {{ item.Name }}
+        </p>
       </div>
     </div>
   </div>
@@ -32,14 +61,33 @@ import GetDataAPI from "~/assets/scripts/GetDataAPI";
 import API from "~/assets/scripts/API";
 import TablePaging from "~/assets/scripts/base/TablePaging";
 import TablePagingCol from "~/assets/scripts/base/TablePagingCol";
+// import { oslogin_v1 } from "googleapis";
 export default {
   data() {
     return {
-      data: [],
- 
+      data: {
+        Status: [],
+      },
+      tp: new TablePaging({
+        // title: "Tiêu đề",
+        data: [],
+        disableSelectRow: true,
+        disableControl: true,
+        cols: [
+          new TablePagingCol({
+            title: "",
+            data: "SttTP",
+            min_width: 65,
+            width: "auto",
+          }),
+        ],
+      }),
     };
   },
   methods: {
+    LoadDataTP() {
+      this.$refs.tp.LoadData(true);
+    },
     LoadData(re) {
       let chartData = {
         labels: re.map((p) => p.Name),
@@ -74,6 +122,53 @@ export default {
       };
       return chartData;
     },
+    InitCol(data) {
+      let defaultCol = [
+        new TablePagingCol({
+          title: "Trạng thái",
+          data: "Name",
+          min_width: 200,
+
+          // width: "auto",
+        }),
+      ];
+
+      if (data[0].Offices && data[0].Offices.length > 0) {
+        data[0].Offices.forEach((office) => {
+          defaultCol.push(
+            new TablePagingCol({
+              title: office.Code,
+              data: `Total_Office_${office.Id}`,
+              min_width: 90,
+              formatter: "number",
+              align: "right",
+              // width: "auto",
+            })
+          );
+        });
+      }
+
+      return defaultCol;
+    },
+    ModifyTbData(re) {
+      return re.map((item) => {
+        let transformedItem = {
+          Id: item.Id,
+          Name: item.Name,
+        };
+
+        if (item.Offices && item.Offices.length > 0) {
+          item.Offices.forEach((office) => {
+            transformedItem[`Id_Office_${office.Id}`] = office.Id;
+            transformedItem[`Name_Office_${office.Id}`] = office.Name;
+            transformedItem[`Code_Office_${office.Id}`] = office.Code;
+            transformedItem[`Total_Office_${office.Id}`] = office.Total;
+          });
+        }
+
+        return transformedItem;
+      });
+    },
   },
   mounted() {
     GetDataAPI({
@@ -82,6 +177,12 @@ export default {
       action: (re) => {
         // console.log(this);
         this.data = re;
+        this.tp.data = this.ModifyTbData(re.Status);
+        this.tp.cols = this.InitCol(re.Status);
+        this.LoadDataTP();
+
+        // console.log(this.InitCol(re.Status));
+        // console.log(this.tp);
       },
     });
   },
@@ -107,16 +208,27 @@ export default {
   margin-top: 10px;
   display: flex;
   align-items: flex-start;
-  justify-content: space-between;
-  // gap: 20px;
-   > div {
-   width: 47%;
+  //justify-content: space-between;
+  gap: 20px;
+  > div {
+    width: 47%;
     border: 2px solid rgb(209, 208, 208);
     border-radius: 10px;
-    p{
+    padding-bottom: 20px;
+    p {
       font-size: 16px;
       font-weight: 600;
     }
+  }
+}
+
+.reportStatus {
+  margin-top: 30px;
+  display: flex;
+  width: 100%;
+
+  ::v-deep .paging-control {
+    display: none !important;
   }
 }
 </style>

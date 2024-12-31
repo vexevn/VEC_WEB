@@ -107,6 +107,9 @@ function pieAnimationComplete() {
     }
   });
 }
+
+
+
 function wc_hex_is_light(color) {
   if (!color) return true;
   const hex = color.replace("#", "");
@@ -186,10 +189,13 @@ export default {
               : null,
           title: {
             display: true,
+            // align: "start",
+            // position: "",
             text: this.chartTitle,
             padding: {
               top: 5,
               bottom: 25,
+              right: 200,
             },
             font: {
               size: 18,
@@ -221,10 +227,39 @@ export default {
               },
             },
           },
-          legend:
-            {
-              position: "bottom",
+          legend: {
+            position: "right",
+            // title:{
+            //   display: true,
+            //   text: "Tài sản",
+            //   padding: 20,
+            //   font: {
+            //     size: 16,
+            //   },
+            // },
+            maxWidth: 250,
+            labels: {
+              boxWidth: 20,
+              font: {
+                size: 12,
+              },
+              
+              // padding: 20,
+              // generateLabels: function (chart) {
+              //   console.log(chart);
+              //   return ((chart.data || {}).labels || []).map((label, index) => {
+              //     const maxLineLength = 30;
+              //     const wrappedLabel = label.match(new RegExp(`.{1,${maxLineLength}}`, 'g'));
+              //     return {
+              //       text: wrappedLabel,
+              //       fillStyle: chart.data.daatasets[0].backgroundColor[index],
+              //       hidden: false,
+              //       // lineWidth: 30,
+              //     };
+              //   });
+              // },
             },
+          },
           // tooltip: true,
         },
         layout: {
@@ -258,9 +293,8 @@ export default {
     chartData(newValue, oldValue) {
       this.loaded = false;
       this.chartOptions.plugins.title.text = this.chartTitle;
-      
+
       this.$nextTick(() => {
-        
         this.loaded = true;
       });
     },

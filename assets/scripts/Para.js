@@ -38,6 +38,12 @@ export var Para = {
      
     ],
   }),
+  RF_Type: new SelectOption({
+    data: [
+      { Id: 1, Name: "Kim loại" },
+      { Id: 0, Name: "Thường" },
+    ],
+  }),
 
   Para_Purchase_State: new SelectOption({
     data: [
@@ -76,6 +82,10 @@ export var Para = {
     data: [
       { Id: 1, Name: "Award" },
       { Id: 2, Name: "Task" },
+    ],
+  }),
+  dm_department: new SelectOption({
+    data: [
     ],
   }),
   TicketsState: new SelectOption({
