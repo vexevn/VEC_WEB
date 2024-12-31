@@ -9,14 +9,14 @@
         <div class="his-content-item">
         <span><b>Từ </b></span>
           <span>{{ Para.TransferType.getName(item.From_Type_id) }}: </span>
-          <span>{{ item.From_Holder_Name }}</span>
+          <span>{{ Para.store_Get_List.getName(item.From_Holder_id) }}</span>
         </div>
         <!-- <i class="fa fa-long-arrow-up" aria-hidden="true"></i> -->
         <div class="his-content-item">
             <span><b>Đến </b></span>
 
           <span>{{ Para.TransferType.getName(item.To_Type_id) }}: </span>
-          <span :style="{color: index == data.length  - 1 ? '#0058b0' : ''}">{{ item.To_Holder_Name }}</span>
+          <span :style="{color: index == data.length  - 1 ? '#0058b0' : ''}">{{ Para.store_Get_List.getName(item.To_Holder_Id) }}</span>
         </div>
       </div>
     </div>

@@ -68,9 +68,27 @@ export default class Fixed_Asset_Transfer {
       }),
       From_Holder_Name: new FormElement({
         label: "Từ vị trí",
-        model: "From_Holder_Name",
-        type: FormElementType.text,
+        model: "From_Holder_id",
+        type: FormElementType.select,
         disabled: true,
+        options(data) {
+          console.log(data);
+          return Para.store_Get_List.set((p) => {
+            p.data = p.data.filter((p1) => {
+              if (data.Office_id == p1.Office_id) {
+                if (data.From_Type_id == 2) if (p1.isStore == 1) return true;
+                if (data.From_Type_id == 3) if (p1.isStore == 2) return true;
+                if (data.From_Type_id == 4) if (p1.isStore == 3) return true;
+                if (data.From_Type_id == 5) if (p1.isStore == 4) return true;
+                if (data.From_Type_id == 6) if (p1.isStore == 5) return true;
+                if (data.From_Type_id == 7) if (p1.isStore == 6) return true;
+                if (data.From_Type_id == 8) if (p1.isStore == 7) return true;
+              }
+
+              return false;
+            });
+          });
+        },
       }),
       From_Type_id: new FormElement({
         label: "Từ đối tượng",
@@ -114,6 +132,11 @@ export default class Fixed_Asset_Transfer {
               if (data.Office_id == p1.Office_id) {
                 if (data.To_Type_id == 2) if (p1.isStore == 1) return true;
                 if (data.To_Type_id == 3) if (p1.isStore == 2) return true;
+                if (data.To_Type_id == 4) if (p1.isStore == 3) return true;
+                if (data.To_Type_id == 5) if (p1.isStore == 4) return true;
+                if (data.To_Type_id == 6) if (p1.isStore == 5) return true;
+                if (data.To_Type_id == 7) if (p1.isStore == 6) return true;
+                if (data.To_Type_id == 8) if (p1.isStore == 7) return true;
               }
 
               return false;
@@ -126,15 +149,15 @@ export default class Fixed_Asset_Transfer {
             if (entry) {
               let sltd = entry.selectedData || {};
               data.To_Holder_Name = sltd.Name;
-              console.log(data.To_Holder_Name);
+              // console.log(data.To_Holder_Name);
             }
           }
         },
-        isVisible(data) {
-          if (data.To_Type_id == 2 || data.To_Type_id == 3) return true;
+        // isVisible(data) {
+        //   if (data.To_Type_id == 2 || data.To_Type_id == 3) return true;
 
-          return false;
-        },
+        //   return false;
+        // },
       }),
       To_Holder_Name: new FormElement({
         label: "Đến vị trí",
@@ -225,14 +248,14 @@ export default class Fixed_Asset_Transfer {
   form() {
     return new FormInfo({
       formData: this,
-      labelWidth: 150,
+      labelWidth: 125,
       elements: [
         this._formElements.From_Type_id,
         this._formElements.From_Holder_Name,
         this._formElements.To_Type_id,
-        this._formElements.To_Holder_Id,
+        // this._formElements.To_Holder_Id,
         this._formElements.To_Holder_Id_2,
-        this._formElements.To_Holder_Name,
+        // this._formElements.To_Holder_Name,
         this._formElements.Start_Date,
         // new FormElement({
         //   direction: FormDirectionType.horizontal,

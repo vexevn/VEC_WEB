@@ -75,11 +75,13 @@ S
                 effect="dark"
                 content="Sửa chữa tài sản"
                 placement="top"
+               
               >
                 <el-button
                   class="icon-btn"
                   type="primary"
                   @click="RequestInventory(row)"
+                  :disabled="row.Status == 2 ||  row.Status == 13"
                 >
                   <i class="fa fa-wrench"></i
                 ></el-button>
@@ -95,7 +97,7 @@ S
                   class="icon-btn"
                   type="primary"
                   @click="Transfer(row)"
-                  :disabled="row.State == 3"
+                  :disabled="row.State == 3 || row.Status == 2 ||  row.Status == 13"
                 >
                   <i class="fa fa-exchange"></i>
                 </el-button>
@@ -111,6 +113,8 @@ S
                   v-if="pagePermission.edit"
                   class="icon-btn"
                   type="primary"
+                  :disabled="row.Status == 2 ||  row.Status == 13"
+
                   @click="Edit(row)"
                 >
                   <i class="el-icon-edit"></i
@@ -130,7 +134,7 @@ S
                 <el-button
                   v-if="pagePermission.delete"
                   class="icon-btn"
-                  :disabled="dayDistance(row.DateUpdate) > 15"
+                  :disabled="(row.Status == 2 ||  row.Status == 13)? false : dayDistance(row.DateUpdate) > 15"
                   type="danger"
                   @click="Delete(row)"
                 >
@@ -404,7 +408,7 @@ export default {
                 data: "State",
                 min_width: 150,
                 sortable: false,
-                formatter: (value) => Para.FixedAssetsState.getName(value),
+                formatter: (value) => Para.fixed_asset_state_Get_List.getName(value),
                 fix: "right",
               }),
               // new TablePagingCol({
@@ -619,6 +623,7 @@ export default {
          * @param {fixed_assets} obj - description
          */
         ShowForm: (title, obj) => {
+          console.log(obj)
           this.form_transfer.title = title;
           this.form.obj = new fixed_assets(obj);
           this.form_transfer.obj = new Fixed_Asset_Transfer({

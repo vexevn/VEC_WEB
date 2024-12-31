@@ -999,19 +999,19 @@ export default class fixed_assets {
   formView() {
     return new FormInfo({
       formData: this,
-      labelWidth: 135,
+      labelWidth: 125,
       elements: [
         this._formElements.Code.set((p) => (p.disabled = true)).set(
-          (p) => (p.labelWidth = 135)
+          (p) => (p.labelWidth = 125)
         ),
         this._formElements.Serial.set((p) => (p.disabled = true)).set(
-          (p) => (p.labelWidth = 135)
+          (p) => (p.labelWidth = 125)
         ),
         this._formElements.Producer_id.set((p) => (p.disabled = true)).set(
-          (p) => (p.labelWidth = 135)
+          (p) => (p.labelWidth = 125)
         ),
         this._formElements.Model.set((p) => (p.disabled = true)).set(
-          (p) => (p.labelWidth = 135)
+          (p) => (p.labelWidth = 125)
         ),
       ],
     });
