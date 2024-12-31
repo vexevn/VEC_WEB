@@ -75,13 +75,12 @@ S
                 effect="dark"
                 content="Sửa chữa tài sản"
                 placement="top"
-               
               >
                 <el-button
                   class="icon-btn"
                   type="primary"
                   @click="RequestInventory(row)"
-                  :disabled="row.Status == 2 ||  row.Status == 13"
+                  :disabled="row.Status == 2 || row.Status == 13"
                 >
                   <i class="fa fa-wrench"></i
                 ></el-button>
@@ -97,7 +96,9 @@ S
                   class="icon-btn"
                   type="primary"
                   @click="Transfer(row)"
-                  :disabled="row.State == 3 || row.Status == 2 ||  row.Status == 13"
+                  :disabled="
+                    row.State == 3 || row.Status == 2 || row.Status == 13
+                  "
                 >
                   <i class="fa fa-exchange"></i>
                 </el-button>
@@ -113,8 +114,7 @@ S
                   v-if="pagePermission.edit"
                   class="icon-btn"
                   type="primary"
-                  :disabled="row.Status == 2 ||  row.Status == 13"
-
+                  :disabled="row.Status == 2 || row.Status == 13"
                   @click="Edit(row)"
                 >
                   <i class="el-icon-edit"></i
@@ -134,7 +134,11 @@ S
                 <el-button
                   v-if="pagePermission.delete"
                   class="icon-btn"
-                  :disabled="(row.Status == 2 ||  row.Status == 13)? false : dayDistance(row.DateUpdate) > 15"
+                  :disabled="
+                    row.Status == 2 || row.Status == 13
+                      ? false
+                      : dayDistance(row.DateUpdate) > 15
+                  "
                   type="danger"
                   @click="Delete(row)"
                 >
@@ -408,7 +412,8 @@ export default {
                 data: "State",
                 min_width: 150,
                 sortable: false,
-                formatter: (value) => Para.fixed_asset_state_Get_List.getName(value),
+                formatter: (value) =>
+                  Para.fixed_asset_state_Get_List.getName(value),
                 fix: "right",
               }),
               // new TablePagingCol({
@@ -447,6 +452,13 @@ export default {
                 min_width: 150,
                 sortable: false,
                 formatter: (value) => Para.Para_Account.getName(value),
+              }),
+              new TablePagingCol({
+                title: "Phòng ban",
+                data: "Department_id",
+                min_width: 150,
+                sortable: false,
+                formatter: (value) => Para.dm_department.getName(value),
               }),
               new TablePagingCol({
                 title: "Vị trí",
@@ -493,13 +505,7 @@ export default {
                 min_width: 130,
                 sortable: false,
               }),
-              new TablePagingCol({
-                title: "Ngày tính bảo hành",
-                data: "Purchase_Date",
-                min_width: 130,
-                sortable: false,
-                formatter: "date",
-              }),
+             
 
               // new TablePagingCol({
               //   // title: "Accounting voucher no./General ledger code",
@@ -560,6 +566,13 @@ export default {
                 sortable: false,
               }),
               new TablePagingCol({
+                title: "Ngày tính bảo hành",
+                data: "Purchase_Date",
+                min_width: 130,
+                sortable: false,
+                formatter: "date",
+              }),
+              new TablePagingCol({
                 title: "Thời hạn bảo hành",
                 data: "Warranty_Period",
                 min_width: 150,
@@ -575,7 +588,7 @@ export default {
               new TablePagingCol({
                 title: "Bảo trì",
                 data: "Maintenance",
-                min_width: 150,
+                min_width: 100,
                 sortable: false,
               }),
               new TablePagingCol({
@@ -623,7 +636,7 @@ export default {
          * @param {fixed_assets} obj - description
          */
         ShowForm: (title, obj) => {
-          console.log(obj)
+          console.log(obj);
           this.form_transfer.title = title;
           this.form.obj = new fixed_assets(obj);
           this.form_transfer.obj = new Fixed_Asset_Transfer({
@@ -797,8 +810,6 @@ export default {
       this.fileName = this.$refs.file.files[0].name;
     },
     AddInventory() {
-      // console.log(this);
-      // return;
       this.$refs.formInventory.getValidate().then((re) => {
         if (!re) {
           ShowMessage("Vui lòng nhập đầy đủ thông tin!", MessageType.error);
@@ -809,7 +820,7 @@ export default {
             .submitUpload()
             .then((re) => {
               this.formInventory.obj.Files =
-                typeof re[0] === "string" ? re[0].split("|")[0] : '';
+                typeof re[0] === "string" ? re[0].split("|")[0] : "";
 
               GetDataAPI({
                 url: API.Ticket_Add,

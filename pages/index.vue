@@ -20,15 +20,17 @@
 
   <div style="height: 100%">
     <ReportDashboard />
+   
   </div>
 </template>
 
 <script>
+import GetDataAPI from "~/assets/scripts/GetDataAPI";
 import StoreManager from "~/assets/scripts/StoreManager";
 export default {
   data() {
     return {
-      
+      data_report: [],
     };
   },
 
