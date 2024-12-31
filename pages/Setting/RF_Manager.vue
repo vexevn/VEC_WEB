@@ -20,11 +20,9 @@
       <div style="overflow: hidden" slot="content">
         <!-- <FormInfo :model="tp.params.form2()" /> -->
         <!-- {{ formFilter. }} -->
-        <el-button
-          style="margin: 0 5px"
-          type="primary"
-          @click="showFilter()"
-          >{{ formFilter.fileName }}</el-button>
+        <el-button style="margin: 0 5px" type="primary" @click="showFilter()">{{
+          formFilter.fileName
+        }}</el-button>
       </div>
     </DefaultForm>
   </div>
@@ -121,10 +119,7 @@ export default {
           this.LoadData();
           this.formFilter.visible = false;
 
-          ShowMessage({
-            type: MessageType.success,
-            message: "Tải lên thành công",
-          });
+          ShowMessage("Tải lên thành công", "success");
         },
       });
     },
