@@ -1,22 +1,22 @@
 <template>
-  <bar-chart
-    class="chart"
-    v-if="loaded && type == 'bar' && chartData"
-    :chartOptions="chartOptions"
-    :chartData="chartData"
-  />
-  <line-chart
-    class="chart"
-    v-else-if="loaded && type == 'line' && chartData"
-    :chartOptions="chartOptions"
-    :chartData="chartData"
-  />
-  <pie-chart
-    class="chart"
-    v-else-if="loaded && type == 'pie' && chartData"
-    :chartOptions="chartOptions"
-    :chartData="chartData"
-  />
+    <bar-chart
+      class="chart"
+      v-if="loaded && type == 'bar' && chartData"
+      :chartOptions="chartOptions"
+      :chartData="chartData"
+    />
+    <line-chart
+      class="chart"
+      v-else-if="loaded && type == 'line' && chartData"
+      :chartOptions="chartOptions"
+      :chartData="chartData"
+    />
+    <pie-chart
+      class="chart"
+      v-else-if="loaded && type == 'pie' && chartData"
+      :chartOptions="chartOptions"
+      :chartData="chartData"
+    />
 </template>
 
 <script>
@@ -107,8 +107,6 @@ function pieAnimationComplete() {
     }
   });
 }
-
-
 
 function wc_hex_is_light(color) {
   if (!color) return true;
@@ -228,7 +226,7 @@ export default {
             },
           },
           legend: {
-            position: "right",
+            position: "bottom",
             // title:{
             //   display: true,
             //   text: "Tài sản",
@@ -237,24 +235,28 @@ export default {
             //     size: 16,
             //   },
             // },
-            maxWidth: 250,
+            maxWidth: 200,
             labels: {
               boxWidth: 20,
               font: {
                 size: 12,
               },
-              
+
               // padding: 20,
               // generateLabels: function (chart) {
               //   console.log(chart);
               //   return ((chart.data || {}).labels || []).map((label, index) => {
               //     const maxLineLength = 30;
-              //     const wrappedLabel = label.match(new RegExp(`.{1,${maxLineLength}}`, 'g'));
+              //     const wrappedLabel = label.match(
+              //       new RegExp(`.{1,${maxLineLength}}`, "g")
+              //     );
               //     return {
               //       text: wrappedLabel,
-              //       fillStyle: chart.data.daatasets[0].backgroundColor[index],
+              //       fillStyle: chart.data.datasets
+              //         ? chart.data.datasets[0].backgroundColor[index]
+              //         : null,
               //       hidden: false,
-              //       // lineWidth: 30,
+              //       // lineWidth: 2,
               //     };
               //   });
               // },

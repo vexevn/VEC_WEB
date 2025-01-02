@@ -139,7 +139,7 @@ export default {
             new TablePagingCol({
               title: office.Code,
               data: `Total_Office_${office.Id}`,
-              min_width: 90,
+              min_width: 100,
               formatter: "number",
               align: "right",
               // width: "auto",
