@@ -115,7 +115,7 @@ export default {
           }),
 
           new TablePagingCol({
-            title: "Tệp đính kèm",
+            title: "Tệp excel",
             data: "FileName",
             width: "auto",
 

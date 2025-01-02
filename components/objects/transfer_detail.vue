@@ -348,6 +348,7 @@ export default {
       this.$nextTick(() => {
         if (this.$refs.tp_detail.tempRows.every((p) => p.CheckBox == true)) {
           this.CheckAll = true;
+          if(this.$refs.cbo)
           this.$refs.cbo.CheckAll = true;
           console.log(this);
         } else {

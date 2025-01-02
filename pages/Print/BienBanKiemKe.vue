@@ -21,18 +21,18 @@
         <br />
         <br />
         <h2>BIÊN BẢN KIỂM KÊ TÀI SẢN, VẬT TƯ, CÔNG CỤ, SẢN PHẨM, HÀNG HOÁ</h2>
-        <div>
-        <span>Từ </span
-        ><span>{{ ConvertStr.ToDateStr(data.Inventory.FromDate) }} </span>
-        <span>- Đến </span
-        ><span>{{ ConvertStr.ToDateStr(data.Inventory.ToDate) }}</span>
+        <div style="text-align:left;margin-top: 5px;">
+        <span>- Thời điểm kiểm kê:&nbsp; &nbsp; &nbsp;giờ &nbsp; &nbsp; &nbsp; phút, ngày &nbsp; &nbsp; &nbsp; tháng &nbsp; &nbsp; &nbsp; năm {{new Date().getFullYear()}}</span> 
+        <p style="margin-top:5px;">- Ban kiểm kê gồm: </p>
+       
       </div>
-        <p>{{ data.Inventory.Description }}</p>
+        <!-- <p>{{ data.Inventory.Description }}</p> -->
 
       </div>
 <div>
+  <br />
 
-     <span>Đã kiểm kê tài sản, công cụ tại </span> <span>........................................................................................</span>
+     <span>Đã kiểm kê tài sản, công cụ tại </span> <span>.......................................................................................................................</span>
      <span> như sau: </span>
 </div>
 
@@ -45,16 +45,20 @@
         <table style="width:100%">
           <tr>
             <th style="width: 40px">STT</th>
-            <th style="width:150px">Mã tài sản</th>
-            <th>Tên tài sản</th>
-            <th style="width: 150px">Phòng quản lý</th>
-            <th style="width: 150px">Nguồn vốn</th>
+            
+            <!-- <th style="width:70px">Số lượng kỳ trước</th>
+            <th style="width:70px">Số lượng kỳ này</th> -->
+            <th style="width:160px">Mã tài sản</th>
+            <th style="width:250px">Tên tài sản</th>
+            <th style="width: 110px">Phòng quản lý</th>
+            <th style="width: 120px">Nguồn tài sản</th>
             <th style="width: 100px">Trạng thái</th>
-            <th style="width:200px">Ghi chú</th>
+            <th style="width:170px">Ghi chú</th>
+            <!-- <th style="width:70px">Tổng số lượng</th> -->
           </tr>
           <tr v-for="(item, index) in data.Details" :key="index">
             <td
-              :colspan="item.hasOwnProperty('Stt') ? '7' : '1'"
+              :colspan="item.hasOwnProperty('Stt') ? '10' : '1'"
               :style="{
                 padding: '5px 0',
                 backgroundColor: item.hasOwnProperty('Stt')
@@ -71,6 +75,7 @@
                   : item.i + 1
               }}
             </td>
+           
             <td v-if="!item.hasOwnProperty('Stt')" style="font-weight: normal">
               {{ item.Fixed_Code }}
             </td>
@@ -89,6 +94,7 @@
             <td v-if="!item.hasOwnProperty('Stt')" style="font-weight: normal">
               {{ item.Note }}
             </td>
+         
           </tr>
         </table>
       </div>
@@ -99,7 +105,7 @@
           <p><i>(Ký, họ tên)</i></p>
         </div>
         <div class="ungvien">
-          <b>Cán bộ kiểm kể</b>
+          <b>Cán bộ kiểm kê</b>
           <p >
             <p><i>(Ký, họ tên)</i></p>
           </p>
@@ -111,7 +117,7 @@
       
         </div>
         <div class="date" style="margin-top: -20px;">
-         <p>..........., <span>Ngày {{today.getDate().toString().length == 1 ? '0' + today.getDate() : today.getDate()}}, tháng {{today.getMonth().toString().length == 1 ? '0' + today.getMonth() : today.getMonth()}}, năm {{today.getFullYear()}}</span></p>
+         <i>..........., <span>{{today}}</span></i>
          <b>Trưởng ban kiểm kê</b>
           <p >
             <p><i>(Ký, họ tên)</i></p>
@@ -126,13 +132,13 @@ import API from "~/assets/scripts/API";
 import PrintCfg from "~/assets/scripts/base/PrintCfg";
 import GetDataAPI from "~/assets/scripts/GetDataAPI";
 import { Para } from "~/assets/scripts/Para";
-
+import moment from "moment";
 export default {
   layout: "PrinLayout",
   computed: {},
   computed:{
     today(){
-      return new Date();
+      return moment(new Date()).format('[Ngày] DD [tháng] MM [năm] YYYY');
     }
   },
   data() {
@@ -230,13 +236,13 @@ export default {
 </script>
 <style lang="scss" scoped>
 @page {
-  margin: 0;
+  margin: 10px 0 0 0;
   padding: 0;
 }
 
 @media screen {
   .phieu {
-    display: none;
+   display: none;
   }
 }
 table,

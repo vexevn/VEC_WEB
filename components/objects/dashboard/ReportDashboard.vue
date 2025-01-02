@@ -153,6 +153,7 @@ export default {
 
       return defaultCol;
     },
+    
     ModifyTbData(re) {
       return re.map((item) => {
         let transformedItem = {
@@ -163,8 +164,8 @@ export default {
         if (item.Offices && item.Offices.length > 0) {
           item.Offices.forEach((office) => {
             transformedItem[`Id_Office_${office.Id}`] = office.Id;
-            transformedItem[`Name_Office_${office.Id}`] = office.Name;
-            transformedItem[`Code_Office_${office.Id}`] = office.Code;
+            // transformedItem[`Name_Office_${office.Id}`] = office.Name;
+            // transformedItem[`Code_Office_${office.Id}`] = office.Code;
             transformedItem[`Total_Office_${office.Id}`] = office.Total;
           });
         }
