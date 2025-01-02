@@ -24,7 +24,7 @@
         </div>
       </div>
       <div class="dashboard">
-        <div class="office" style="min-width: 587px; max-width: 800px">
+        <div class="office" style="min-width: 660px; max-width: 800px">
           <!-- <p></p> -->
           <VueChart
             type="pie"
@@ -32,7 +32,7 @@
             :chartData="LoadData(data.Offices || [])"
           />
         </div>
-        <div class="type"  style="min-width: 587px; max-width: 800px">
+        <div class="type"  style="min-width: 660px; max-width: 800px">
           <!-- <p></p> -->
 
           <VueChart
@@ -45,7 +45,7 @@
     </div>
 
     <div style="height: 500px" class="reportStatus">
-      <TablePaging ref="tp" style="" :model="tp"> </TablePaging>
+      <TablePaging ref="tp" style="max-width: 65%;" :model="tp"> </TablePaging>
       <div class="note" style="flex: 1; padding-left: 10px">
         <!-- <p>Chú thích:</p> -->
 
@@ -131,7 +131,9 @@ export default {
 
           // width: "auto",
         }),
+        
       ];
+      
 
       if (data[0].Offices && data[0].Offices.length > 0) {
         data[0].Offices.forEach((office) => {
@@ -142,6 +144,7 @@ export default {
               min_width: 90,
               formatter: "number",
               align: "right",
+              sortable: false,
               // width: "auto",
             })
           );
@@ -215,6 +218,7 @@ export default {
     border: 2px solid rgb(209, 208, 208);
     border-radius: 10px;
     padding-bottom: 20px;
+    padding-left: 10px;
     p {
       font-size: 16px;
       font-weight: 600;
@@ -227,8 +231,14 @@ export default {
   display: flex;
   width: 100%;
 
+
+  ::v-deep .main-content .el-table--border .el-table__cell{
+    border-right: 1px solid #ddd;
+  }
   ::v-deep .paging-control {
     display: none !important;
   }
+
+  
 }
 </style>
