@@ -1,22 +1,22 @@
 <template>
-    <bar-chart
-      class="chart"
-      v-if="loaded && type == 'bar' && chartData"
-      :chartOptions="chartOptions"
-      :chartData="chartData"
-    />
-    <line-chart
-      class="chart"
-      v-else-if="loaded && type == 'line' && chartData"
-      :chartOptions="chartOptions"
-      :chartData="chartData"
-    />
-    <pie-chart
-      class="chart"
-      v-else-if="loaded && type == 'pie' && chartData"
-      :chartOptions="chartOptions"
-      :chartData="chartData"
-    />
+  <bar-chart
+    class="chart"
+    v-if="loaded && type == 'bar' && chartData"
+    :chartOptions="chartOptions"
+    :chartData="chartData"
+  />
+  <line-chart
+    class="chart"
+    v-else-if="loaded && type == 'line' && chartData"
+    :chartOptions="chartOptions"
+    :chartData="chartData"
+  />
+  <pie-chart
+    class="chart"
+    v-else-if="loaded && type == 'pie' && chartData"
+    :chartOptions="chartOptions"
+    :chartData="chartData"
+  />
 </template>
 
 <script>
@@ -303,6 +303,23 @@ export default {
   },
   mounted() {
     console.log(this);
+    if (this.chartOptions.plugins.legend) {
+      this.chartOptions.plugins.legend.labels.generateLabels = (chart) => {
+        return (chart.data.labels || []).map((label, index) => {
+          const maxLineLength = 30;
+          const wrappedLabel = label.match(
+            new RegExp(`.{1,${maxLineLength}}`, "g")
+          ).join('\n'); // Join with newline to wrap text
+          return {
+            text: wrappedLabel,
+            fillStyle: chart.data.datasets[0].backgroundColor[index],
+            hidden: false,
+            // Add padding to prevent overlap
+            padding: 10,
+          };
+        });
+      };
+    }
   },
 };
 </script>
