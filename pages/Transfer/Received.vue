@@ -56,12 +56,23 @@
           </el-button>
           <div v-if="row.State == 2" style="display: flex">
             <el-tooltip content="Nhận tài sản" placement="top">
-              <el-button  style="margin-left: 5px;" @click="Approve(row)" class="icon-btn" type="primary">
-                <i class="fa fa-hand-paper-o" aria-hidden="true"></i></el-button>
+              <el-button
+                style="margin-left: 5px"
+                @click="Approve(row)"
+                class="icon-btn"
+                type="primary"
+              >
+                <i class="fa fa-hand-paper-o" aria-hidden="true"></i
+              ></el-button>
             </el-tooltip>
 
             <el-tooltip content="Từ chối" placement="top">
-              <el-button  style="margin-left: 5px;" @click="Reject(row)" class="icon-btn" type="warning">
+              <el-button
+                style="margin-left: 5px"
+                @click="Reject(row)"
+                class="icon-btn"
+                type="warning"
+              >
                 <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
               </el-button>
             </el-tooltip>
@@ -117,7 +128,7 @@ export default {
         title: "Tiêu đề",
         data: [],
         params: {
-          iState: 2 ,
+          iState: 2,
         },
         disableSelectRow: true,
 
@@ -249,17 +260,17 @@ export default {
     },
   },
   methods: {
-    LoadTable(){
+    LoadTable() {
       GetDataAPI({
         url: API.Manager_GetList_Received,
-        params:{
-          iState: this.tp.params.iState || 0
+        params: {
+          iState: this.tp.params.iState || 0,
         },
-        action: re=>{
+        action: (re) => {
           this.tp.data = re;
           this.LoadData();
-        }
-      })
+        },
+      });
     },
     Reject(row) {
       this.form.title = "Lý do từ chối";
@@ -276,7 +287,7 @@ export default {
       })
         .then(() => {
           this.obj.Id = row.Id;
-      this.obj.Approved = true;
+          this.obj.Approved = true;
 
           // return
           GetDataAPI({
@@ -285,8 +296,8 @@ export default {
             method: "POST",
 
             action: (re) => {
-              ShowMessage("Thao tác thành công", "success");
-              this.LoadData();
+              ShowMessage("Nhận tài sản thành công", "success");
+              this.LoadTable();
               this.formDetail.visible = false;
             },
           });

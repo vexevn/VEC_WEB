@@ -239,12 +239,13 @@ export default class transfer_fa {
         model: "Info.Receive_user",
         type: FormElementType.select,
         options(data) {
-          return Para.Para_Account.set(
-            (p) =>
-              (p.data = p.data.filter(
-                (x) => x.Office_id == data.Info.To_Office_id
-              ))
-          );
+          return Para.Para_Account
+          // .set(
+          //   (p) =>
+          //     (p.data = p.data.filter(
+          //       (x) => x.Office_id == data.Info.To_Office_id
+          //     ))
+          // );
         },
         labelWidth: 140,
         // disabled: true,

@@ -5,7 +5,7 @@ import {
   FormInfo,
 } from "~/assets/scripts/base/FormInfo";
 import { Para } from "~/assets/scripts/Para";
-import { GetStartMonth, GetTimeNow } from "~/assets/scripts/Functions";
+import { GetEndMonth, GetStartMonth, GetTimeNow } from "~/assets/scripts/Functions";
 
 import { SelectOption } from "~/assets/scripts/base/SelectOption";
 import API from "~/assets/scripts/API";
@@ -14,7 +14,7 @@ export default class Fixed_Asset_Inventory_Filter {
   Office_id = 0;
 
   FromDate = GetStartMonth();
-  ToDate = GetTimeNow();
+  ToDate = GetEndMonth();
   /**
    *
    * @param {Fixed_Asset_Inventory_Filter} obj

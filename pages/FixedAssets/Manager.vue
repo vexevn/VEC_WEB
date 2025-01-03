@@ -31,7 +31,7 @@
         <div>
           <p>{{ Para.Para_Office.getName(row.From_Office_id) }}</p>
           <p>{{ store.getName(Number(row.From_Department_id)) }}</p>
-          <p>
+          <!-- <p>
             {{
               Para.Para_Account.getName(
                 store
@@ -40,7 +40,10 @@
                   })
                   .getName(Number(row.From_Department_id))
               )
-            }}
+            }} -->
+            <p>
+            {{ Para.Para_Account.getName(row.Trasnfer_user) }}
+          </p>
             <!-- {{ row.Trasnfer_user }} -->
           </p>
         </div>
@@ -49,7 +52,7 @@
         <div>
           <p>{{ Para.Para_Office.getName(row.To_Office_id) }}</p>
           <p>{{ store.getName(Number(row.To_Department_Id)) }}</p>
-          <p>
+          <!-- <p>
             {{
               Para.Para_Account.getName(
                 store
@@ -59,6 +62,9 @@
                   .getName(Number(row.To_Department_Id))
               )
             }}
+          </p> -->
+          <p>
+            {{ Para.Para_Account.getName(row.Receive_user) }}
           </p>
         </div>
       </template>
@@ -401,7 +407,7 @@ export default {
       this.$refs.tp.LoadData(true);
     },
     Search() {
-      this.LoadData();
+      this.LoadTable();
       this.formFilter.visible = false;
     },
     showFilter() {

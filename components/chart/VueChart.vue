@@ -226,7 +226,8 @@ export default {
             },
           },
           legend: {
-            position: "bottom",
+            position: "right",
+            // align: "start",
             // title:{
             //   display: true,
             //   text: "Tài sản",
@@ -235,7 +236,8 @@ export default {
             //     size: 16,
             //   },
             // },
-            maxWidth: 200,
+            maxWidth: 500,
+            // maxHeight: 100,
             labels: {
               boxWidth: 20,
               font: {

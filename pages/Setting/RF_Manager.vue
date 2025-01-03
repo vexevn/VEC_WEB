@@ -20,7 +20,15 @@
       <div style="overflow: hidden" slot="content">
         <!-- <FormInfo :model="tp.params.form2()" /> -->
         <!-- {{ formFilter. }} -->
-        <el-button style="margin: 0 5px" type="primary" @click="showFilter()">{{
+
+        <!-- <div>
+          <img src="/images/icon/excel_icon.png" alt="" />
+        </div> -->
+        <el-button style="margin: 0 5px" type="primary" @click="showFilter()">
+        
+        
+        
+        {{
           formFilter.fileName
         }}</el-button>
       </div>
@@ -92,12 +100,22 @@ export default {
             min_width: 150,
             sortable: false,
             formatter: (value) => {
-              if (value > 0) return "Đã sử dụng";
-              else return "Chưa sử dụng";
+              if (value > 0) {
+                return `
+        <span class="status-badge status-used">
+          <i class="fa fa-circle"></i> Đã sử dụng
+        </span>`;
+              } else {
+                return `
+        <span class="status-badge status-unused">
+          <i class="fa fa-circle"></i> Chưa sử dụng
+        </span>`;
+              }
             },
           }),
+
           new TablePagingCol({
-            title: "Tệp đính kèm",
+            title: "Tệp excel",
             data: "FileName",
             width: "auto",
 
@@ -157,6 +175,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+::v-deep .status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  // padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+}
+::v-deep .status-used {
+  i {
+    color: #27ae60 !important; /* Green text */
+  }
+}
+
+::v-deep .status-unused {
+  i {
+    color: #e74c3c !important;
+  }
+}
 .status {
   // background: red;
   padding: 4px 0px;
